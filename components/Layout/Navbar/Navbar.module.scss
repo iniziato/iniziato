@@ -1,0 +1,250 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: transparent;
+
+  &:hover {
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    .links li a,
+    .logo {
+      color: #222325;
+    }
+  }
+
+  &.scrolled {
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    .links li a,
+    .logo {
+      color: #222325;
+    }
+  }
+}
+
+.nav:hover {
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .links li a,
+  .logo {
+    color: #222325;
+  }
+
+  /* Hamburger bars also turn dark when navbar is hovered */
+  .mobileMenuButton span {
+    background: #222325;
+  }
+}
+
+/* Container */
+.container {
+  max-width: 1865px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+/* Logo */
+.logo {
+  font-size: 1.5rem;
+  text-align: center;
+  letter-spacing: 1px;
+  color: #fff;
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+
+  @media (min-width: 1001px) {
+    &:hover {
+      transform: scale(1.05);
+      cursor: pointer;
+    }
+  }
+}
+
+/* Links */
+.links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 24px;
+  font-size: 13px;
+
+  li a {
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #222325;
+    }
+  }
+}
+
+/* Profile icon */
+.profile {
+  display: flex;
+  align-items: center;
+
+  .profileIcon {
+    width: 25px;
+    height: 25px;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.mobileProfile {
+  display: none;
+}
+
+/* CTA button */
+.cta a {
+  background-color: #ff6b6b;
+  color: #222325 !important;
+  padding: 10px 18px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(255, 107, 107, 0.82);
+    transform: scale(1.05);
+  }
+}
+
+.mobileCta {
+  background-color: #ff6b6b;
+  border-bottom: 0 solid !important;
+
+  &:hover {
+    background-color: rgba(255, 107, 107, 0.82) !important;
+  }
+}
+
+/* Mobile Hamburger */
+.mobileMenuButton {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+
+  span {
+    height: 3px;
+    width: 25px;
+    background: #fff; // White initially
+    display: block;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  &.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  &.open span:nth-child(2) {
+    opacity: 0;
+  }
+  &.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  &:hover span {
+    background: #222325;
+  }
+}
+
+/* Mobile Menu */
+.mobileMenu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+
+  a {
+    padding: 14px 24px;
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+    font-weight: 300;
+    color: #222325;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background-color: #f7f7f7;
+    }
+  }
+}
+
+.mobileMenuOpen {
+  max-height: 500px; /* Enough to show all links */
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .links {
+    display: none;
+  }
+
+  .mobileMenuButton {
+    display: flex;
+    position: absolute;
+    left: 40px; /* same as container padding */
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+    .mobileProfile {
+      position: absolute;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 101;
+      display: flex;
+    }
+
+    .profileIcon {
+      display: block;
+      width: 25px;
+      height: 25px;
+    }
+
+  .nav.mobileOpen, .nav.scrolled {
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    .links li a,
+    .logo {
+      color: #222325;
+    }
+
+    .mobileMenuButton span {
+      background: #222325;
+    }
+  }
+}

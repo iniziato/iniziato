@@ -1,0 +1,144 @@
+/* Quote section stays the same */
+.quote {
+  padding: 100px 0;
+  background: #f6f5f3;
+  text-align: center;
+
+  .quoteContainer {
+    max-width: 920px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .quoteSubtitle {
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.155;
+    letter-spacing: -.01em;
+    margin: 0 0 30px;
+  }
+
+  .quoteHeading {
+    font-weight: 200;
+    font-size: 40px;
+    line-height: 1.345;
+    letter-spacing: .02em;
+  }
+}
+
+@media (max-width: 800px) {
+  .quoteHeading {
+    font-size: 33px !important;
+  }
+}
+
+/* About Top */
+.aboutTop {
+  padding: 100px 0;
+  background-color: #4D423F;
+  color: white;
+
+  .topContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .topText {
+    flex: 1 1 0;
+
+    .topTitle {
+      font-weight: 200;
+      font-size: 29px;
+      line-height: 1.17;
+      letter-spacing: .04em;
+      margin-bottom: 60px;
+    }
+
+    .topParagraph {
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 2;
+      letter-spacing: .01em;
+    }
+  }
+
+  .topImage {
+    flex: 1 1 300px;
+
+    .responsiveImage {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+  }
+}
+
+/* Middle Section */
+.aboutMiddle {
+  background: #4D423F;
+  text-align: center;
+  color: white;
+
+  .middleText {
+    max-width: 920px;
+    text-align: center;
+    line-height: 1.44;
+    font-weight: 400;
+    font-size: 30px;
+    justify-self: center;
+  }
+}
+
+/* About Bottom */
+.aboutBottom {
+  padding: 100px 0;
+  background-color: #4D423F;
+  color: white;
+
+  .bottomContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .bottomImage {
+    flex: 1 1 300px;
+
+    .responsiveImage {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+  }
+
+  .bottomContent {
+    flex: 1 1 0;
+
+    .bottomText {
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 2;
+      letter-spacing: .01em;
+    }
+  }
+}
+
+/* Responsive layout for mobile devices */
+@media (max-width: 960px) {
+  .aboutTop .topContainer,
+  .aboutBottom .bottomContainer {
+    flex-direction: column;
+  }
+
+  .aboutTop .topImage,
+  .aboutBottom .bottomImage {
+    order: -1; /* photo on top for mobile */
+  }
+
+  .aboutMiddle .middleText {
+    font-size: 24px;
+  }
+}

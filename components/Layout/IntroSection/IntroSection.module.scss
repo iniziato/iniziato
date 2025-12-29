@@ -1,0 +1,31 @@
+.introSection {
+  background-color: #f6f5f3;
+  padding: 60px 40px;
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: left;
+    display: inline-block;
+
+    p {
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 1.8;
+      color: #222325;
+      margin: 0 60px 0 0;
+    }
+
+    .highlight {
+      color: #ff6b6b;
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+    .container p {
+      font-size: 20px;
+      line-height: 1.6;
+    }
+}

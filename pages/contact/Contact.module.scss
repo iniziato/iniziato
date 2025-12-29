@@ -1,0 +1,31 @@
+.contactTemplate {
+  padding: 80px 0 100px;
+
+  .pageWidth {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .contactTemplateContainer {
+    max-width: 495px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contactTemplateText {
+    font-weight: 200;
+    font-size: 16px;
+    line-height: 1.17;
+    letter-spacing: .04em;
+    margin-bottom: 20px;
+  }
+
+  .contactTemplateEmail {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.155;
+    letter-spacing: -.01em;
+    margin: 0;
+  }
+}

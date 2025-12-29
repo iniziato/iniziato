@@ -1,0 +1,74 @@
+{
+  "CLASSES": "Classes",
+  "ABOUT": "About",
+  "CONTACT": "Contact",
+  "COMMUNITY": "Community",
+  "START_PILATES_TODAY": "Start Pilates Today",
+  "FIND_YOUR_FLOW": "Find your perfect flow.",
+  "MOVES_FOR_EVERY_MOOD": "Moves for every mood.",
+  "INTRO_TEXT": "The PBK is a transformative approach designed to help you feel ",
+  "INTRO_TEXT_2": "stronger, longer, and leaner,",
+  "INTRO_TEXT_3": " while releasing both physical and mental tension - so you can move with confidence. ",
+  "INTRO_TEXT_4": "One class for every body!",
+  "MEET_YOUR_INSTRUCTOR": "Meet your instructor",
+  "KETI": "Keti Kobakhidze",
+  "INSTRUCTOR_DESC": "Keti is a certified Pilates instructor with years of experience helping people build strength, mobility, and confidence in their bodies. Her approach focuses on mindful movement, longevity, and balance—both physically and mentally.",
+  "TRY_CLASS": "Try Keti's Class By Clicking Here",
+  "MEMBERSHIP_PRICING": "Membership & Pricing",
+  "MONTHLY": "Monthly",
+  "PRICING_SUB": "Less than ₾20 per week",
+  "PRICING_PRICE": "₾79 / Month",
+  "PRICING_BILLING": "Billed monthly.",
+  "QUARTERLY": "Quarterly",
+  "PRICING_SUB_1": "Less than 18₾ per week",
+  "PRICING_PRICE_1": "₾209 / 3 Months",
+  "PRICING_BILLING_1": "Billed every 3 months.",
+  "START_HERE": "Start Here",
+  "KEEP_IN_TOUCH": "Keep in Touch",
+  "ALL_CLASSES": "All Classes",
+  "GET_STARTED": "Get Started",
+  "TERMS_OF_SERVICE": "Terms of Service",
+  "PRIVACY_POLICY": "Privacy Policy",
+  "DISCLAIMER": "Disclaimer",
+  "RESOURCES": "Resources",
+  "YOUR_EMAIL_ADDRESS": "Your email address",
+  "OUR_CLASSES": "Our Classes",
+  "CLASSES_ARRAY": {
+    "essentials": {
+      "LABEL": "Essentials",
+      "DESCRIPTION": "The Pilates Essentials classes are your everyday go-to pilates flow. Perfect for all beginners, this class is designed to lengthen, align and sculpt. We take time in these classes to focus on technique and breathing. You’ll leave feeling connected within your body and relaxed within your mind."
+    },
+    "body": {
+      "LABEL": "Body",
+      "DESCRIPTION": "The Pilates Body classes are our signature flow, targeting the full body. Designed to strengthen your core, lengthen and balance your body, tone and sculpt your assets- these classes will get your heart up, have you breaking a sweat and feeling the burn."
+    },
+    "office": {
+      "LABEL": "Office",
+      "DESCRIPTION": "Desk Break Workouts are designed for those moments when you’re tired of sitting at your desk and need to get moving. These sessions combine gentle stretches, low-impact strength exercises, and mobility work to wake up your body, relieve tension, and boost energy. Perfect for keeping active during the workday, they help you feel refreshed, focused, and ready to tackle the rest of your tasks—without leaving the office. Expect quick, effective moves that energize both body and mind."
+    },
+    "stretch": {
+      "LABEL": "Stretch",
+      "DESCRIPTION": "The Pilates Stretch classes are a gift from you to your body. A moment to let go, breathe and centre. This series of stretches will improve your posture, flexibility and blood flow but also relieve muscle pain, tension and mental stress. Flow through our full body stretch before or after a workout, in the morning or at night to feel rejuvenated, relaxed and aligned."
+    },
+    "breathwork": {
+      "LABEL": "Breathwork",
+      "DESCRIPTION": "Breathwork classes focus on the power of intentional breathing to calm your mind, regulate your nervous system, and reconnect you to the present moment. Rooted in science and mindfulness, these sessions guide you through techniques that reduce stress, improve focus, and support emotional wellbeing. Whether you're winding down or grounding before a busy day, breathwork is your go-to for clarity, balance, and inner peace."
+    }
+  },
+  "LEGAL": "Legal",
+  "DISCLAIMER_TEXT": "DISCLAIMER: Always consult physician or health care professional before participating/performing exercise or any other fitness class for your own safety. Consulting a health care professional is advised to determine if this is right for your physical condition and needs. By participating in the exercises, you are performing them at your own risk. You should understand that when participating in any exercise or exercise class, there is the possibility of physical injury. If you engage in this exercise, you agree that you do so off your own accord i.e. voluntarily participating in these activities, assume all risk of injury to yourself, and agree to release and discharge The Pilates Class from any and all losses, liabilities, injuries or damages resulting from any and all claims. All content provided in class belongs to The Pilates Class. If pregnant, consult with your health-care practitioner before working out.",
+  "HOW_CAN_WE_HELP": "How can we help?",
+  "CONTACT_US": "Contact us",
+  "CONTACT_TEXT": "Needing some guidance or just want to chat pilates? Please feel free to reach out to The Pilates Class team here:",
+  "IN_HER_WORDS": "In her own words...",
+  "QUOTE_TEXT": "My focus as a pilates instructor is making the most of your workout through focusing on technique and posture.",
+  "FROM_KETI": "From Keti",
+  "ABOUT_TOP_PARAGRAPH": "For most of my life, I worked as a professional dancer. Dance has been a part of my life since the day I could walk, and I have been practicing pilates since I was 12 years old. Working with some of the greatest teachers and mentors in the world taught me to love, respect and care for my body and learn the importance of a holistic approach to health and wellbeing.",
+  "KETI_ALT": "Keti",
+  "ABOUT_MIDDLE_TEXT": "The knowledge I have gained through spending my life in the studio was something that I was inspired to pass onto others, which is when I decided to become a pilates instructor.",
+  "PILATES_CLASS_BODY_ALT": "Pilates Class Body",
+  "ABOUT_BOTTOM_TEXT_PART1": "Having",
+  "THE_PILATES_CLASS_BODY": "The Pilates Class Body",
+  "ABOUT_BOTTOM_TEXT_PART2": "means you will feel stronger, longer and leaner but also feel relief of physical tension and mental stress. I want my clients to set a new standard for their body and what it deserves — to treat it with love and care because confidence and beauty starts from within.",
+  "ABOUT_BOTTOM_TEXT_PART3": "Whether you want to feel healthier, stronger, happier, or sexier, the Pilates Class is for you!"
+}
