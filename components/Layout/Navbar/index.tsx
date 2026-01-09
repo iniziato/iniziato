@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // 👈 import
+import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import styles from "./Navbar.module.scss";
 
@@ -22,6 +22,7 @@ export const Navbar = () => {
     }, []);
 
     const isHome = pathname === "/home";
+    const isSignup = pathname === "/signup";
     const navbarClasses = `
         ${styles.nav} 
         ${isScrolled || !isHome ? styles.scrolled : ""} 
@@ -41,18 +42,26 @@ export const Navbar = () => {
                     <li><Link href="/contact">{t("CONTACT")}</Link></li>
                 </ul>
 
-                <div className={styles.logo}><Link className={styles.logo} href="/home">PILATES BY KETI</Link></div>
+                <div className={styles.logo}>
+                    <Link className={styles.logo} href="/home">INIZIATO</Link>
+                </div>
 
                 <ul className={styles.links}>
                     <li><Link href="/">{t("COMMUNITY")}</Link></li>
                     <li className={styles.profile}>
-                        <img
-                            src={isScrolled || isMobileMenuOpen || isNavbarHovered || !isHome ? "/images/profile-icon.svg" : "/images/profile-icon-white.svg"}
-                            alt="Profile"
-                            className={styles.profileIcon}
-                        />
+                        <Link href="/login">
+                            <img
+                                src={isScrolled || isMobileMenuOpen || isNavbarHovered || !isHome ? "/images/profile-icon.svg" : "/images/profile-icon-white.svg"}
+                                alt="Profile"
+                                className={styles.profileIcon}
+                            />
+                        </Link>
                     </li>
-                    <li className={styles.cta}><Link href="/signup">{t("START_PILATES_TODAY")}</Link></li>
+                    {!isSignup && (
+                        <li className={styles.cta}>
+                            <Link href="/signup">{t("START_PILATES_TODAY")}</Link>
+                        </li>
+                    )}
                 </ul>
 
                 <div className={styles.mobileProfile}>
@@ -78,7 +87,9 @@ export const Navbar = () => {
                 <Link href="/about">{t("ABOUT")}</Link>
                 <Link href="/contact">{t("CONTACT")}</Link>
                 <Link href="/">{t("COMMUNITY")}</Link>
-                <Link href="/signup" className={styles.mobileCta}>{t("START_PILATES_TODAY")}</Link>
+                {!isSignup && (
+                    <Link href="/signup" className={styles.mobileCta}>{t("START_PILATES_TODAY")}</Link>
+                )}
             </div>
         </nav>
     );
