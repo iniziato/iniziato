@@ -18,37 +18,60 @@ export default function SignupPage() {
     const [cvc, setCvc] = useState("");
     const [errors, setErrors] = useState<any>({});
     const [authError, setAuthError] = useState<string | null>(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
     const validateAll = () => {
         const e: any = {};
-        if (!plan) e.plan = t("AUTH_ERROR_PLAN_REQUIRED");
+        // if (!plan) e.plan = t("AUTH_ERROR_PLAN_REQUIRED");
         if (!fullName) e.fullName = t("AUTH_ERROR_NAME_REQUIRED");
         if (!email) e.email = t("AUTH_ERROR_EMAIL_REQUIRED");
         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
             e.email = t("AUTH_ERROR_EMAIL_INVALID");
         if (!password) e.password = t("AUTH_ERROR_PASSWORD_REQUIRED");
-        if (!cardNumber) e.cardNumber = t("PAYMENT_ERROR_CARD_REQUIRED");
-        if (!expiry) e.expiry = t("PAYMENT_ERROR_EXPIRY_REQUIRED");
-        if (!cvc) e.cvc = t("PAYMENT_ERROR_CVC_REQUIRED");
+        // if (!cardNumber) e.cardNumber = t("PAYMENT_ERROR_CARD_REQUIRED");
+        // if (!expiry) e.expiry = t("PAYMENT_ERROR_EXPIRY_REQUIRED");
+        // if (!cvc) e.cvc = t("PAYMENT_ERROR_CVC_REQUIRED");
 
         setErrors(e);
         return Object.keys(e).length === 0;
     };
 
-    const submitSignup = (e: React.FormEvent) => {
+    const submitSignup = async (e: React.FormEvent) => {
         e.preventDefault();
+
         if (!validateAll()) return;
 
-        // TODO: call backend / payment integration
-        console.log({
-            plan,
-            fullName,
-            email,
-            password,
-            cardNumber,
-            expiry,
-            cvc,
-        });
+        try {
+            const res = await fetch("/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    fullName,
+                    email,
+                    password,
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                setAuthError(data.error || "Something went wrong");
+                setSuccessMessage(null);
+                return;
+            }
+
+            // Success
+            setAuthError(null);
+            setSuccessMessage(t("AUTH_SIGNUP_SUCCESS"));
+            setFullName("");
+            setEmail("");
+            setPassword("");
+        } catch (err: any) {
+            setAuthError(err.message);
+            setSuccessMessage(null);
+        }
     };
 
     return (
@@ -60,6 +83,9 @@ export default function SignupPage() {
             <div className={styles.signupContainer}>
                 {authError && (
                     <div className={styles.authTemplateAuthError}>{authError}</div>
+                )}
+                {successMessage && (
+                    <div className={styles.authTemplateSuccess}>{successMessage}</div>
                 )}
 
                 <form className={styles.singlePageForm} onSubmit={submitSignup}>
@@ -105,6 +131,7 @@ export default function SignupPage() {
 
                     <div className={styles.accountSection}>
                         <h2>{t("SIGNUP_STEP_ACCOUNT")}</h2>
+
                         <input
                             type="text"
                             placeholder={t("AUTH_FULL_NAME")}

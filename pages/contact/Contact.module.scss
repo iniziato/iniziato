@@ -28,4 +28,38 @@
     letter-spacing: -.01em;
     margin: 0;
   }
+
+  .contactInput {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+  }
+
+  .contactSubmitButton {
+    background-color: #ff6b6b;
+    color: #fff;
+    font-weight: 400;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: rgba(255, 107, 107, 0.82);
+      transform: scale(1.02);
+    }
+  }
+
+  .authTemplateAuthError {
+    color: #ff4d4f;
+    margin-bottom: 12px;
+  }
+
+  .authTemplateSuccess {
+    color: #28a745;
+    margin-bottom: 12px;
+  }
+
 }

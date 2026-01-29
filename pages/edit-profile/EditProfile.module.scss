@@ -1,0 +1,131 @@
+.editProfile {
+  padding: 80px 0;
+  background-color: #f9f9f9;
+
+  .pageWidth {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+  }
+
+  .editProfileContainer {
+    background-color: #fff;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+    .title {
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .formError {
+      color: #ff4d4f;
+      background-color: #fff1f0;
+      border: 1px solid #ffa39e;
+      padding: 10px 15px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .successMsg {
+      color: #52c41a;
+      background-color: #f6ffed;
+      border: 1px solid #b7eb8f;
+      padding: 10px 15px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .inputGroup {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        label {
+          font-weight: 500;
+          font-size: 14px;
+          color: #222325;
+        }
+
+        input {
+          padding: 12px 15px;
+          border: 1px solid #ccc;
+          font-size: 14px;
+          transition: border 0.2s ease;
+
+          &:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.15);
+          }
+
+          &:disabled {
+            background-color: #f5f5f5;
+            color: #999;
+            cursor: not-allowed;
+          }
+        }
+
+        .inputError {
+          color: #ff4d4f;
+          font-size: 13px;
+          margin-top: 4px;
+        }
+      }
+
+      .submitButton {
+        background-color: #ff6b6b;
+        color: #fff;
+        font-weight: 400;
+        padding: 14px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: rgba(255, 107, 107, 0.85);
+          transform: scale(1.02);
+        }
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .editProfile {
+    .editProfileContainer {
+      padding: 30px;
+
+      .title {
+        font-size: 1.5rem;
+      }
+
+      .form {
+        gap: 16px;
+
+        .inputGroup input {
+          padding: 10px 12px;
+        }
+
+        .submitButton {
+          padding: 12px;
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}

@@ -107,4 +107,19 @@
     font-weight: 200;
     letter-spacing: 0.04em;
   }
+
+  .forgotPassword {
+    text-align: right;
+
+    a {
+      font-size: 14px;
+      color: #ff6b6b;
+      text-decoration: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #ff4d4f;
+      }
+    }
+  }
 }

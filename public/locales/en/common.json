@@ -98,5 +98,11 @@
   "PAYMENT_EXPIRY": "MM/YY",
   "PAYMENT_CVC": "CVC",
   "PAYMENT_TODAY_PAY": "Today you pay",
-  "SIGNUP_SUBMIT": "START INIZIATO"
+  "SIGNUP_SUBMIT": "START INIZIATO",
+  "AUTH_FORGOT_PASSWORD": "Forgot password?",
+  "AUTH_CONFIRM_PASSWORD": "Confirm password",
+  "AUTH_UPDATE_PASSWORD": "Update password",
+  "AUTH_FORGOT_PASSWORD_SUBTITLE": "Update it here",
+  "AUTH_SEND_CODE": "Get the link",
+  "EDIT_PROFILE_TITLE": "My profile"
 }

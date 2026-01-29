@@ -112,6 +112,10 @@
   display: none;
 }
 
+.mobileProfileLink {
+  color: #ff6b6b !important;
+}
+
 /* CTA button */
 .cta a {
   background-color: #ff6b6b;
@@ -247,4 +251,11 @@
       background: #222325;
     }
   }
+}
+
+.logoutButton {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }

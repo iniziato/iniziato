@@ -99,5 +99,11 @@
   "PAYMENT_EXPIRY": "თვე/წელი",
   "PAYMENT_CVC": "CVC",
   "PAYMENT_TODAY_PAY": "დღეს გადაიხდი",
-  "SIGNUP_SUBMIT": "დაიწყე INIZIATO"
+  "SIGNUP_SUBMIT": "დაიწყე INIZIATO",
+  "AUTH_FORGOT_PASSWORD": "დაგავიწყდა პაროლი?",
+  "AUTH_CONFIRM_PASSWORD": "გაიმეორე პაროლი",
+  "AUTH_UPDATE_PASSWORD": "განაახლე პაროლი",
+  "AUTH_FORGOT_PASSWORD_SUBTITLE": "განაახლე აქ",
+  "AUTH_SEND_CODE": "მიიღე ლინკი",
+  "EDIT_PROFILE_TITLE": "ჩემი პროფილი"
 }
