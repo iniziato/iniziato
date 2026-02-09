@@ -104,5 +104,28 @@
   "AUTH_UPDATE_PASSWORD": "Update password",
   "AUTH_FORGOT_PASSWORD_SUBTITLE": "Update it here",
   "AUTH_SEND_CODE": "Get the link",
-  "EDIT_PROFILE_TITLE": "My profile"
+  "EDIT_PROFILE_TITLE": "My profile",
+
+  "PILATES_LIBRARY": "Your pilates library",
+  "CLASS_CAT_ESSENTIALS_TITLE": "Essentials",
+  "CLASS_CAT_ESSENTIALS_DESC": "Build strong foundations with feel-good Pilates classes designed to support your body, improve technique and move with intention.",
+  "CLASS_CAT_BODY_TITLE": "The Pilates Class Body",
+  "CLASS_CAT_BODY_DESC": "Lengthen, sculpt and strengthen with targeted workouts that focus on arms, abs, glutes and full-body burn.",
+  "CLASS_FULL_BODY": "Full Body Foundations",
+  "CLASS_SLOW_BURN": "Slow Burn Sculpt",
+  "CLASS_FULL_BODY_2": "Signature Full Body",
+
+  "CLASS_LEVEL_CHILL": "Chill",
+  "CLASS_LEVEL_SATISFYING": "Satisfying",
+  "CLASS_LEVEL_INTENSE": "Intense",
+  "CLASS_INTENSITY_TITLE": "Our classes, your vibe.",
+  "INTENSITY_CHILL": "Chill",
+  "INTENSITY_CHILL_TITLE": "Go easy on me.",
+  "INTENSITY_CHILL_TEXT": "When your mind and body are craving something a little more relaxed and nourishing, these are the classes for you.",
+  "INTENSITY_SATISFYING": "Satisfying",
+  "INTENSITY_SATISFYING_TITLE": "I just want to feel good.",
+  "INTENSITY_SATISFYING_TEXT": "These classes are perfect when you’re wanting to lengthen, align and sculpt. They focus on mindful movement and technique so you can truly feel the change in your body.",
+  "INTENSITY_INTENSE": "Intense",
+  "INTENSITY_INTENSE_TITLE": "Kick my butt. I need this.",
+  "INTENSITY_INTENSE_TEXT": "For when you want to feel the burn in all the right places. Target your arms, abs and glutes to get that signature Pilates Class body."
 }

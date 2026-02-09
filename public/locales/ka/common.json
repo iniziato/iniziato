@@ -105,5 +105,14 @@
   "AUTH_UPDATE_PASSWORD": "განაახლე პაროლი",
   "AUTH_FORGOT_PASSWORD_SUBTITLE": "განაახლე აქ",
   "AUTH_SEND_CODE": "მიიღე ლინკი",
-  "EDIT_PROFILE_TITLE": "ჩემი პროფილი"
+  "EDIT_PROFILE_TITLE": "ჩემი პროფილი",
+  "CLASS_CATEGORY_BEGINNER": "დამწყები",
+  "CLASS_CATEGORY_STRENGTH": "Strength & Sculpt",
+  "CLASS_CATEGORY_MOBILITY": "Mobility & Stretch",
+  "CLASS_CATEGORY_EXPRESS": "ექსპრეს კლასები",
+  "CLASS_FULL_BODY": "Full Body Basics",
+  "CLASS_CORE": "Core Foundations",
+  "CLASS_SCULPT": "Sculpt & Tone",
+  "CLASS_STRETCH": "Deep Stretch",
+  "CLASS_EXPRESS": "15 წუთიანი ექსპრესი"
 }
