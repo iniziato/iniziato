@@ -103,11 +103,10 @@
   margin: auto;
   width: 72px;
   height: 72px;
-  border-radius: 50%;
-  border: 2px solid #ff6b6b;
+  border: none;
   background: transparent;
   color: #ff6b6b;
-  font-size: 24px;
+  font-size: 50px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -117,7 +116,6 @@
 
   &:hover {
     transform: scale(1.05);
-    background: rgba(188, 255, 136, 0.1);
   }
 }
 
