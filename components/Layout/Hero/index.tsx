@@ -22,7 +22,7 @@ export const Hero = () => {
 
             <div className="page-width">
                 <div className={styles.content}>
-                    <h2 className={styles.subtitle}>{t("FIND_YOUR_FLOW")}</h2>
+                    {/*<h2 className={styles.subtitle}>{t("FIND_YOUR_FLOW")}</h2>*/}
                     <h1 className={styles.title}>{t("MOVES_FOR_EVERY_MOOD")}</h1>
                     <a
                         href="/signup"
