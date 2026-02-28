@@ -25,7 +25,7 @@ export const Hero = () => {
                     <h2 className={styles.subtitle}>{t("FIND_YOUR_FLOW")}</h2>
                     <h1 className={styles.title}>{t("MOVES_FOR_EVERY_MOOD")}</h1>
                     <a
-                        href="https://studio.thepilatesclass.com/"
+                        href="/signup"
                         className={styles.button}
                     >
                         {t("START_PILATES_TODAY")}
