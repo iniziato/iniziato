@@ -13,7 +13,7 @@ export default function Contact() {
                 <div className={styles.pageWidth}>
                     <div className={styles.contactTemplateContainer}>
                         <p className={styles.contactTemplateText}>{t("CONTACT_TEXT")}</p>
-                        <h2 className={styles.contactTemplateEmail}>help@pilatesbyketi.com</h2>
+                        <h2 className={styles.contactTemplateEmail}>iniziato26@gmail.com</h2>
                     </div>
                 </div>
             </div>
