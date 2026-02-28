@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import styles from "./Classes.module.scss";
 import { PageHeaderWithPhoto } from "@/components/Layout/PageHeaderWithPhoto";
 import {IntensitySection} from "@/components/Layout/IntensitySection";
-import { isLoggedIn } from "@/lib/auth"
+import {isLoggedIn, withTranslations} from "@/lib/auth"
 
 type VideoClass = {
     id: string;
@@ -150,4 +150,8 @@ export default function Classes() {
             )}
         </main>
     );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+    return await withTranslations(locale);
 }

@@ -6,7 +6,7 @@ const nextConfig= {
     },
     i18n: {
         defaultLocale: "ka",
-        locales: ["en", "ka"],
+        locales: ["ka"],
         localeDetection: true,
     },
 };

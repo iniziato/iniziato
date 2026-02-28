@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import styles from './About.module.scss';
 import { PageHeaderWithPhoto } from "@/components/Layout/PageHeaderWithPhoto";
+import {withTranslations} from "@/lib/auth";
 
 export default function About() {
     const { t } = useTranslation();
@@ -77,3 +78,7 @@ export default function About() {
         </main>
     );
 };
+
+export async function getStaticProps({ locale }: { locale: string }) {
+    return await withTranslations(locale);
+}

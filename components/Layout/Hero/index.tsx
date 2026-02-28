@@ -7,27 +7,16 @@ export const Hero = () => {
     const {t} = useTranslation();
 
     useEffect(() => {
-        const timer = setTimeout(() => setLoaded(true), 100); // trigger fade-in animation
+        const timer = setTimeout(() => setLoaded(true), 100);
         return () => clearTimeout(timer);
     }, []);
 
     return (
         <section className={`${styles.hero} ${loaded ? styles.loaded : ""}`}>
-            <video
+            <img
                 className={styles.video}
-                playsInline
-                autoPlay
-                loop
-                muted
-                preload="metadata"
-                poster="/images/hero-poster.jpg"
-            >
-                <source
-                    src="/videos/hero-video.mp4"
-                    type="video/mp4"
-                />
-                Your browser does not support the video tag.
-            </video>
+                src="/images/hero-poster.jpg"
+                alt="hero-poster"></img>
 
             <div className={styles.overlay}></div>
 

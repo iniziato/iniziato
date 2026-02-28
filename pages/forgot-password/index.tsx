@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "../contact/Contact.module.scss";
 import { PageHeaderWithPhoto } from "@/components/Layout/PageHeaderWithPhoto";
+import {withTranslations} from "@/lib/auth";
 
 export default function ForgotPassword() {
     const { t } = useTranslation();
@@ -62,4 +63,8 @@ export default function ForgotPassword() {
             </div>
         </main>
     );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+    return await withTranslations(locale);
 }

@@ -4,7 +4,7 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
-                    <title>Pilates by Keti Kobakhidze</title>
+                    <title>INIZIATO</title>
                     <link rel="icon" href="/images/favicon.ico" sizes="any" />
                 </Head>
                 <body>

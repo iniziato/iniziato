@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const LANGUAGES = [
-    { code: "en", label: "English" },
+    // { code: "en", label: "English" },
     { code: "ka", label: "ქართული" },
 ];
 

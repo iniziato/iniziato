@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./Signup.module.scss";
+import {withTranslations} from "@/lib/auth";
 
 type Plan = "monthly" | "quarterly";
 
@@ -210,4 +211,8 @@ export default function SignupPage() {
             </div>
         </section>
     );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+    return await withTranslations(locale);
 }

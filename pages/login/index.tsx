@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import styles from "./Login.module.scss";
-import { isLoggedIn } from "@/lib/auth"; // import auth helper
+import {isLoggedIn, withTranslations} from "@/lib/auth"; // import auth helper
 
 type Errors = {
     email?: string;
@@ -145,4 +145,8 @@ export default function LoginPage() {
             </div>
         </section>
     );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+    return await withTranslations(locale);
 }

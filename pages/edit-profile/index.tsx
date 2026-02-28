@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import styles from './EditProfile.module.scss';
-import { isLoggedIn, getToken } from "@/lib/auth"
+import {isLoggedIn, getToken, withTranslations} from "@/lib/auth"
 
 interface UserProfile {
     fullName: string;
@@ -153,4 +153,8 @@ export default function EditProfile() {
             </div>
         </section>
     );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+    return await withTranslations(locale);
 }
