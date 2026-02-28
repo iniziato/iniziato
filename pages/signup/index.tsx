@@ -109,21 +109,21 @@ export default function SignupPage() {
                                 <p>{t("AUTH_PLAN_MONTHLY_DESC")}</p>
                             </label>
 
-                            <label
-                                className={`${styles.planCard} ${
-                                    plan === "quarterly" ? styles.selected : ""
-                                }`}
-                            >
-                                <input
-                                    type="radio"
-                                    name="plan"
-                                    value="quarterly"
-                                    checked={plan === "quarterly"}
-                                    onChange={() => setPlan("quarterly")}
-                                />
-                                <h3>{t("AUTH_PLAN_QUARTERLY")}</h3>
-                                <p>{t("AUTH_PLAN_QUARTERLY_DESC")}</p>
-                            </label>
+                            {/*<label*/}
+                            {/*    className={`${styles.planCard} ${*/}
+                            {/*        plan === "quarterly" ? styles.selected : ""*/}
+                            {/*    }`}*/}
+                            {/*>*/}
+                            {/*    <input*/}
+                            {/*        type="radio"*/}
+                            {/*        name="plan"*/}
+                            {/*        value="quarterly"*/}
+                            {/*        checked={plan === "quarterly"}*/}
+                            {/*        onChange={() => setPlan("quarterly")}*/}
+                            {/*    />*/}
+                            {/*    <h3>{t("AUTH_PLAN_QUARTERLY")}</h3>*/}
+                            {/*    <p>{t("AUTH_PLAN_QUARTERLY_DESC")}</p>*/}
+                            {/*</label>*/}
                         </div>
                         {errors.plan && (
                             <div className={styles.authTemplateError}>{errors.plan}</div>
@@ -165,27 +165,27 @@ export default function SignupPage() {
                     </div>
 
                     <div className={styles.paymentWrapper}>
-                        <h2>{t("PAYMENT_TITLE")}</h2>
+                        {/*<h2>{t("PAYMENT_TITLE")}</h2>*/}
 
                         <div className={styles.cardGroup}>
-                            <input
-                                type="text"
-                                placeholder={t("PAYMENT_CARD_NUMBER")}
-                                value={cardNumber}
-                                onChange={(e) => setCardNumber(e.target.value)}
-                            />
-                            <input
-                                type="text"
-                                placeholder={t("PAYMENT_EXPIRY")}
-                                value={expiry}
-                                onChange={(e) => setExpiry(e.target.value)}
-                            />
-                            <input
-                                type="text"
-                                placeholder={t("PAYMENT_CVC")}
-                                value={cvc}
-                                onChange={(e) => setCvc(e.target.value)}
-                            />
+                            {/*<input*/}
+                            {/*    type="text"*/}
+                            {/*    placeholder={t("PAYMENT_CARD_NUMBER")}*/}
+                            {/*    value={cardNumber}*/}
+                            {/*    onChange={(e) => setCardNumber(e.target.value)}*/}
+                            {/*/>*/}
+                            {/*<input*/}
+                            {/*    type="text"*/}
+                            {/*    placeholder={t("PAYMENT_EXPIRY")}*/}
+                            {/*    value={expiry}*/}
+                            {/*    onChange={(e) => setExpiry(e.target.value)}*/}
+                            {/*/>*/}
+                            {/*<input*/}
+                            {/*    type="text"*/}
+                            {/*    placeholder={t("PAYMENT_CVC")}*/}
+                            {/*    value={cvc}*/}
+                            {/*    onChange={(e) => setCvc(e.target.value)}*/}
+                            {/*/>*/}
                         </div>
 
                         <div className={styles.summary}>
