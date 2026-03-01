@@ -1,4 +1,3 @@
-/* Quote section stays the same */
 .quote {
   padding: 100px 0;
   background: #f6f5f3;
@@ -32,7 +31,6 @@
   }
 }
 
-/* About Top */
 .aboutTop {
   padding: 100px 0;
   background-color: #4D423F;
@@ -75,7 +73,6 @@
   }
 }
 
-/* Middle Section */
 .aboutMiddle {
   background: #4D423F;
   text-align: center;
@@ -91,7 +88,6 @@
   }
 }
 
-/* About Bottom */
 .aboutBottom {
   padding: 100px 0;
   background-color: #4D423F;
@@ -126,7 +122,6 @@
   }
 }
 
-/* Responsive layout for mobile devices */
 @media (max-width: 960px) {
   .aboutTop .topContainer,
   .aboutBottom .bottomContainer {
@@ -135,7 +130,7 @@
 
   .aboutTop .topImage,
   .aboutBottom .bottomImage {
-    order: -1; /* photo on top for mobile */
+    order: -1;
   }
 
   .aboutMiddle .middleText {

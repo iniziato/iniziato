@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import styles from "./Login.module.scss";
-import {isLoggedIn, withTranslations} from "@/lib/auth"; // import auth helper
+import {isLoggedIn, withTranslations} from "@/lib/auth";
 
 type Errors = {
     email?: string;
@@ -20,12 +20,11 @@ export default function LoginPage() {
     const [authError, setAuthError] = useState<string | null>(null);
     const [checkingAuth, setCheckingAuth] = useState(true);
 
-    // Redirect if already logged in
     useEffect(() => {
         if (isLoggedIn()) {
-            window.location.href = "/videos"; // redirect logged-in users
+            window.location.href = "/classes";
         } else {
-            setCheckingAuth(false); // allow page to render if not logged in
+            setCheckingAuth(false);
         }
     }, []);
 
@@ -61,12 +60,8 @@ export default function LoginPage() {
                 return;
             }
 
-            console.log("LOGIN SUCCESS", data);
-
-            // Store JWT locally for now
             localStorage.setItem("token", data.token);
 
-            // Redirect to protected page
             window.location.href = "/videos";
         } catch (err) {
             console.error("Login error:", err);
@@ -84,7 +79,6 @@ export default function LoginPage() {
         if (authError) setAuthError(null);
     };
 
-    // Hide login form while checking auth
     if (checkingAuth) return null;
 
     return (
@@ -127,7 +121,6 @@ export default function LoginPage() {
                             )}
                         </div>
 
-                        {/* Forgot Password link */}
                         <div className={styles.forgotPassword}>
                             <Link href="/forgot-password">{t("AUTH_FORGOT_PASSWORD")}</Link>
                         </div>

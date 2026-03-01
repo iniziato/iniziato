@@ -5,11 +5,11 @@
   "COMMUNITY": "Community",
   "START_PILATES_TODAY": "დაიწყე დღესვე",
   "FIND_YOUR_FLOW": "Find your perfect flow.",
-  "MOVES_FOR_EVERY_MOOD": "მოძრაობები ყველა განწყობისთვის.",
-  "INTRO_TEXT": "INIZIATO ტრანსფორმაციული მიდგომაა, რომელიც შექმნილია იმისთვის, რომ დაგეხმაროთ თავი უფრო ",
-  "INTRO_TEXT_2": "ძლიერად, ლონგერ და ლინერ",
-  "INTRO_TEXT_3": " იგრძნოთ, ამავდროულად გაეთავისუფლოთ როგორც ფიზიკურ, ისე გონებრივ დაძაბულობას. ",
-  "INTRO_TEXT_4": "ერთი კლასი ყველა სხეულისთვის!",
+  "MOVES_FOR_EVERY_MOOD": "მოძრაობები ჯანმრთელობისა და ბედნიერებისათვის.",
+  "INTRO_TEXT": "INIZIATO ტრანსფორმაციული მიდგომაა, რომელიც დაგეხმარებათ შექმნათ",
+  "INTRO_TEXT_2": " რეგულარული ვარჯიშის ჩვევა,",
+  "INTRO_TEXT_3": " შეისწავლოთ მოძრაობის ბიომექანიკის საბაზისო და ეფექტური პრინციპები და გაეცნოთ ",
+  "INTRO_TEXT_4": "ჯოზეფ პილატესის ვარჯიშების კომპლექსის სასარგებლო მხარეებს.",
   "MEET_YOUR_INSTRUCTOR": "გაიცანი შენი ინსტრუქტორი",
   "KETI": "ქეთი კობახიძე",
   "INSTRUCTOR_DESC": "ქეთი სერტიფიცირებული პილატესის ინსტრუქტორია, რომელსაც მრავალწლიანი გამოცდილება აქვს. ეხმარება ადამიანებს ძალის, მობილობისა და საკუთარი სხეულის მიმართ თავდაჯერებულობის განვითარებაში. მისი მიდგომა ფოკუსირებულია შეგნებულ მოძრაობაზე და ბალანსზე - როგორც ფიზიკურ, ასევე გონებრივ დონეზე.",
@@ -128,5 +128,13 @@
   "INTENSITY_SATISFYING_TEXT": "These classes are perfect when you’re wanting to lengthen, align and sculpt. They focus on mindful movement and technique so you can truly feel the change in your body.",
   "INTENSITY_INTENSE": "Intense",
   "INTENSITY_INTENSE_TITLE": "Kick my butt. I need this.",
-  "INTENSITY_INTENSE_TEXT": "For when you want to feel the burn in all the right places. Target your arms, abs and glutes to get that signature Pilates Class body."
+  "INTENSITY_INTENSE_TEXT": "For when you want to feel the burn in all the right places. Target your arms, abs and glutes to get that signature Pilates Class body.",
+
+  "EXPIRY_POPUP_TITLE": "შენს წევრობას ვადა გაუვიდა",
+  "EXPIRY_POPUP_SUBTITLE": "განაახლე წევრობა, რათა გააგრძელო ვარჯიში.",
+  "EXPIRY_POPUP_BTN_TEXT": "გადახდის განახლება",
+  "PAYMENT_SUCCESS_TEXT": "გადახდა წარმატებულია!",
+  "PAYMENT_FAILED_TEXT": "გადახდა ვერ შესრულდა",
+  "CONTINUE_WORKOUT": "ვარჯიშის დროა",
+  "RETURN_TO_HOME_PAGE": "დაბრუნდი მთავარ გვერდზე"
 }

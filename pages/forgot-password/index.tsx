@@ -52,7 +52,7 @@ export default function ForgotPassword() {
                                 placeholder={t("AUTH_EMAIL")}
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className={styles.contactInput} // you can add this class in Contact.module.scss
+                                className={styles.contactInput}
                             />
                             <button type="submit" className={styles.contactSubmitButton}>
                                 {t("AUTH_SEND_CODE")}

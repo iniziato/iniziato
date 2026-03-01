@@ -1,0 +1,33 @@
+export enum BogErrorCode {
+    SuccessfulPayment = "100",
+    PaymentDeclinedCardLimit = "101",
+    SavedCardNotFound = "102",
+    InvalidCard = "103",
+    TransactionLimitExceeded = "104",
+    CardExpired = "105",
+    AmountLimitExceeded = "106",
+    InsufficientFunds = "107",
+    AuthenticationDeclined = "108",
+    TechnicalIssue = "109",
+    TransactionExpired = "110",
+    AuthenticationTimeout = "111",
+    GeneralError = "112",
+    UnknownResponse = "199",
+}
+
+export const BogErrorMessagesGE = {
+    [BogErrorCode.SuccessfulPayment]: "წარმატებული გადახდა",
+    [BogErrorCode.PaymentDeclinedCardLimit]: "გადახდა უარყოფილია, რადგან ბარათის გამოყენება შეზღუდულია. დეტალური ინფორმაციისთვის დაუკავშირდით ბარათის მომსახურე ბანკს",
+    [BogErrorCode.SavedCardNotFound]: "დამახსოვრებული ბარათი ვერ მოიძებნა",
+    [BogErrorCode.InvalidCard]: "გადახდა უარყოფილია, რადგან ბარათი არ არის ვალიდური",
+    [BogErrorCode.TransactionLimitExceeded]: "გადახდა უარყოფილია ტრანზაქციის რაოდენობის ლიმიტის გადაჭარბების გამო",
+    [BogErrorCode.CardExpired]: "გადახდა უარყოფილია, რადგან ბარათი ვადაგასულია",
+    [BogErrorCode.AmountLimitExceeded]: "გადახდა უარყოფილია თანხის ლიმიტის გადაჭარბების გამო",
+    [BogErrorCode.InsufficientFunds]: "გადახდა უარყოფილია ანგარიშზე არასაკმარისი თანხის გამო",
+    [BogErrorCode.AuthenticationDeclined]: "გადახდის ავტორიზაციის უარყოფა",
+    [BogErrorCode.TechnicalIssue]: "დაფიქსირდა ტექნიკური ხარვეზი",
+    [BogErrorCode.TransactionExpired]: "ოპერაციის შესრულების დრო ამოიწურა",
+    [BogErrorCode.AuthenticationTimeout]: "გადახდის ავტორიზაციის დრო ამოიწურა",
+    [BogErrorCode.GeneralError]: "საერთო შეცდომა",
+    [BogErrorCode.UnknownResponse]: "უცნობი პასუხი",
+} as const;

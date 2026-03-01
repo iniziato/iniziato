@@ -58,8 +58,6 @@ export const ClassesSection = () => {
             <div className={styles.header}>
                 <h2>{t("OUR_CLASSES")}</h2>
             </div>
-
-            {/* NAV */}
             <div className={styles.navWrapper}>
                 {classes.map((item) => (
                     <button
@@ -73,12 +71,9 @@ export const ClassesSection = () => {
                     </button>
                 ))}
             </div>
-
-            {/* CONTENT */}
             <div className={styles.content}>
                 <div className={styles.media}>
                     <div className={styles.aspect}>
-                        {/* STATIC THUMBNAIL */}
                         <img
                             src={activeClass?.thumbnail}
                             alt={activeClass?.label}
@@ -94,7 +89,6 @@ export const ClassesSection = () => {
                         </button>
                     )}
                 </div>
-
                 <div className={styles.text}>
                     <p>{activeClass?.description}</p>
 
@@ -104,7 +98,6 @@ export const ClassesSection = () => {
                 </div>
             </div>
 
-            {/* LIGHTBOX */}
             {showLightbox && activeClass?.video && (
                 <div
                     className={styles.lightbox}
@@ -112,7 +105,7 @@ export const ClassesSection = () => {
                 >
                     <div
                         className={styles.lightboxContent}
-                        onClick={(e) => e.stopPropagation()} // prevent closing when clicking video
+                        onClick={(e) => e.stopPropagation()}
                     >
                         <video controls autoPlay className={styles.lightboxVideo}>
                             <source src={activeClass.video} type="video/mp4" />

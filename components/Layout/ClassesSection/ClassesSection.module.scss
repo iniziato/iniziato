@@ -12,7 +12,6 @@
   }
 }
 
-/* NAV */
 .navWrapper {
   display: flex;
   gap: 24px;
@@ -57,7 +56,6 @@
   }
 }
 
-/* Active state */
 .active {
   opacity: 1;
 
@@ -66,7 +64,6 @@
   }
 }
 
-/* CONTENT */
 .content {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
@@ -80,7 +77,6 @@
   }
 }
 
-/* IMAGE / VIDEO */
 .media {
   position: relative;
 }
@@ -119,7 +115,6 @@
   }
 }
 
-/* TEXT */
 .text {
   p {
     font-size: 16px;
@@ -199,7 +194,6 @@
   }
 }
 
-/* OPTIONAL: Fade in animation */
 @keyframes fadeIn {
   from {
     opacity: 0;

@@ -15,13 +15,6 @@ export const PricingSection = () => {
                         <p className={styles.price}>{t("PRICING_PRICE")}</p>
                         <p className={styles.billing}>{t("PRICING_BILLING")}</p>
                     </div>
-
-                    {/*<div className={styles.card}>*/}
-                    {/*    <h3>{t("QUARTERLY")}</h3>*/}
-                    {/*    <p className={styles.subtitle}>{t("PRICING_SUB_1")}</p>*/}
-                    {/*    <p className={styles.price}>{t("PRICING_PRICE_1")}</p>*/}
-                    {/*    <p className={styles.billing}>{t("PRICING_BILLING_1")}</p>*/}
-                    {/*</div>*/}
                 </div>
 
                 <div className={styles.centerButton}>

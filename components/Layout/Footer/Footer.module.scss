@@ -106,13 +106,6 @@
     }
   }
 
-  .bottom {
-    text-align: center;
-    margin-top: 32px;
-    font-size: 13px;
-    color: #222325;
-  }
-
   @media (max-width: 900px) {
       display: block;
 
@@ -127,4 +120,16 @@
       }
     }
   }
+}
+
+.footerBottom {
+  background: #f4f2ed;
+  padding: 10px;
+}
+.bottom {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 13px;
+  color: #222325;
 }

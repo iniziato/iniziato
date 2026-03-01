@@ -14,4 +14,21 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  payments Payment[] // relation to payments
+}
+
+model Payment {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id])
+  orderId         String   @unique // BOG order ID
+  externalOrderId String? // optional external ID
+  status          String // e.g., "SUCCESS", "FAILED", "PENDING"
+  amount          Float
+  currency        String   @default("GEL")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
 }

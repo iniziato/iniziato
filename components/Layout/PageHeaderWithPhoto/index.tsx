@@ -7,10 +7,10 @@ interface PageHeaderProps {
 }
 
 export const PageHeaderWithPhoto = ({
-                               title,
-                               subtitle,
-                               backgroundImage,
-                           }: PageHeaderProps) => {
+    title,
+    subtitle,
+    backgroundImage,
+}: PageHeaderProps) => {
     const headerStyle: React.CSSProperties = {
             backgroundImage: `url(${backgroundImage})`,
             backgroundSize: "cover",

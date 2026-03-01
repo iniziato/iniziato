@@ -7,10 +7,10 @@ interface PageHeaderProps {
 }
 
 export const PageHeader = ({
-                               title,
-                               subtitle,
-                               backgroundColor = "#4d423f",
-                           }: PageHeaderProps) => {
+   title,
+   subtitle,
+   backgroundColor = "#4d423f",
+}: PageHeaderProps) => {
     const headerStyle: React.CSSProperties = { backgroundColor };
 
     return (

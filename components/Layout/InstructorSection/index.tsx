@@ -10,7 +10,6 @@ export const InstructorSection = () => {
                 <h2 className={styles.title}>{t("MEET_YOUR_INSTRUCTOR")}</h2>
 
                 <div className={styles.content}>
-                    {/* Image */}
                     <div className={styles.imageWrapper}>
                         <div className={styles.aspectRatio}>
                             <img
@@ -19,8 +18,6 @@ export const InstructorSection = () => {
                             />
                         </div>
                     </div>
-
-                    {/* Text */}
                     <div className={styles.text}>
                         <h3>{t("KETI")}</h3>
                         <p>{t("INSTRUCTOR_DESC")}</p>

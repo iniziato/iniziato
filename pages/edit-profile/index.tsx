@@ -50,7 +50,7 @@ export default function EditProfile() {
         const e: any = {};
         if (!password) e.password = t("AUTH_ERROR_PASSWORD_REQUIRED");
         else if (password.length < 6)
-            e.password = t("AUTH_ERROR_PASSWORD_MIN"); // add translation
+            e.password = t("AUTH_ERROR_PASSWORD_MIN");
 
         if (password !== confirmPassword)
             e.confirmPassword = t("AUTH_ERROR_PASSWORD_MISMATCH");

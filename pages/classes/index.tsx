@@ -1,9 +1,11 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./Classes.module.scss";
 import { PageHeaderWithPhoto } from "@/components/Layout/PageHeaderWithPhoto";
-import {IntensitySection} from "@/components/Layout/IntensitySection";
-import {isLoggedIn, withTranslations} from "@/lib/auth"
+import { IntensitySection } from "@/components/Layout/IntensitySection";
+import { withTranslations } from "@/lib/auth";
+import {jwtDecode} from "jwt-decode";
+import { Popup } from "@/components/Layout/PopUp";
 
 type VideoClass = {
     id: string;
@@ -24,11 +26,75 @@ type Category = {
 export default function Classes() {
     const { t } = useTranslation();
     const [loggedIn, setLoggedIn] = useState(false);
+    const [canPlay, setCanPlay] = useState(false);
     const [activeVideo, setActiveVideo] = useState<VideoClass | null>(null);
+    const [showPaymentPopup, setShowPaymentPopup] = useState(false);
+    const [userEmail, setUserEmail] = useState<string | null>(null);
 
     useEffect(() => {
-        setLoggedIn(isLoggedIn());
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const decoded = jwtDecode<{ email: string }>(token);
+        setUserEmail(decoded.email);
+
+        setLoggedIn(true);
+
+        fetch("/api/payments/status", {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then((res) => res.json())
+            .then((data) => setCanPlay(data.canPlay))
+            .catch(console.error);
     }, []);
+
+    const handleVideoClick = (video: VideoClass) => {
+        if (!loggedIn) {
+            window.location.href = "/login";
+            return;
+        }
+
+        if (!canPlay) {
+            setShowPaymentPopup(true);
+            return;
+        }
+
+        setActiveVideo(video);
+    };
+
+    const handlePayment = async () => {
+        if (!userEmail) return;
+
+        try {
+            const response = await fetch("/api/payments/create", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    items: [
+                        {
+                            productId: "monthly_plan",
+                            description: "თვიური წევრობა",
+                            quantity: 1,
+                            unitPrice: 79,
+                        },
+                    ],
+                    metadata: {
+                        email: userEmail,
+                        fullName: "ignored",
+                        password: "ignored",
+                    },
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.redirectUrl) {
+                window.location.href = data.redirectUrl;
+            }
+        } catch (err) {
+            console.error("Payment creation failed:", err);
+        }
+    };
 
     const categories: Category[] = [
         {
@@ -91,9 +157,7 @@ export default function Classes() {
                                 <div
                                     key={c.id}
                                     className={styles.card}
-                                    onClick={() => {
-                                        if (loggedIn) setActiveVideo(c);
-                                    }}
+                                    onClick={() => handleVideoClick(c)}
                                 >
                                     <div className={styles.imageWrapper}>
                                         <img src={c.thumbnail} alt={c.title} />
@@ -122,27 +186,23 @@ export default function Classes() {
                         </div>
                     </div>
                 ))}
+
+                {showPaymentPopup && (
+                    <Popup
+                        title={t("EXPIRY_POPUP_TITLE")}
+                        subtitle={t("EXPIRY_POPUP_SUBTITLE")}
+                        buttonText={t("EXPIRY_POPUP_BTN_TEXT")}
+                        onClose={() => setShowPaymentPopup(false)}
+                        onButtonClick={handlePayment}
+                    />
+                )}
             </section>
 
             {activeVideo && (
-                <div
-                    className={styles.modal}
-                    onClick={() => setActiveVideo(null)}
-                >
-                    <div
-                        className={styles.modalContent}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <video
-                            src={activeVideo.src}
-                            controls
-                            autoPlay
-                            playsInline
-                        />
-                        <button
-                            className={styles.close}
-                            onClick={() => setActiveVideo(null)}
-                        >
+                <div className={styles.modal} onClick={() => setActiveVideo(null)}>
+                    <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                        <video src={activeVideo.src} controls autoPlay playsInline />
+                        <button className={styles.close} onClick={() => setActiveVideo(null)}>
                             ✕
                         </button>
                     </div>

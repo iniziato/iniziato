@@ -33,7 +33,7 @@
     height: 800px;
     padding: 0 0 100px;
     color: white;
-    max-width: 455px;
+    max-width: 600px;
 
     text-align: left;
 
@@ -45,8 +45,9 @@
       transform: translateY(30px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
+
     .title {
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 400;
       margin-bottom: 20px;
       opacity: 0;
@@ -89,7 +90,6 @@
   }
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .content {
     padding: 0 15px 60px;

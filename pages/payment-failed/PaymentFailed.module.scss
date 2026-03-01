@@ -1,4 +1,4 @@
-.contactTemplate {
+.paymentTemplate {
   padding: 80px 0 100px;
 
   .pageWidth {
@@ -7,37 +7,21 @@
     padding: 0 20px;
   }
 
-  .contactTemplateContainer {
+  .paymentTemplateContainer {
     max-width: 495px;
     margin: 0 auto;
     text-align: center;
   }
 
-  .contactTemplateText {
+  .paymentTemplateText {
     font-weight: 200;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.17;
     letter-spacing: .04em;
     margin-bottom: 20px;
   }
 
-  .contactTemplateEmail {
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 1.155;
-    letter-spacing: -.01em;
-    margin: 0;
-  }
-
-  .contactInput {
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 16px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-  }
-
-  .contactSubmitButton {
+  .paymentSubmitButton {
     background-color: #ff6b6b;
     color: #fff;
     font-weight: 400;
@@ -50,15 +34,5 @@
       background-color: rgba(255, 107, 107, 0.82);
       transform: scale(1.02);
     }
-  }
-
-  .authTemplateAuthError {
-    color: #ff4d4f;
-    margin-bottom: 12px;
-  }
-
-  .authTemplateSuccess {
-    color: #28a745;
-    margin-bottom: 12px;
   }
 }
