@@ -13,6 +13,7 @@ export default function SignupPage() {
     const [plan] = useState<Plan>("monthly");
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
+    const [birthday, setBirthday] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState<any>({});
     const [authError, setAuthError] = useState<string | null>(null);
@@ -23,6 +24,7 @@ export default function SignupPage() {
         if (!email) e.email = t("AUTH_ERROR_EMAIL_REQUIRED");
         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
             e.email = t("AUTH_ERROR_EMAIL_INVALID");
+        if (!birthday) e.birthday = t("AUTH_ERROR_BIRTHDAY_REQUIRED");
         if (!password) e.password = t("AUTH_ERROR_PASSWORD_REQUIRED");
 
         setErrors(e);
@@ -46,7 +48,7 @@ export default function SignupPage() {
                             unitPrice: plan === "monthly" ? 0.01 : 79,
                         },
                     ],
-                    metadata: { fullName, email, password },
+                    metadata: { fullName, email, password, birthday },
                 }),
             });
 
@@ -87,29 +89,37 @@ export default function SignupPage() {
                     <div className={styles.accountSection}>
                         <h2>{t("SIGNUP_STEP_ACCOUNT")}</h2>
 
+                        {errors.fullName && <div className={styles.authTemplateError}>{errors.fullName}</div>}
                         <input
                             type="text"
                             placeholder={t("AUTH_FULL_NAME")}
                             value={fullName}
                             onChange={(e) => setFullName(e.target.value)}
                         />
-                        {errors.fullName && <div className={styles.authTemplateError}>{errors.fullName}</div>}
 
+                        {errors.email && <div className={styles.authTemplateError}>{errors.email}</div>}
                         <input
                             type="email"
                             placeholder={t("AUTH_EMAIL")}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        {errors.email && <div className={styles.authTemplateError}>{errors.email}</div>}
 
+                        {errors.password && <div className={styles.authTemplateError}>{errors.password}</div>}
                         <input
                             type="password"
                             placeholder={t("AUTH_PASSWORD")}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        {errors.password && <div className={styles.authTemplateError}>{errors.password}</div>}
+
+                        {errors.birthday && <div className={styles.authTemplateError}>{errors.birthday}</div>}
+                        <input
+                            type="date"
+                            placeholder={t("AUTH_BIRTHDAY")}
+                            value={birthday}
+                            onChange={(e) => setBirthday(e.target.value)}
+                        />
                     </div>
 
                     <div className={styles.paymentWrapper}>

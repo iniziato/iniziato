@@ -92,6 +92,8 @@
   "AUTH_PLAN_QUARTERLY_DESC": "საუკეთესო ღირებულება – ყოველკვარტალური გადახდა",
   "AUTH_FULL_NAME": "სრული სახელი",
   "AUTH_ERROR_NAME_REQUIRED": "სრული სახელი აუცილებელია",
+  "AUTH_BIRTHDAY": "დაბადების თარიღი",
+  "AUTH_ERROR_BIRTHDAY_REQUIRED": "დაბადების თარიღი აუცილებელია",
   "AUTH_ERROR_PLAN_REQUIRED": "გთხოვთ აირჩიოთ გეგმა",
   "AUTH_ERROR_LOGIN_INVALID": "მეილი ან პაროლი არასწორია",
   "PAYMENT_TITLE": "გადახდის დეტალები",

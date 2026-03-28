@@ -30,13 +30,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const isPaymentSuccessful = order.order_status?.key === "completed";
 
         if (isPaymentSuccessful && order.metadata) {
-            const { fullName, email, password } = order.metadata;
+            const { fullName, email, password, birthday } = order.metadata;
 
             // 1️⃣ Create user if not exists
             let user = await prisma.user.findUnique({ where: { email } });
             if (!user) {
                 user = await prisma.user.create({
-                    data: { fullName, email, password }, // hash password in production!
+                    data: { fullName, email, password, birthday }, // hash password in production!
                 });
                 console.log("Created user:", user.id);
             } else {

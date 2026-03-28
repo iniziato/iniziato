@@ -3,7 +3,7 @@ import { hash } from "bcryptjs";
 
 export async function createUserAndPayment(
     externalOrderId: string,
-    metadata: { fullName: string; email: string; password: string },
+    metadata: { fullName: string; email: string; password: string, birthday: string },
     paymentStatus: any
 ) {
     let user = await prisma.user.findUnique({ where: { email: metadata.email } });
@@ -16,6 +16,7 @@ export async function createUserAndPayment(
                 email: metadata.email,
                 fullName: metadata.fullName,
                 password: hashedPassword,
+                birthday: metadata.birthday
             },
         });
     } else {

@@ -11,9 +11,9 @@ export default async function handler(
     }
 
     try {
-        const { fullName, email, password } = req.body;
+        const { fullName, email, password, birthday } = req.body;
 
-        if (!fullName || !email || !password) {
+        if (!fullName || !email || !password || !birthday) {
             return res.status(400).json({ message: "Missing fields" });
         }
 
@@ -29,6 +29,7 @@ export default async function handler(
                 fullName,
                 email,
                 password: hashedPassword,
+                birthday,
                 // For future: you can add isPaid: false
             },
         });
