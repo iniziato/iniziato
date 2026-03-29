@@ -62,7 +62,7 @@ export default function LoginPage() {
 
             localStorage.setItem("token", data.token);
 
-            window.location.href = "/videos";
+            window.location.href = "/classes";
         } catch (err) {
             console.error("Login error:", err);
             setAuthError(t("AUTH_ERROR_INVALID_CREDENTIALS"));
