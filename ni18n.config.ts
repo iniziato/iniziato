@@ -4,4 +4,6 @@ export const ni18nConfig: Ni18nOptions = {
   supportedLngs: ["ka"],
   ns: ["common"],
   defaultNS: "common",
+  lng: "ka",
+  initImmediate: false,
 };
