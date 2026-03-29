@@ -17,12 +17,16 @@ jobs:
           script: |
             cd /var/www/iniziato
 
-            # Pull latest code
-            if [ ! -d ".git" ]; then
-              git clone git@github.com:iniziato/iniziato.git .
-            else
-              git pull origin main
-            fi
+            # Backup .env before pull
+            cp .env /tmp/iniziato.env.bak
+
+            # Pull latest code (reset any local changes)
+            git checkout -- .
+            git clean -fd
+            git pull origin main
+
+            # Restore .env
+            cp /tmp/iniziato.env.bak .env
 
             # Install dependencies
             npm install

@@ -44,12 +44,10 @@ export const withTranslations = async (locale?: string) => {
     const lang = locale || "ka";
 
     const serverData = await loadTranslations(ni18nConfig, lang);
-    const { resources, ns, lng } = serverData.__ni18n_server__;
 
     return {
         props: {
-            initialI18nStore: { [lng as string]: { common: resources[lng as string] } },
-            initialLocale: lng,
+            ...serverData,
         },
     };
 };
