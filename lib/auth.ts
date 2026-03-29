@@ -4,6 +4,12 @@ import {ni18nConfig} from "@/ni18n.config";
 
 const TOKEN_KEY = "token";
 
+function getJwtSecret(): string {
+    const secret = process.env.JWT_SECRET;
+    if (!secret) throw new Error("JWT_SECRET environment variable is not set");
+    return secret;
+}
+
 interface TokenPayload extends JwtPayload {
     id: string;
     email: string;
@@ -25,13 +31,14 @@ export const logout = () => {
 export async function verifyToken(token?: string): Promise<TokenPayload | null> {
     if (!token) return null;
     try {
-        const secret = process.env.JWT_SECRET || "secret";
-        return jwt.verify(token, secret) as TokenPayload;
+        return jwt.verify(token, getJwtSecret()) as TokenPayload;
     } catch (err) {
         console.error("JWT verification failed", err);
         return null;
     }
 }
+
+export { getJwtSecret };
 
 export const withTranslations = async (locale?: string) => {
     const lang = locale || "ka";

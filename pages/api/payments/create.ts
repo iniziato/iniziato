@@ -4,6 +4,10 @@ import { callBogAPI } from "@/lib/bog/client";
 import { handleBogErrorGE } from "@/lib/bog/errorHandler";
 import { createUserAndPayment } from "@/lib/payments";
 
+const PRODUCT_PRICES: Record<string, number> = {
+    monthly_plan: 79,
+};
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") return res.status(405).end();
 
@@ -18,11 +22,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const externalOrderId = uuidv4();
 
-        const totalAmount = process.env.TEST_MODE === "true"
-            ? 0
-            : items.reduce((sum: number, i: any) => sum + i.quantity * i.unitPrice, 0);
+        // Calculate total from server-side prices, not client input
+        const totalAmount = items.reduce((sum: number, i: any) => {
+            const serverPrice = PRODUCT_PRICES[i.productId];
+            if (serverPrice === undefined) {
+                throw new Error(`Unknown product: ${i.productId}`);
+            }
+            return sum + (i.quantity || 1) * serverPrice;
+        }, 0);
 
-        // In TEST_MODE, skip real BOG call and simulate a successful payment
+        // Strip password from metadata sent to BOG
+        const safeMetadata = {
+            fullName: metadata.fullName,
+            email: metadata.email,
+            birthday: metadata.birthday,
+        };
+
         if (process.env.TEST_MODE === "true") {
             const mockPaymentStatus = {
                 order_status: { key: "completed", value: "წარმატებული" },
@@ -34,7 +49,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 },
             };
 
-            // Insert user + payment into DB immediately
             const result = await createUserAndPayment(externalOrderId, metadata, mockPaymentStatus);
 
             return res.status(200).json({
@@ -53,18 +67,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             purchase_units: {
                 currency: "GEL",
                 total_amount: totalAmount,
-                basket: items.map((i) => ({
+                basket: items.map((i: any) => ({
                     product_id: i.productId,
                     description: i.description,
-                    quantity: i.quantity,
-                    unit_price: i.unitPrice,
+                    quantity: i.quantity || 1,
+                    unit_price: PRODUCT_PRICES[i.productId],
                 })),
             },
             redirect_urls: {
                 success: `${process.env.NGROK_URL}/payment-success`,
                 fail: `${process.env.NGROK_URL}/payment-failed`,
             },
-            metadata,
+            metadata: safeMetadata,
         };
 
         const bogResponse: any = await callBogAPI("/payments/v1/ecommerce/orders", "POST", bogPayload);
@@ -83,6 +97,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
     } catch (err: any) {
         console.error("Create payment error:", err);
-        return res.status(500).json({ error: `გადახდის შექმნა ვერ განხორციელდა: ${err.message}` });
+        return res.status(500).json({ error: "გადახდის შექმნა ვერ განხორციელდა" });
     }
 }

@@ -13,6 +13,7 @@ interface UserProfile {
 export default function EditProfile() {
     const { t } = useTranslation();
     const [user, setUser] = useState<UserProfile | null>(null);
+    const [currentPassword, setCurrentPassword] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState<any>({});
@@ -48,6 +49,8 @@ export default function EditProfile() {
 
     const validate = () => {
         const e: any = {};
+        if (!currentPassword) e.currentPassword = t("AUTH_ERROR_PASSWORD_REQUIRED");
+
         if (!password) e.password = t("AUTH_ERROR_PASSWORD_REQUIRED");
         else if (password.length < 6)
             e.password = t("AUTH_ERROR_PASSWORD_MIN");
@@ -70,12 +73,13 @@ export default function EditProfile() {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${getToken()}`,
                 },
-                body: JSON.stringify({ password }),
+                body: JSON.stringify({ currentPassword, password }),
             });
 
             const data = await res.json();
             if (res.ok) {
                 setSuccessMsg(t("AUTH_PASSWORD_UPDATED_SUCCESS"));
+                setCurrentPassword("");
                 setPassword("");
                 setConfirmPassword("");
             } else {
@@ -117,6 +121,18 @@ export default function EditProfile() {
                                 value={user?.email || ""}
                                 disabled
                             />
+                        </div>
+
+                        <div className={styles.inputGroup}>
+                            <input
+                                type="password"
+                                placeholder={t("AUTH_CURRENT_PASSWORD")}
+                                value={currentPassword}
+                                onChange={(e) => setCurrentPassword(e.target.value)}
+                            />
+                            {errors.currentPassword && (
+                                <span className={styles.inputError}>{errors.currentPassword}</span>
+                            )}
                         </div>
 
                         <div className={styles.inputGroup}>

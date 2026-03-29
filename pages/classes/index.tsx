@@ -6,6 +6,7 @@ import { IntensitySection } from "@/components/Layout/IntensitySection";
 import { withTranslations } from "@/lib/auth";
 import {jwtDecode} from "jwt-decode";
 import { Popup } from "@/components/Layout/PopUp";
+import { fetchVideoUrl } from "@/lib/video";
 
 type VideoClass = {
     id: string;
@@ -27,9 +28,10 @@ export default function Classes() {
     const { t } = useTranslation();
     const [loggedIn, setLoggedIn] = useState(false);
     const [canPlay, setCanPlay] = useState(false);
-    const [activeVideo, setActiveVideo] = useState<VideoClass | null>(null);
+    const [activeVideo, setActiveVideo] = useState<string | null>(null);
     const [showPaymentPopup, setShowPaymentPopup] = useState(false);
     const [userEmail, setUserEmail] = useState<string | null>(null);
+    const [videoLoading, setVideoLoading] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -48,7 +50,7 @@ export default function Classes() {
             .catch(console.error);
     }, []);
 
-    const handleVideoClick = (video: VideoClass) => {
+    const handleVideoClick = async (video: VideoClass) => {
         if (!loggedIn) {
             window.location.href = "/login";
             return;
@@ -59,7 +61,22 @@ export default function Classes() {
             return;
         }
 
-        setActiveVideo(video);
+        setVideoLoading(true);
+        try {
+            const url = await fetchVideoUrl(video.src);
+            setActiveVideo(url);
+        } catch {
+            setShowPaymentPopup(true);
+        } finally {
+            setVideoLoading(false);
+        }
+    };
+
+    const handleCloseVideo = () => {
+        if (activeVideo) {
+            URL.revokeObjectURL(activeVideo);
+        }
+        setActiveVideo(null);
     };
 
     const handlePayment = async () => {
@@ -105,7 +122,7 @@ export default function Classes() {
                 {
                     id: "1",
                     title: t("CLASS_FULL_BODY"),
-                    thumbnail: "/images/essentials-thumbnail.png",
+                    thumbnail: "/images/essentials-thumbnail.jpg",
                     duration: "15 min",
                     level: t("CLASS_LEVEL_SATISFYING"),
                     src: "/videos/class1.mp4",
@@ -113,7 +130,7 @@ export default function Classes() {
                 {
                     id: "2",
                     title: t("CLASS_SLOW_BURN"),
-                    thumbnail: "/images/stretch-thumbnail.png",
+                    thumbnail: "/images/stretch-thumbnail.jpg",
                     duration: "10 min",
                     level: t("CLASS_LEVEL_SATISFYING"),
                     src: "/videos/class2.mp4",
@@ -128,7 +145,7 @@ export default function Classes() {
                 {
                     id: "3",
                     title: t("CLASS_FULL_BODY_2"),
-                    thumbnail: "/images/office-thumbnail.png",
+                    thumbnail: "/images/office-thumbnail.jpg",
                     duration: "12 min",
                     level: t("CLASS_LEVEL_INTENSE"),
                     src: "/videos/class3.mp4",
@@ -169,7 +186,9 @@ export default function Classes() {
                                                 {t("GET_STARTED")}
                                             </button>
                                         ) : (
-                                            <div className={styles.playOverlay}>▶</div>
+                                            <div className={styles.playOverlay}>
+                                                {videoLoading ? "..." : "▶"}
+                                            </div>
                                         )}
                                     </div>
                                     <div className={styles.info}>
@@ -199,10 +218,10 @@ export default function Classes() {
             </section>
 
             {activeVideo && (
-                <div className={styles.modal} onClick={() => setActiveVideo(null)}>
+                <div className={styles.modal} onClick={handleCloseVideo}>
                     <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                        <video src={activeVideo.src} controls autoPlay playsInline />
-                        <button className={styles.close} onClick={() => setActiveVideo(null)}>
+                        <video src={activeVideo} controls autoPlay playsInline />
+                        <button className={styles.close} onClick={handleCloseVideo}>
                             ✕
                         </button>
                     </div>

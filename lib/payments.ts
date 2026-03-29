@@ -28,7 +28,7 @@ export async function createUserAndPayment(
             userId: user.id,
             orderId: externalOrderId,
             externalOrderId,
-            status: paymentStatus.order_status.key,
+            status: paymentStatus.order_status.key.toLowerCase(),
             amount: Number(paymentStatus.purchase_units?.request_amount || 0),
             currency: paymentStatus.purchase_units?.currency_code || "GEL",
         },

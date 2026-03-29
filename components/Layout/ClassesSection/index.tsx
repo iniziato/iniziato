@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { fetchVideoUrl } from "@/lib/video";
 import styles from "./ClassesSection.module.scss";
 
 const classKeys = [
@@ -17,7 +18,7 @@ const classMedia: Record<
     { thumbnail: string; video?: string }
 > = {
     essentials: {
-        thumbnail: "/images/essentials-thumbnail.png",
+        thumbnail: "/images/essentials-thumbnail.jpg",
         video: "/videos/essentials.mp4",
     },
     body: {
@@ -25,11 +26,11 @@ const classMedia: Record<
         video: "/videos/body.mp4",
     },
     office: {
-        thumbnail: "/images/office-thumbnail.png",
+        thumbnail: "/images/office-thumbnail.jpg",
         video: "/videos/office-workout.mp4",
     },
     stretch: {
-        thumbnail: "/images/stretch-thumbnail.png",
+        thumbnail: "/images/stretch-thumbnail.jpg",
         video: "/videos/stretch-workout.mp4",
     },
     breathwork: {
@@ -42,6 +43,8 @@ export const ClassesSection = () => {
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState("essentials");
     const [showLightbox, setShowLightbox] = useState(false);
+    const [videoUrl, setVideoUrl] = useState<string | null>(null);
+    const [videoLoading, setVideoLoading] = useState(false);
 
     const classes = classKeys.map((key) => ({
         key,
@@ -52,6 +55,28 @@ export const ClassesSection = () => {
     }));
 
     const activeClass = classes.find((c) => c.key === activeTab);
+
+    const handlePlay = async () => {
+        if (!activeClass?.video) return;
+        setVideoLoading(true);
+        try {
+            const url = await fetchVideoUrl(activeClass.video);
+            setVideoUrl(url);
+            setShowLightbox(true);
+        } catch {
+            window.location.href = "/login";
+        } finally {
+            setVideoLoading(false);
+        }
+    };
+
+    const handleCloseLightbox = () => {
+        setShowLightbox(false);
+        if (videoUrl) {
+            URL.revokeObjectURL(videoUrl);
+            setVideoUrl(null);
+        }
+    };
 
     return (
         <section className={styles.classPreview}>
@@ -83,9 +108,10 @@ export const ClassesSection = () => {
                     {activeClass?.video && (
                         <button
                             className={styles.playButton}
-                            onClick={() => setShowLightbox(true)}
+                            onClick={handlePlay}
+                            disabled={videoLoading}
                         >
-                            ▶
+                            {videoLoading ? "..." : "▶"}
                         </button>
                     )}
                 </div>
@@ -98,22 +124,22 @@ export const ClassesSection = () => {
                 </div>
             </div>
 
-            {showLightbox && activeClass?.video && (
+            {showLightbox && videoUrl && (
                 <div
                     className={styles.lightbox}
-                    onClick={() => setShowLightbox(false)}
+                    onClick={handleCloseLightbox}
                 >
                     <div
                         className={styles.lightboxContent}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <video controls autoPlay className={styles.lightboxVideo}>
-                            <source src={activeClass.video} type="video/mp4" />
+                            <source src={videoUrl} type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                         <button
                             className={styles.lightboxClose}
-                            onClick={() => setShowLightbox(false)}
+                            onClick={handleCloseLightbox}
                         >
                             ✕
                         </button>

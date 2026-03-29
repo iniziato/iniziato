@@ -1,30 +1,55 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "@/lib/prisma";
+import { createUserAndPayment } from "@/lib/payments";
+import crypto from "crypto";
+
+const BOG_PUBLIC_KEY = process.env.BOG_PUBLIC_KEY?.replace(/\\n/g, "\n") || "";
+
+// Verify signature BEFORE deserializing body, as per BOG docs
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+};
+
+function getRawBody(req: NextApiRequest): Promise<Buffer> {
+    return new Promise((resolve, reject) => {
+        const chunks: Buffer[] = [];
+        req.on("data", (chunk) => chunks.push(chunk));
+        req.on("end", () => resolve(Buffer.concat(chunks)));
+        req.on("error", reject);
+    });
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") return res.status(405).end();
 
     try {
         const signatureHeader = req.headers["callback-signature"] as string | undefined;
-        const bodyRaw = JSON.stringify(req.body);
 
-        // ✅ Verify signature (for production, use BOG public key & SHA256withRSA)
         if (!signatureHeader) {
             console.warn("No BOG signature header found");
-            return res.status(403).json({ error: "No BOG signature header found" });
+            return res.status(403).json({ error: "Missing callback signature" });
         }
 
-        // Optionally: implement real RSA verification with BOG's public key here
-        // For testing, we can skip signature verification temporarily
-        const isValid = true; // TODO: replace with proper verification
+        // Read raw body before parsing to preserve field order for signature verification
+        const rawBody = await getRawBody(req);
+
+        // Verify SHA256withRSA signature using BOG's public key
+        const verifier = crypto.createVerify("SHA256");
+        verifier.update(rawBody);
+        const isValid = verifier.verify(BOG_PUBLIC_KEY, signatureHeader, "base64");
+
         if (!isValid) {
             console.warn("BOG callback signature verification failed");
-            return res.status(403).json({ error: "Invalid BOG callback signature" });
+            return res.status(403).json({ error: "Invalid callback signature" });
         }
 
-        const order = req.body.body;
+        // Parse body only after signature is verified
+        const body = JSON.parse(rawBody.toString("utf-8"));
+        const order = body.body;
+
         if (!order) {
-            return res.status(400).json({ error: "Invalid payload: missing order body" });
+            return res.status(400).json({ error: "Invalid payload" });
         }
 
         const isPaymentSuccessful = order.order_status?.key === "completed";
@@ -32,35 +57,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (isPaymentSuccessful && order.metadata) {
             const { fullName, email, password, birthday } = order.metadata;
 
-            // 1️⃣ Create user if not exists
-            let user = await prisma.user.findUnique({ where: { email } });
-            if (!user) {
-                user = await prisma.user.create({
-                    data: { fullName, email, password, birthday }, // hash password in production!
-                });
-                console.log("Created user:", user.id);
-            } else {
-                console.log("User already exists:", user.id);
-            }
-
-            // 2️⃣ Create payment linked to user
-            await prisma.payment.create({
-                data: {
-                    orderId: order.order_id,
-                    externalOrderId: order.external_order_id,
-                    status: order.order_status.key.toUpperCase(),
-                    amount: parseFloat(order.purchase_units?.request_amount) || 0,
-                    currency: order.purchase_units?.currency_code || "GEL",
-                    user: { connect: { id: user.id } },
-                },
-            });
+            await createUserAndPayment(
+                order.external_order_id || order.order_id,
+                { fullName, email, password, birthday },
+                {
+                    order_status: order.order_status,
+                    purchase_units: order.purchase_units,
+                }
+            );
         } else {
-            console.log(`Payment ${order.order_id} not completed. User not created.`);
+            console.log(`Payment ${order.order_id} not completed.`);
         }
 
         return res.status(200).json({ received: true });
     } catch (err: any) {
         console.error("Callback error:", err);
-        return res.status(500).json({ error: `Callback process failed: ${err.message}` });
+        return res.status(500).json({ error: "Callback processing failed" });
     }
 }
