@@ -1,0 +1,41 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: 142.93.160.178
+          username: root
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          script: |
+            cd /var/www/iniziato
+
+            # Pull latest code
+            if [ ! -d ".git" ]; then
+              git clone git@github.com:iniziato/iniziato.git .
+            else
+              git pull origin main
+            fi
+
+            # Install dependencies
+            npm install
+
+            # Generate Prisma client
+            npx prisma generate
+
+            # Run migrations
+            npx prisma migrate deploy
+
+            # Build Next.js
+            npm run build
+
+            # Restart with PM2
+            pm2 describe iniziato > /dev/null 2>&1 && pm2 restart iniziato || pm2 start npm --name "iniziato" -- start
+            pm2 save
