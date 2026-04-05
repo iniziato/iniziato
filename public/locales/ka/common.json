@@ -86,7 +86,7 @@
   "AUTH_ERROR_INVALID_CREDENTIALS": "ელ. ფოსტა ან პაროლი არასწორია",
   "SIGNUP_STEP_PLAN": "აირჩიე შენი გეგმა",
   "SIGNUP_STEP_ACCOUNT": "შეიქმენი შენი ანგარიში",
-  "AUTH_PLAN_MONTHLY": "თვიური გეგმა",
+  "AUTH_PLAN_MONTHLY": "ყოველთვიური გეგმა",
   "AUTH_PLAN_MONTHLY_DESC": "უსასრულო წვდომა – ყოველთვიური გადახდა",
   "AUTH_PLAN_QUARTERLY": "კვარტალური გეგმა",
   "AUTH_PLAN_QUARTERLY_DESC": "საუკეთესო ღირებულება – ყოველკვარტალური გადახდა",

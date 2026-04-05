@@ -43,7 +43,7 @@ export default function SignupPage() {
                     items: [
                         {
                             productId: plan === "monthly" ? "monthly_plan" : "quarterly_plan",
-                            description: plan === "monthly" ? "თვიური წევრობა" : "კვარტალური წევრობა",
+                            description: plan === "monthly" ? "ყოველთვიური წევრობა" : "კვარტალური წევრობა",
                             quantity: 1,
                             unitPrice: plan === "monthly" ? 0.01 : 79,
                         },

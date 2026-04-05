@@ -90,7 +90,7 @@ export default function Classes() {
                     items: [
                         {
                             productId: "monthly_plan",
-                            description: "თვიური წევრობა",
+                            description: "ყოველთვიური წევრობა",
                             quantity: 1,
                             unitPrice: 79,
                         },
