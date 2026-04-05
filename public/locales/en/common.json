@@ -127,5 +127,13 @@
   "INTENSITY_SATISFYING_TEXT": "These classes are perfect when you’re wanting to lengthen, align and sculpt. They focus on mindful movement and technique so you can truly feel the change in your body.",
   "INTENSITY_INTENSE": "Intense",
   "INTENSITY_INTENSE_TITLE": "Kick my butt. I need this.",
-  "INTENSITY_INTENSE_TEXT": "For when you want to feel the burn in all the right places. Target your arms, abs and glutes to get that signature Pilates Class body."
+  "INTENSITY_INTENSE_TEXT": "For when you want to feel the burn in all the right places. Target your arms, abs and glutes to get that signature Pilates Class body.",
+  "AUTH_FORGOT_PASSWORD_SUCCESS": "If this email is registered, a reset link has been sent. Check your inbox.",
+  "AUTH_RESET_PASSWORD": "Reset password",
+  "AUTH_RESET_PASSWORD_SUBTITLE": "Enter your new password",
+  "AUTH_RESET_INVALID_LINK": "Invalid or expired reset link",
+  "AUTH_ERROR_PASSWORD_MIN": "Password must be at least 6 characters",
+  "AUTH_ERROR_PASSWORD_MISMATCH": "Passwords do not match",
+  "AUTH_PASSWORD_UPDATED_SUCCESS": "Password updated successfully!",
+  "AUTH_PASSWORD_UPDATE_ERROR": "Failed to update password"
 }

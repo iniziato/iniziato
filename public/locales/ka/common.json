@@ -143,5 +143,9 @@
   "PAYMENT_SUCCESS_TEXT": "გადახდა წარმატებულია!",
   "PAYMENT_FAILED_TEXT": "გადახდა ვერ შესრულდა",
   "CONTINUE_WORKOUT": "ვარჯიშის დროა",
-  "RETURN_TO_HOME_PAGE": "დაბრუნდი მთავარ გვერდზე"
+  "RETURN_TO_HOME_PAGE": "დაბრუნდი მთავარ გვერდზე",
+  "AUTH_FORGOT_PASSWORD_SUCCESS": "თუ ეს მეილი რეგისტრირებულია, აღდგენის ლინკი გამოგზავნილია. შეამოწმე შემოსულები.",
+  "AUTH_RESET_PASSWORD": "პაროლის აღდგენა",
+  "AUTH_RESET_PASSWORD_SUBTITLE": "შეიყვანე ახალი პაროლი",
+  "AUTH_RESET_INVALID_LINK": "არასწორი ან ვადაგასული ლინკი"
 }

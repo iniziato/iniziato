@@ -12,7 +12,9 @@ export default function ForgotPassword() {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
         setSuccess("");
@@ -27,9 +29,25 @@ export default function ForgotPassword() {
             return;
         }
 
-        // TODO: call backend to send login code
-        console.log("Send login code to:", email);
-        setSuccess(t("AUTH_FORGOT_PASSWORD_SUCCESS"));
+        setLoading(true);
+
+        try {
+            const res = await fetch("/api/auth/forgot-password", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email }),
+            });
+
+            if (res.ok) {
+                setSuccess(t("AUTH_FORGOT_PASSWORD_SUCCESS"));
+            } else {
+                setError(t("AUTH_PASSWORD_UPDATE_ERROR"));
+            }
+        } catch {
+            setError(t("AUTH_PASSWORD_UPDATE_ERROR"));
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -54,7 +72,7 @@ export default function ForgotPassword() {
                                 onChange={(e) => setEmail(e.target.value)}
                                 className={styles.contactInput}
                             />
-                            <button type="submit" className={styles.contactSubmitButton}>
+                            <button type="submit" className={styles.contactSubmitButton} disabled={loading}>
                                 {t("AUTH_SEND_CODE")}
                             </button>
                         </form>
