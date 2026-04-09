@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             { expiresIn: "15m" }
         );
 
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+        const baseUrl = process.env.BASE_URL || "http://localhost:3000";
         const resetLink = `${baseUrl}/reset-password?token=${resetToken}`;
 
         const transporter = nodemailer.createTransport({

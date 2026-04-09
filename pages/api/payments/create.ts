@@ -53,14 +53,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             return res.status(200).json({
                 externalOrderId,
-                redirectUrl: `${process.env.BASE_URL || process.env.NGROK_URL}/payment-success`,
+                redirectUrl: `${process.env.BASE_URL}/payment-success`,
                 testMode: true,
                 result,
             });
         }
 
         const bogPayload = {
-            callback_url: `${process.env.BASE_URL || process.env.NGROK_URL}/api/payments/callback`,
+            callback_url: `${process.env.BASE_URL}/api/payments/callback`,
             external_order_id: externalOrderId,
             capture: "automatic",
             language: "ka",
@@ -75,8 +75,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 })),
             },
             redirect_urls: {
-                success: `${process.env.BASE_URL || process.env.NGROK_URL}/payment-success`,
-                fail: `${process.env.BASE_URL || process.env.NGROK_URL}/payment-failed`,
+                success: `${process.env.BASE_URL}/payment-success`,
+                fail: `${process.env.BASE_URL}/payment-failed`,
             },
             metadata: safeMetadata,
         };
