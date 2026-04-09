@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { sendWelcomeEmail } from "@/lib/email";
 
 export default async function handler(
     req: NextApiRequest,
@@ -33,6 +34,11 @@ export default async function handler(
                 // For future: you can add isPaid: false
             },
         });
+
+        // Fire-and-forget welcome email; do not block registration on failure
+        sendWelcomeEmail({ email: user.email, fullName: user.fullName }).catch((err) =>
+            console.error("Welcome email failed:", err)
+        );
 
         return res.status(201).json({
             message: "AUTH_SIGNUP_SUCCESS",
