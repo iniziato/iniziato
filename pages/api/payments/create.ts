@@ -5,7 +5,7 @@ import { handleBogErrorGE } from "@/lib/bog/errorHandler";
 import { createUserAndPayment } from "@/lib/payments";
 
 const PRODUCT_PRICES: Record<string, number> = {
-    monthly_plan: 79,
+    monthly_plan: 0.01,
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
