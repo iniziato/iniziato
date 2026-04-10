@@ -166,5 +166,12 @@
   "AUTH_WELCOME_TEXT": "შენი ანგარიში წარმატებით გააქტიურდა. გადაიხადე წევრობა და დაიწყე შენი პილატესის მოგზაურობა.",
   "AUTH_PAY_NOW": "გადახდა",
   "AUTH_PROCESSING": "მუშავდება...",
-  "AUTH_PAYMENT_ERROR": "გადახდა ვერ განხორციელდა. სცადე თავიდან."
+  "AUTH_PAYMENT_ERROR": "გადახდა ვერ განხორციელდა. სცადე თავიდან.",
+  "AUTH_ACCEPT_TERMS_PREFIX": "ვეთანხმები ",
+  "AUTH_ACCEPT_TERMS_PRIVACY": "კონფიდენციალურობის პოლიტიკას",
+  "AUTH_ACCEPT_TERMS_AND": " და ",
+  "AUTH_ACCEPT_TERMS_DISCLAIMER": "პასუხისმგებლობის უარყოფას",
+  "AUTH_ERROR_ACCEPT_TERMS_REQUIRED": "გთხოვთ, დაეთანხმოთ პირობებს",
+  "AUTH_ERROR_CAPTCHA_REQUIRED": "გთხოვთ, გაიაროთ CAPTCHA ვერიფიკაცია",
+  "AUTH_ERROR_CAPTCHA_FAILED": "CAPTCHA ვერიფიკაცია ვერ მოხერხდა"
 }

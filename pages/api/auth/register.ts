@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { prisma } from "@/lib/prisma";
 import { getJwtSecret } from "@/lib/auth";
 import { sendActivationEmail } from "@/lib/email";
+import { verifyRecaptcha } from "@/lib/recaptcha";
 
 export default async function handler(
     req: NextApiRequest,
@@ -14,7 +15,7 @@ export default async function handler(
     }
 
     try {
-        const { fullName, email, password, birthday } = req.body;
+        const { fullName, email, password, birthday, captchaToken } = req.body;
 
         if (!fullName || !email || !password || !birthday) {
             return res.status(400).json({ message: "Missing fields" });
@@ -22,6 +23,15 @@ export default async function handler(
 
         if (password.length < 6) {
             return res.status(400).json({ message: "AUTH_ERROR_PASSWORD_MIN" });
+        }
+
+        const captcha = await verifyRecaptcha(captchaToken);
+        if (!captcha.ok) {
+            console.warn("[REGISTER] Captcha verification failed", {
+                email,
+                error: captcha.error,
+            });
+            return res.status(400).json({ message: "AUTH_ERROR_CAPTCHA_FAILED" });
         }
 
         const existingUser = await prisma.user.findUnique({ where: { email } });

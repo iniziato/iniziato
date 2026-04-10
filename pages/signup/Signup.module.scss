@@ -152,6 +152,40 @@
       }
     }
 
+    .acceptTerms {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.5;
+      text-align: left;
+      color: #444;
+
+      input[type="checkbox"] {
+        margin: 3px 0 0 0;
+        width: 16px;
+        height: 16px;
+        accent-color: #ff6b6b;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+
+      a {
+        color: #ff6b6b;
+        text-decoration: underline;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+
+    .captchaWrapper {
+      display: flex;
+      justify-content: center;
+    }
+
     .submitButton {
       margin-top: 20px;
       padding: 14px;

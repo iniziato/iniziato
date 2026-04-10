@@ -154,5 +154,12 @@
   "AUTH_WELCOME_TEXT": "Your account has been activated. Complete your membership payment to start your Pilates journey.",
   "AUTH_PAY_NOW": "Pay now",
   "AUTH_PROCESSING": "Processing...",
-  "AUTH_PAYMENT_ERROR": "Payment failed. Please try again."
+  "AUTH_PAYMENT_ERROR": "Payment failed. Please try again.",
+  "AUTH_ACCEPT_TERMS_PREFIX": "I agree to the ",
+  "AUTH_ACCEPT_TERMS_PRIVACY": "Privacy Policy",
+  "AUTH_ACCEPT_TERMS_AND": " and ",
+  "AUTH_ACCEPT_TERMS_DISCLAIMER": "Disclaimer",
+  "AUTH_ERROR_ACCEPT_TERMS_REQUIRED": "Please accept the terms",
+  "AUTH_ERROR_CAPTCHA_REQUIRED": "Please complete the CAPTCHA",
+  "AUTH_ERROR_CAPTCHA_FAILED": "CAPTCHA verification failed"
 }
