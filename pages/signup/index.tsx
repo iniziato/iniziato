@@ -1,13 +1,16 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useTranslation } from "react-i18next";
 import styles from "./Signup.module.scss";
 import { withTranslations } from "@/lib/auth";
 
-const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), { ssr: false });
+const ReCAPTCHA = dynamic(
+    () => import("react-google-recaptcha") as any,
+    { ssr: false }
+) as any;
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 
@@ -20,15 +23,15 @@ export default function SignupPage() {
     const [password, setPassword] = useState("");
     const [acceptTerms, setAcceptTerms] = useState(false);
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+    const [captchaKey, setCaptchaKey] = useState(0);
     const [errors, setErrors] = useState<any>({});
     const [authError, setAuthError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-    const recaptchaRef = useRef<any>(null);
 
     const resetCaptcha = () => {
         setCaptchaToken(null);
-        recaptchaRef.current?.reset?.();
+        setCaptchaKey((k) => k + 1);
     };
 
     const validateAll = () => {
@@ -157,7 +160,7 @@ export default function SignupPage() {
                             {RECAPTCHA_SITE_KEY && (
                                 <div className={styles.captchaWrapper}>
                                     <ReCAPTCHA
-                                        ref={recaptchaRef}
+                                        key={captchaKey}
                                         sitekey={RECAPTCHA_SITE_KEY}
                                         hl="ka"
                                         onChange={(token: string | null) => setCaptchaToken(token)}
