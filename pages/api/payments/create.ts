@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
 import { callBogAPI } from "@/lib/bog/client";
 import { handleBogErrorGE } from "@/lib/bog/errorHandler";
-import { recordPayment } from "@/lib/payments";
+import { createPendingPayment, finalizePayment, markPaymentFailed } from "@/lib/payments";
 import { verifyToken } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
@@ -13,23 +13,37 @@ const PRODUCT_PRICES: Record<string, number> = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") return res.status(405).end();
 
+    let externalOrderId: string | null = null;
+
     try {
         const token = req.headers.authorization?.split(" ")[1];
         const sessionUser = await verifyToken(token);
-        if (!sessionUser) return res.status(401).json({ message: "Unauthorized" });
+        if (!sessionUser) {
+            console.warn("[PAYMENT][CREATE] Unauthorized payment attempt");
+            return res.status(401).json({ message: "Unauthorized" });
+        }
 
         const dbUser = await prisma.user.findUnique({ where: { id: sessionUser.id } });
-        if (!dbUser) return res.status(404).json({ message: "User not found" });
+        if (!dbUser) {
+            console.warn("[PAYMENT][CREATE] User not found", { userId: sessionUser.id });
+            return res.status(404).json({ message: "User not found" });
+        }
         if (!dbUser.isActivated) {
+            console.warn("[PAYMENT][CREATE] Unactivated user attempted payment", {
+                userId: dbUser.id,
+                email: dbUser.email,
+            });
             return res.status(403).json({ message: "AUTH_ERROR_ACCOUNT_NOT_ACTIVATED" });
         }
 
         const { items } = req.body;
 
-        if (!items || !Array.isArray(items) || items.length === 0)
+        if (!items || !Array.isArray(items) || items.length === 0) {
+            console.warn("[PAYMENT][CREATE] Invalid items", { userId: dbUser.id, items });
             return res.status(400).json({ error: "კალათის ნივთები არასწორია" });
+        }
 
-        const externalOrderId = uuidv4();
+        externalOrderId = uuidv4();
 
         // Calculate total from server-side prices, not client input
         const totalAmount = items.reduce((sum: number, i: any) => {
@@ -40,6 +54,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return sum + (i.quantity || 1) * serverPrice;
         }, 0);
 
+        console.log("[PAYMENT][CREATE] Initiating payment", {
+            externalOrderId,
+            userId: dbUser.id,
+            email: dbUser.email,
+            totalAmount,
+            currency: "GEL",
+            items: items.map((i: any) => ({
+                productId: i.productId,
+                quantity: i.quantity,
+            })),
+        });
+
+        // Persist a pending record BEFORE calling BOG so we can investigate any failure
+        await createPendingPayment(externalOrderId, dbUser.id, totalAmount, "GEL");
+
         const bogMetadata = {
             userId: dbUser.id,
             email: dbUser.email,
@@ -47,21 +76,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         };
 
         if (process.env.TEST_MODE === "true") {
-            const mockPaymentStatus = {
-                order_status: { key: "completed", value: "წარმატებული" },
-                purchase_units: {
-                    request_amount: totalAmount,
-                    currency_code: "GEL",
-                },
-                payment_detail: {
-                    transaction_id: "TEST_TX_12345",
-                    payer_identifier: "0000****0000",
-                    code: "100",
-                    code_description: "Successful payment",
-                },
-            };
+            console.log("[PAYMENT][CREATE][TEST_MODE] Auto-completing payment", {
+                externalOrderId,
+            });
 
-            const result = await recordPayment(externalOrderId, dbUser.id, mockPaymentStatus);
+            const result = await finalizePayment(
+                externalOrderId,
+                { key: "completed", value: "წარმატებული" },
+                { request_amount: totalAmount, currency_code: "GEL" }
+            );
 
             return res.status(200).json({
                 externalOrderId,
@@ -93,9 +116,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             metadata: bogMetadata,
         };
 
+        console.log("[PAYMENT][BOG] Calling BOG API", { externalOrderId });
+
         const bogResponse: any = await callBogAPI("/payments/v1/ecommerce/orders", "POST", bogPayload);
 
         if (bogResponse.error_code) {
+            console.error("[PAYMENT][BOG] BOG returned error", {
+                externalOrderId,
+                error_code: bogResponse.error_code,
+                error_message: bogResponse.error_message,
+            });
+            await markPaymentFailed(
+                externalOrderId,
+                `BOG error ${bogResponse.error_code}: ${bogResponse.error_message}`
+            );
+
             const { ok, code, message } = handleBogErrorGE(
                 bogResponse.error_code,
                 bogResponse.error_message
@@ -103,12 +138,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if (!ok) return res.status(400).json({ code, message });
         }
 
+        console.log("[PAYMENT][BOG] BOG responded with redirect URL", {
+            externalOrderId,
+            redirectUrl: bogResponse._links?.redirect?.href,
+        });
+
         return res.status(200).json({
             redirectUrl: bogResponse._links.redirect.href,
             externalOrderId,
         });
     } catch (err: any) {
-        console.error("Create payment error:", err);
+        console.error("[PAYMENT][CREATE] Unexpected error", {
+            externalOrderId,
+            message: err?.message,
+            stack: err?.stack,
+        });
+        if (externalOrderId) {
+            await markPaymentFailed(externalOrderId, err?.message || "unknown error");
+        }
         return res.status(500).json({ error: "გადახდის შექმნა ვერ განხორციელდა" });
     }
 }

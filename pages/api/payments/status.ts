@@ -15,7 +15,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const user = await prisma.user.findUnique({
             where: { email },
-            include: { payments: { orderBy: { createdAt: "desc" }, take: 1 } },
+            include: {
+                payments: {
+                    where: { status: "completed" },
+                    orderBy: { createdAt: "desc" },
+                    take: 1,
+                },
+            },
         });
 
         if (!user || user.payments.length === 0) {
@@ -27,9 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const oneMonthAgo = new Date();
         oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
-        const canPlay =
-            lastPayment.status.toLowerCase() === "completed" &&
-            lastPayment.createdAt > oneMonthAgo;
+        const canPlay = lastPayment.createdAt > oneMonthAgo;
 
         return res.status(200).json({
             status: lastPayment.status,

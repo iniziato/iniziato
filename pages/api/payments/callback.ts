@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { recordPayment } from "@/lib/payments";
+import { finalizePayment } from "@/lib/payments";
 import crypto from "crypto";
 
 const BOG_PUBLIC_KEY = process.env.BOG_PUBLIC_KEY?.replace(/\\n/g, "\n") || "";
@@ -23,11 +23,13 @@ function getRawBody(req: NextApiRequest): Promise<Buffer> {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") return res.status(405).end();
 
+    let externalOrderId: string | undefined;
+
     try {
         const signatureHeader = req.headers["callback-signature"] as string | undefined;
 
         if (!signatureHeader) {
-            console.warn("No BOG signature header found");
+            console.warn("[PAYMENT][CALLBACK] Missing signature header");
             return res.status(403).json({ error: "Missing callback signature" });
         }
 
@@ -40,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const isValid = verifier.verify(BOG_PUBLIC_KEY, signatureHeader, "base64");
 
         if (!isValid) {
-            console.warn("BOG callback signature verification failed");
+            console.warn("[PAYMENT][CALLBACK] Signature verification failed");
             return res.status(403).json({ error: "Invalid callback signature" });
         }
 
@@ -49,27 +51,45 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const order = body.body;
 
         if (!order) {
+            console.error("[PAYMENT][CALLBACK] Invalid payload: missing order body", {
+                rawBody: rawBody.toString("utf-8"),
+            });
             return res.status(400).json({ error: "Invalid payload" });
         }
 
-        const isPaymentSuccessful = order.order_status?.key === "completed";
+        externalOrderId = order.external_order_id || order.order_id;
 
-        if (isPaymentSuccessful && order.metadata?.userId) {
-            await recordPayment(
-                order.external_order_id || order.order_id,
-                order.metadata.userId,
-                {
-                    order_status: order.order_status,
-                    purchase_units: order.purchase_units,
-                }
-            );
-        } else {
-            console.log(`Payment ${order.order_id} not completed or missing userId.`);
+        console.log("[PAYMENT][CALLBACK] Received BOG callback", {
+            externalOrderId,
+            bogOrderId: order.order_id,
+            statusKey: order.order_status?.key,
+            statusValue: order.order_status?.value,
+            metadataUserId: order.metadata?.userId,
+            paymentDetail: order.payment_detail,
+        });
+
+        if (!externalOrderId) {
+            console.error("[PAYMENT][CALLBACK] Missing externalOrderId in payload", { order });
+            return res.status(400).json({ error: "Missing order ID" });
         }
+
+        if (!order.order_status?.key) {
+            console.error("[PAYMENT][CALLBACK] Missing order_status in payload", {
+                externalOrderId,
+                order,
+            });
+            return res.status(400).json({ error: "Missing order status" });
+        }
+
+        await finalizePayment(externalOrderId, order.order_status, order.purchase_units);
 
         return res.status(200).json({ received: true });
     } catch (err: any) {
-        console.error("Callback error:", err);
+        console.error("[PAYMENT][CALLBACK] Error processing callback", {
+            externalOrderId,
+            message: err?.message,
+            stack: err?.stack,
+        });
         return res.status(500).json({ error: "Callback processing failed" });
     }
 }
