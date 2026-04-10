@@ -2,7 +2,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
 import { callBogAPI } from "@/lib/bog/client";
 import { handleBogErrorGE } from "@/lib/bog/errorHandler";
-import { createUserAndPayment } from "@/lib/payments";
+import { recordPayment } from "@/lib/payments";
+import { verifyToken } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 
 const PRODUCT_PRICES: Record<string, number> = {
     monthly_plan: 0.01,
@@ -12,13 +14,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method !== "POST") return res.status(405).end();
 
     try {
-        const { items, metadata } = req.body;
+        const token = req.headers.authorization?.split(" ")[1];
+        const sessionUser = await verifyToken(token);
+        if (!sessionUser) return res.status(401).json({ message: "Unauthorized" });
+
+        const dbUser = await prisma.user.findUnique({ where: { id: sessionUser.id } });
+        if (!dbUser) return res.status(404).json({ message: "User not found" });
+        if (!dbUser.isActivated) {
+            return res.status(403).json({ message: "AUTH_ERROR_ACCOUNT_NOT_ACTIVATED" });
+        }
+
+        const { items } = req.body;
 
         if (!items || !Array.isArray(items) || items.length === 0)
             return res.status(400).json({ error: "კალათის ნივთები არასწორია" });
-
-        if (!metadata || !metadata.fullName || !metadata.email || !metadata.password)
-            return res.status(400).json({ error: "მომხმარებლის ინფორმაცია არასწორია" });
 
         const externalOrderId = uuidv4();
 
@@ -31,16 +40,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return sum + (i.quantity || 1) * serverPrice;
         }, 0);
 
-        // Strip password from metadata sent to BOG
-        const safeMetadata = {
-            fullName: metadata.fullName,
-            email: metadata.email,
-            birthday: metadata.birthday,
+        const bogMetadata = {
+            userId: dbUser.id,
+            email: dbUser.email,
+            fullName: dbUser.fullName,
         };
 
         if (process.env.TEST_MODE === "true") {
             const mockPaymentStatus = {
                 order_status: { key: "completed", value: "წარმატებული" },
+                purchase_units: {
+                    request_amount: totalAmount,
+                    currency_code: "GEL",
+                },
                 payment_detail: {
                     transaction_id: "TEST_TX_12345",
                     payer_identifier: "0000****0000",
@@ -49,7 +61,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 },
             };
 
-            const result = await createUserAndPayment(externalOrderId, metadata, mockPaymentStatus);
+            const result = await recordPayment(externalOrderId, dbUser.id, mockPaymentStatus);
 
             return res.status(200).json({
                 externalOrderId,
@@ -78,7 +90,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 success: `${process.env.BASE_URL}/payment-success`,
                 fail: `${process.env.BASE_URL}/payment-failed`,
             },
-            metadata: safeMetadata,
+            metadata: bogMetadata,
         };
 
         const bogResponse: any = await callBogAPI("/payments/v1/ecommerce/orders", "POST", bogPayload);

@@ -1,7 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import { prisma } from "@/lib/prisma";
-import { sendWelcomeEmail } from "@/lib/email";
+import { getJwtSecret } from "@/lib/auth";
+import { sendActivationEmail } from "@/lib/email";
 
 export default async function handler(
     req: NextApiRequest,
@@ -18,9 +20,13 @@ export default async function handler(
             return res.status(400).json({ message: "Missing fields" });
         }
 
+        if (password.length < 6) {
+            return res.status(400).json({ message: "AUTH_ERROR_PASSWORD_MIN" });
+        }
+
         const existingUser = await prisma.user.findUnique({ where: { email } });
         if (existingUser) {
-            return res.status(409).json({ message: "Email already registered" });
+            return res.status(409).json({ message: "AUTH_ERROR_EMAIL_TAKEN" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -31,18 +37,33 @@ export default async function handler(
                 email,
                 password: hashedPassword,
                 birthday,
-                // For future: you can add isPaid: false
+                isActivated: false,
             },
         });
 
-        // Fire-and-forget welcome email; do not block registration on failure
-        sendWelcomeEmail({ email: user.email, fullName: user.fullName }).catch((err) =>
-            console.error("Welcome email failed:", err)
+        const activationToken = jwt.sign(
+            { id: user.id, email: user.email, purpose: "account-activation" },
+            getJwtSecret(),
+            { expiresIn: "24h" }
         );
+
+        const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+        const activationLink = `${baseUrl}/activate?token=${activationToken}`;
+
+        const result = await sendActivationEmail(
+            { email: user.email, fullName: user.fullName },
+            activationLink
+        );
+
+        if (!result.ok) {
+            // Roll back the user so they can try again with the same email
+            await prisma.user.delete({ where: { id: user.id } });
+            return res.status(500).json({ message: "AUTH_ERROR_ACTIVATION_EMAIL_FAILED" });
+        }
 
         return res.status(201).json({
             message: "AUTH_SIGNUP_SUCCESS",
-            user: { id: user.id, fullName: user.fullName, email: user.email },
+            email: user.email,
         });
     } catch (error) {
         console.error("REGISTER ERROR:", error);

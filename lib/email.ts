@@ -57,6 +57,41 @@ export async function sendPasswordResetEmail(
     }
 }
 
+export async function sendActivationEmail(
+    user: { email: string; fullName: string },
+    activationLink: string
+): Promise<{ ok: boolean; error?: string }> {
+    const resend = getResendClient();
+    if (!resend) return { ok: false, error: "Email service not configured" };
+
+    const html = emailLayout(`
+        <h2 style="font-size: 20px;">გაააქტიურე შენი ანგარიში</h2>
+        <p>გამარჯობა ${user.fullName},</p>
+        <p>მადლობა, რომ დარეგისტრირდი Iniziato-ში! ანგარიშის გასააქტიურებლად დააჭირე ქვემოთ მოცემულ ღილაკს:</p>
+        <p style="text-align: center; margin: 32px 0;">
+            <a href="${activationLink}" style="display: inline-block; padding: 14px 28px; background: #000; color: #fff; text-decoration: none; border-radius: 4px; font-weight: 600;">გააქტიურება</a>
+        </p>
+        <p style="color: #666; font-size: 14px;">ეს ლინკი მოქმედებს 24 საათის განმავლობაში. თუ შენ არ შეგიქმნია ანგარიში, უგულებელყავი ეს წერილი.</p>
+    `);
+
+    try {
+        const { error } = await resend.emails.send({
+            from: process.env.RESEND_FROM_EMAIL!,
+            to: user.email,
+            subject: "გაააქტიურე შენი ანგარიში - Iniziato",
+            html,
+        });
+        if (error) {
+            console.error("Resend activation email error:", error);
+            return { ok: false, error: error.message };
+        }
+        return { ok: true };
+    } catch (err) {
+        console.error("Failed to send activation email:", err);
+        return { ok: false, error: "send failed" };
+    }
+}
+
 export async function sendWelcomeEmail(user: { email: string; fullName: string }): Promise<void> {
     const resend = getResendClient();
     if (!resend) return;

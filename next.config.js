@@ -7,7 +7,7 @@ const nextConfig= {
     i18n: {
         defaultLocale: "ka",
         locales: ["ka"],
-        localeDetection: true,
+        localeDetection: false,
     },
     async headers() {
         return [

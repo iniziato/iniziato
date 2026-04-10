@@ -1,29 +1,14 @@
 import { prisma } from "@/lib/prisma";
-import { hash } from "bcryptjs";
-import { sendWelcomeEmail, sendPaymentReceiptEmail } from "@/lib/email";
+import { sendPaymentReceiptEmail } from "@/lib/email";
 
-export async function createUserAndPayment(
+export async function recordPayment(
     externalOrderId: string,
-    metadata: { fullName: string; email: string; password: string, birthday: string },
+    userId: string,
     paymentStatus: any
 ) {
-    let user = await prisma.user.findUnique({ where: { email: metadata.email } });
-    let isNewUser = false;
-
+    const user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) {
-        const hashedPassword = await hash(metadata.password, 10);
-
-        user = await prisma.user.create({
-            data: {
-                email: metadata.email,
-                fullName: metadata.fullName,
-                password: hashedPassword,
-                birthday: metadata.birthday
-            },
-        });
-        isNewUser = true;
-    } else {
-        console.log(`User already exists: ${user.id}`);
+        throw new Error(`User not found for payment: ${userId}`);
     }
 
     const payment = await prisma.payment.create({
@@ -37,13 +22,7 @@ export async function createUserAndPayment(
         },
     });
 
-    // Fire-and-forget emails; do not block payment processing on failure
-    if (isNewUser) {
-        sendWelcomeEmail({ email: user.email, fullName: user.fullName }).catch((err) =>
-            console.error("Welcome email failed:", err)
-        );
-    }
-
+    // Fire-and-forget receipt; do not block payment processing on failure
     sendPaymentReceiptEmail(
         { email: user.email, fullName: user.fullName },
         {

@@ -5,18 +5,17 @@ import { useTranslation } from "react-i18next";
 import styles from "./Signup.module.scss";
 import { withTranslations } from "@/lib/auth";
 
-type Plan = "monthly";
-
 export default function SignupPage() {
     const { t } = useTranslation();
 
-    const [plan] = useState<Plan>("monthly");
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState<any>({});
     const [authError, setAuthError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
 
     const validateAll = () => {
         const e: any = {};
@@ -26,6 +25,7 @@ export default function SignupPage() {
             e.email = t("AUTH_ERROR_EMAIL_INVALID");
         if (!birthday) e.birthday = t("AUTH_ERROR_BIRTHDAY_REQUIRED");
         if (!password) e.password = t("AUTH_ERROR_PASSWORD_REQUIRED");
+        else if (password.length < 6) e.password = t("AUTH_ERROR_PASSWORD_MIN");
 
         setErrors(e);
         return Object.keys(e).length === 0;
@@ -33,35 +33,31 @@ export default function SignupPage() {
 
     const submitSignup = async (e: React.FormEvent) => {
         e.preventDefault();
+        setAuthError(null);
+        setSuccess(null);
         if (!validateAll()) return;
 
+        setLoading(true);
+
         try {
-            const res = await fetch("/api/payments/create", {
+            const res = await fetch("/api/auth/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    items: [
-                        {
-                            productId: plan === "monthly" ? "monthly_plan" : "quarterly_plan",
-                            description: plan === "monthly" ? "ყოველთვიური წევრობა" : "კვარტალური წევრობა",
-                            quantity: 1,
-                            unitPrice: plan === "monthly" ? 0.01 : 79,
-                        },
-                    ],
-                    metadata: { fullName, email, password, birthday },
-                }),
+                body: JSON.stringify({ fullName, email, password, birthday }),
             });
 
             const data = await res.json();
 
             if (!res.ok) {
-                setAuthError(data.message || "გადახდა ვერ განხორციელდა");
+                setAuthError(t(data.message || "AUTH_ERROR_REGISTER_FAILED"));
                 return;
             }
 
-            window.location.href = data.redirectUrl;
+            setSuccess(t("AUTH_SIGNUP_CHECK_EMAIL"));
         } catch (err: any) {
-            setAuthError(err.message || "გადახდა ვერ განხორციელდა");
+            setAuthError(err.message || t("AUTH_ERROR_REGISTER_FAILED"));
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -73,66 +69,51 @@ export default function SignupPage() {
 
             <div className={styles.signupContainer}>
                 {authError && <div className={styles.authTemplateAuthError}>{authError}</div>}
+                {success && <div className={styles.authTemplateSuccess}>{success}</div>}
 
-                <form className={styles.singlePageForm} onSubmit={submitSignup}>
-                    <div className={styles.planSection}>
-                        <h2>{t("SIGNUP_STEP_PLAN")}</h2>
-                        <div className={styles.planCards}>
-                            <label className={`${styles.planCard} ${styles.selected}`}>
-                                <input type="radio" name="plan" value="monthly" checked readOnly />
-                                <h3>{t("AUTH_PLAN_MONTHLY")}</h3>
-                                <p>{t("AUTH_PLAN_MONTHLY_DESC")}</p>
-                            </label>
+                {!success && (
+                    <form className={styles.singlePageForm} onSubmit={submitSignup}>
+                        <div className={styles.accountSection}>
+                            <h2>{t("SIGNUP_STEP_ACCOUNT")}</h2>
+
+                            {errors.fullName && <div className={styles.authTemplateError}>{errors.fullName}</div>}
+                            <input
+                                type="text"
+                                placeholder={t("AUTH_FULL_NAME")}
+                                value={fullName}
+                                onChange={(e) => setFullName(e.target.value)}
+                            />
+
+                            {errors.email && <div className={styles.authTemplateError}>{errors.email}</div>}
+                            <input
+                                type="email"
+                                placeholder={t("AUTH_EMAIL")}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+
+                            {errors.password && <div className={styles.authTemplateError}>{errors.password}</div>}
+                            <input
+                                type="password"
+                                placeholder={t("AUTH_PASSWORD")}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+
+                            {errors.birthday && <div className={styles.authTemplateError}>{errors.birthday}</div>}
+                            <input
+                                type="date"
+                                placeholder={t("AUTH_BIRTHDAY")}
+                                value={birthday}
+                                onChange={(e) => setBirthday(e.target.value)}
+                            />
                         </div>
-                    </div>
 
-                    <div className={styles.accountSection}>
-                        <h2>{t("SIGNUP_STEP_ACCOUNT")}</h2>
-
-                        {errors.fullName && <div className={styles.authTemplateError}>{errors.fullName}</div>}
-                        <input
-                            type="text"
-                            placeholder={t("AUTH_FULL_NAME")}
-                            value={fullName}
-                            onChange={(e) => setFullName(e.target.value)}
-                        />
-
-                        {errors.email && <div className={styles.authTemplateError}>{errors.email}</div>}
-                        <input
-                            type="email"
-                            placeholder={t("AUTH_EMAIL")}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-
-                        {errors.password && <div className={styles.authTemplateError}>{errors.password}</div>}
-                        <input
-                            type="password"
-                            placeholder={t("AUTH_PASSWORD")}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-
-                        {errors.birthday && <div className={styles.authTemplateError}>{errors.birthday}</div>}
-                        <input
-                            type="date"
-                            placeholder={t("AUTH_BIRTHDAY")}
-                            value={birthday}
-                            onChange={(e) => setBirthday(e.target.value)}
-                        />
-                    </div>
-
-                    <div className={styles.paymentWrapper}>
-                        <div className={styles.summary}>
-                            <span>{t("PAYMENT_TODAY_PAY")}</span>
-                            <strong>₾79.00</strong>
-                        </div>
-                    </div>
-
-                    <button type="submit" className={styles.submitButton}>
-                        {t("SIGNUP_SUBMIT")}
-                    </button>
-                </form>
+                        <button type="submit" className={styles.submitButton} disabled={loading}>
+                            {loading ? t("AUTH_PROCESSING") : t("SIGNUP_SUBMIT")}
+                        </button>
+                    </form>
+                )}
             </div>
         </section>
     );

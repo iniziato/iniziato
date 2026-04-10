@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { createUserAndPayment } from "@/lib/payments";
+import { recordPayment } from "@/lib/payments";
 import crypto from "crypto";
 
 const BOG_PUBLIC_KEY = process.env.BOG_PUBLIC_KEY?.replace(/\\n/g, "\n") || "";
@@ -54,19 +54,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const isPaymentSuccessful = order.order_status?.key === "completed";
 
-        if (isPaymentSuccessful && order.metadata) {
-            const { fullName, email, password, birthday } = order.metadata;
-
-            await createUserAndPayment(
+        if (isPaymentSuccessful && order.metadata?.userId) {
+            await recordPayment(
                 order.external_order_id || order.order_id,
-                { fullName, email, password, birthday },
+                order.metadata.userId,
                 {
                     order_status: order.order_status,
                     purchase_units: order.purchase_units,
                 }
             );
         } else {
-            console.log(`Payment ${order.order_id} not completed.`);
+            console.log(`Payment ${order.order_id} not completed or missing userId.`);
         }
 
         return res.status(200).json({ received: true });

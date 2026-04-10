@@ -29,6 +29,10 @@ export default async function handler(
             return res.status(401).json({ message: "Invalid email or password" });
         }
 
+        if (!user.isActivated) {
+            return res.status(403).json({ message: "AUTH_ERROR_ACCOUNT_NOT_ACTIVATED" });
+        }
+
         const token = jwt.sign(
             { id: user.id, email: user.email, fullName: user.fullName },
             getJwtSecret(),
