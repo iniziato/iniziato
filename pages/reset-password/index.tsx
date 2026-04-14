@@ -70,7 +70,7 @@ export default function ResetPassword() {
             <PageHeaderWithPhoto
                 title={t("AUTH_RESET_PASSWORD")}
                 subtitle={t("AUTH_RESET_PASSWORD_SUBTITLE")}
-                backgroundImage="/images/hero-poster.jpeg"
+                backgroundImage="/images/hero-poster.jpg"
             />
 
             <div className={styles.contactTemplate}>

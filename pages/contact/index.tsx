@@ -8,7 +8,7 @@ export default function Contact() {
 
     return (
         <main className="contact">
-            <PageHeaderWithPhoto title={t("HOW_CAN_WE_HELP")} subtitle={t("CONTACT_US")} backgroundImage="/images/hero-poster.jpeg"/>
+            <PageHeaderWithPhoto title={t("HOW_CAN_WE_HELP")} subtitle={t("CONTACT_US")} backgroundImage="/images/hero-poster.jpg"/>
             <div className={styles.contactTemplate}>
                 <div className={styles.pageWidth}>
                     <div className={styles.contactTemplateContainer}>

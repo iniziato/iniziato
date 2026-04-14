@@ -57,7 +57,7 @@ export default function ActivatePage() {
             <PageHeaderWithPhoto
                 title={t("AUTH_ACTIVATE_TITLE")}
                 subtitle={t("AUTH_ACTIVATE_SUBTITLE")}
-                backgroundImage="/images/hero-poster.jpeg"
+                backgroundImage="/images/hero-poster.jpg"
             />
 
             <div className={styles.contactTemplate}>

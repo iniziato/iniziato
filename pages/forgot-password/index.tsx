@@ -55,7 +55,7 @@ export default function ForgotPassword() {
             <PageHeaderWithPhoto
                 title={t("AUTH_FORGOT_PASSWORD")}
                 subtitle={t("AUTH_FORGOT_PASSWORD_SUBTITLE")}
-                backgroundImage="/images/hero-poster.jpeg"
+                backgroundImage="/images/hero-poster.jpg"
             />
 
             <div className={styles.contactTemplate}>

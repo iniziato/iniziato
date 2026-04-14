@@ -15,7 +15,7 @@ export const Hero = () => {
         <section className={`${styles.hero} ${loaded ? styles.loaded : ""}`}>
             <img
                 className={styles.video}
-                src="/images/hero-poster.jpeg"
+                src="/images/hero-poster.jpg"
                 alt="hero-poster"></img>
 
             <div className={styles.overlay}></div>
