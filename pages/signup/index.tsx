@@ -92,7 +92,7 @@ export default function SignupPage() {
     return (
         <section className={styles.signupTemplate}>
             <div className={styles.signupImage}>
-                <img src="/images/hero-poster.jpg" alt="Pilates workout" />
+                <img src="/images/hero-poster.jpeg" alt="Pilates workout" />
             </div>
 
             <div className={styles.signupContainer}>

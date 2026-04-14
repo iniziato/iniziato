@@ -8,7 +8,7 @@ export default function PaymentSuccess() {
 
     return (
         <main className="payment">
-            <PageHeaderWithPhoto title={t("")} subtitle={t("")} backgroundImage="/images/hero-poster.jpg"/>
+            <PageHeaderWithPhoto title={t("")} subtitle={t("")} backgroundImage="/images/hero-poster.jpeg"/>
             <div className={styles.paymentTemplate}>
                 <div className={styles.pageWidth}>
                     <div className={styles.paymentTemplateContainer}>

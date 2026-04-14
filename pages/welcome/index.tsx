@@ -66,7 +66,7 @@ export default function WelcomePage() {
             <PageHeaderWithPhoto
                 title={t("AUTH_WELCOME_TITLE")}
                 subtitle={t("AUTH_WELCOME_SUBTITLE")}
-                backgroundImage="/images/hero-poster.jpg"
+                backgroundImage="/images/hero-poster.jpeg"
             />
 
             <div className={styles.contactTemplate}>

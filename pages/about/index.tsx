@@ -37,7 +37,7 @@ export default function About() {
 
                         <div className={styles.topImage}>
                             <img
-                                src="/images/hero-poster.jpg"
+                                src="/images/hero-poster.jpeg"
                                 alt={t("KETI_ALT")}
                                 className={styles.responsiveImage}
                             />
@@ -59,7 +59,7 @@ export default function About() {
                     <div className={styles.bottomContainer}>
                         <div className={styles.bottomImage}>
                             <img
-                                src="/images/hero-poster.jpg"
+                                src="/images/hero-poster.jpeg"
                                 alt={t("PILATES_CLASS_BODY_ALT")}
                                 className={styles.responsiveImage}
                             />
