@@ -14,7 +14,7 @@ export const Hero = () => {
     return (
         <section className={`${styles.hero} ${loaded ? styles.loaded : ""}`}>
             <img
-                className={styles.video}
+                className={styles.poster}
                 src="/images/hero-poster.jpg"
                 alt="hero-poster"></img>
 

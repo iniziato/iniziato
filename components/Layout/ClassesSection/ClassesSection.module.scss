@@ -83,6 +83,7 @@
 
 .aspect {
   width: 100%;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
 
   img {
@@ -118,15 +119,29 @@
 .text {
   p {
     font-size: 16px;
-    margin: 0 0 40px;
+    margin: 0 0 16px;
     font-weight: 400;
     line-height: 2;
     letter-spacing: .01em;
+    white-space: pre-line;
+  }
+
+  ul {
+    margin: 0 0 16px;
+    padding-left: 20px;
+
+    li {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 2;
+      letter-spacing: .01em;
+    }
   }
 }
 
 .button {
   display: inline-block;
+  margin-top: 24px;
   padding: 27px 41px;
   text-decoration: none;
   background-color: rgba(255, 107, 107, 0.91);
