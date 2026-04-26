@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import styles from "./ClassesSection.module.scss";
 
@@ -119,10 +120,19 @@ export const ClassesSection = () => {
             <div className={styles.content}>
                 <div className={styles.media}>
                     <div className={styles.aspect}>
-                        <img
-                            src={activeClass?.thumbnail}
-                            alt={activeClass?.label}
-                        />
+                        {classes.map((item) => (
+                            <Image
+                                key={item.key}
+                                src={item.thumbnail}
+                                alt={item.label}
+                                fill
+                                sizes="(max-width: 900px) 100vw, 60vw"
+                                priority={item.key === "beginner"}
+                                className={`${styles.thumbnail} ${
+                                    activeTab === item.key ? styles.thumbnailActive : ""
+                                }`}
+                            />
+                        ))}
                     </div>
 
                     {activeClass?.video && (

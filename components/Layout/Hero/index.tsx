@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import styles from "./Hero.module.scss";
 import {useTranslation} from "react-i18next";
 
@@ -13,10 +14,14 @@ export const Hero = () => {
 
     return (
         <section className={`${styles.hero} ${loaded ? styles.loaded : ""}`}>
-            <img
+            <Image
                 className={styles.poster}
                 src="/images/hero-poster.jpg"
-                alt="hero-poster"></img>
+                alt="hero-poster"
+                fill
+                priority
+                sizes="100vw"
+            />
 
             <div className={styles.overlay}></div>
 
