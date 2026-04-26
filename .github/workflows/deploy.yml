@@ -11,7 +11,7 @@ jobs:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
         with:
-          host: 142.93.160.178
+          host: 209.38.203.94
           username: root
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
