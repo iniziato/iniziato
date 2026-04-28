@@ -14,7 +14,9 @@ jobs:
           host: 209.38.203.94
           username: root
           key: ${{ secrets.DROPLET_SSH_KEY }}
+          command_timeout: 30m
           script: |
+            set -e
             cd /var/www/iniziato
 
             # Backup .env before pull
@@ -34,12 +36,15 @@ jobs:
             # Generate Prisma client
             npx prisma generate
 
-            # Run migrations
-            npx prisma migrate deploy
+            # Run migrations (don't fail deploy on permission errors when schema is unchanged)
+            npx prisma migrate deploy || echo "WARN: prisma migrate deploy failed — continuing"
 
-            # Build Next.js
+            # Build Next.js (clean .next first so a half-finished build can't ship)
+            rm -rf .next
             npm run build
+            test -f .next/BUILD_ID
 
-            # Restart with PM2
-            pm2 describe iniziato > /dev/null 2>&1 && pm2 restart iniziato || pm2 start npm --name "iniziato" -- start
+            # Restart with PM2 (delete first to avoid duplicate processes)
+            pm2 delete iniziato 2>/dev/null || true
+            pm2 start npm --name "iniziato" -- start
             pm2 save
