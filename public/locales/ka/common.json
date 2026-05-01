@@ -44,7 +44,7 @@
     },
     "office": {
       "LABEL": "ოფისი",
-      "DESCRIPTION": "5-10 წუთიანი ვარჯიშები ოფისში მარტივად შესასრულებლად.\n\nვარჯიშების კომპლექსი დაეხმარება ოფისში ან სახლში ხანგრძლივად მჯდომარე პოზიციაში მყოფს, სისხლის მიმოქცევის გააქტიურებაში, სახსრების მობილობის გაზრდაში და სხეულის სწრაფად ტონუსში მოყვანაში\n"
+      "DESCRIPTION": "5-10 წუთიანი ვარჯიშები ოფისში მარტივად შესასრულებლად.\n\nვარჯიშების კომპლექსი დაეხმარება ოფისში ან სახლში ხანგრძლივად მჯდომარე პოზიციაში მყოფს, სისხლის მიმოქცევის გააქტიურებაში, სახსრების მობილობის გაზრდაში და სხეულის სწრაფად ტონუსში მოყვანაში.\n"
     },
     "pilates_ring": {
       "LABEL": "პილატესის რგოლი",
@@ -122,14 +122,14 @@
   "AUTH_SEND_CODE": "მიიღე ლინკი",
   "EDIT_PROFILE_TITLE": "ჩემი პროფილი",
 
-  "PILATES_LIBRARY": "Your pilates library",
-  "CLASS_CAT_ESSENTIALS_TITLE": "Essentials",
-  "CLASS_CAT_ESSENTIALS_DESC": "Build strong foundations with feel-good Pilates classes designed to support your body, improve technique and move with intention.",
-  "CLASS_CAT_BODY_TITLE": "The Pilates Class Body",
-  "CLASS_CAT_BODY_DESC": "Lengthen, sculpt and strengthen with targeted workouts that focus on arms, abs, glutes and full-body burn.",
-  "CLASS_FULL_BODY": "Full Body Foundations",
+  "PILATES_LIBRARY": "შენი პილატესის ბიბლიოთეკა",
+  "CLASS_CAT_BAND_TITLE": "ელასტიური ლენტა",
+  "CLASS_CAT_BAND_DESC": "Build strong foundations with feel-good Pilates classes designed to support your body, improve technique and move with intention.",
+  "CLASS_CAT_OFFICE_TITLE": "ოფისი",
+  "CLASS_CAT_OFFICE_DESC": "5-10 წუთიანი ვარჯიშები ოფისში შესასრულებლად, რომლებიც დაგეხმარებათ სისხლის მიმოქცევის გააქტიურებაში.",
+  "CLASS_FULL_BAND": "საჯდომი კუნთები",
   "CLASS_SLOW_BURN": "Slow Burn Sculpt",
-  "CLASS_FULL_BODY_2": "Signature Full Body",
+  "CLASS_FULL_OFFICE_1": "სხეულის გააქტიურება",
 
   "CLASS_LEVEL_CHILL": "Chill",
   "CLASS_LEVEL_SATISFYING": "Satisfying",

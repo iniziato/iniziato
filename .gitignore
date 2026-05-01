@@ -38,3 +38,6 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# private video assets — uploaded to droplet via rsync, not via git
+private/videos/*.mp4

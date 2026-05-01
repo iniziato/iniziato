@@ -6,8 +6,8 @@ import path from "path";
 
 // Whitelist of allowed video filenames
 const ALLOWED_VIDEOS = [
-    "class1.mp4",
-    "class2.mp4",
+    "band.mp4",
+    "office.mp4",
     "class3.mp4",
     "essentials.mp4",
     "body.mp4",
