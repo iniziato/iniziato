@@ -1,9 +1,11 @@
 import Link from "next/link";
 import styles from "./Footer.module.scss";
 import {useTranslation} from "react-i18next";
+import {useIsLoggedIn} from "@/lib/auth";
 
 export const Footer = () => {
     const {t} = useTranslation();
+    const loggedIn = useIsLoggedIn();
 
     return (
         <footer className={styles.pageWidth}>
@@ -38,7 +40,7 @@ export const Footer = () => {
                     <div className={styles.group}>
                         <h5>{t("CLASSES")}</h5>
                         <Link href="/classes" className={styles.link}>{t("ALL_CLASSES")}</Link>
-                        <Link href="/signup" className={styles.link}>{t("GET_STARTED")}</Link>
+                        {!loggedIn && (<Link href="/signup" className={styles.link}>{t("GET_STARTED")}</Link>)}
                     </div>
 
                     <div className={styles.group}>
