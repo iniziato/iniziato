@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./Classes.module.scss";
 import { PageHeaderWithPhoto } from "@/components/Layout/PageHeaderWithPhoto";
@@ -30,7 +30,8 @@ export default function Classes() {
     const [activeVideo, setActiveVideo] = useState<string | null>(null);
     const [showPaymentPopup, setShowPaymentPopup] = useState(false);
     const [userEmail, setUserEmail] = useState<string | null>(null);
-    const [videoLoading, setVideoLoading] = useState(false);
+    const [loadingSrc, setLoadingSrc] = useState<string | null>(null);
+    const requestIdRef = useRef(0);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -60,14 +61,23 @@ export default function Classes() {
             return;
         }
 
-        setVideoLoading(true);
+        const myRequestId = ++requestIdRef.current;
+        setLoadingSrc(video.src);
         try {
             const url = await fetchVideoUrl(video.src);
-            setActiveVideo(url);
+            if (myRequestId !== requestIdRef.current) {
+                URL.revokeObjectURL(url);
+                return;
+            }
+            setActiveVideo((prev) => {
+                if (prev) URL.revokeObjectURL(prev);
+                return url;
+            });
         } catch {
+            if (myRequestId !== requestIdRef.current) return;
             setShowPaymentPopup(true);
         } finally {
-            setVideoLoading(false);
+            if (myRequestId === requestIdRef.current) setLoadingSrc(null);
         }
     };
 
@@ -230,7 +240,7 @@ export default function Classes() {
                                             </button>
                                         ) : (
                                             <div className={styles.playOverlay}>
-                                                {videoLoading ? "..." : "▶︎"}
+                                                {loadingSrc === c.src ? "..." : "▶︎"}
                                             </div>
                                         )}
                                     </div>
