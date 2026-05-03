@@ -1,8 +1,10 @@
 import styles from "./PricingSection.module.scss";
 import {useTranslation} from "react-i18next";
+import {useIsLoggedIn} from "@/lib/auth";
 
 export const PricingSection = () => {
     const {t} = useTranslation();
+    const loggedIn = useIsLoggedIn();
 
     return (
         <section className={styles.pricing}>
@@ -17,9 +19,11 @@ export const PricingSection = () => {
                     </div>
                 </div>
 
-                <div className={styles.centerButton}>
-                    <a href="/signup" className={styles.button}>{t("START_HERE")}</a>
-                </div>
+                {!loggedIn && (
+                    <div className={styles.centerButton}>
+                        <a href="/signup" className={styles.button}>{t("START_HERE")}</a>
+                    </div>
+                )}
             </div>
         </section>
     );

@@ -1,4 +1,5 @@
 import jwt, {JwtPayload} from "jsonwebtoken";
+import { useEffect, useState } from "react";
 
 const TOKEN_KEY = "token";
 
@@ -14,7 +15,16 @@ interface TokenPayload extends JwtPayload {
     fullName: string;
 }
 export const isLoggedIn = () => {
+    if (typeof window === "undefined") return false;
     return !!localStorage.getItem(TOKEN_KEY);
+};
+
+export const useIsLoggedIn = () => {
+    const [loggedIn, setLoggedIn] = useState(false);
+    useEffect(() => {
+        setLoggedIn(!!localStorage.getItem(TOKEN_KEY));
+    }, []);
+    return loggedIn;
 };
 
 export const getToken = () => {

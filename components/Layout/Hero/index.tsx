@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./Hero.module.scss";
 import {useTranslation} from "react-i18next";
+import {useIsLoggedIn} from "@/lib/auth";
 
 export const Hero = () => {
     const [loaded, setLoaded] = useState(false);
     const {t} = useTranslation();
+    const loggedIn = useIsLoggedIn();
 
     useEffect(() => {
         const timer = setTimeout(() => setLoaded(true), 100);
@@ -28,12 +30,14 @@ export const Hero = () => {
             <div className="page-width">
                 <div className={styles.content}>
                     <h1 className={styles.title}>{t("MOVES_FOR_EVERY_MOOD")}</h1>
-                    <a
-                        href="/signup"
-                        className={styles.button}
-                    >
-                        {t("START_PILATES_TODAY")}
-                    </a>
+                    {!loggedIn && (
+                        <a
+                            href="/signup"
+                            className={styles.button}
+                        >
+                            {t("START_PILATES_TODAY")}
+                        </a>
+                    )}
                 </div>
             </div>
         </section>

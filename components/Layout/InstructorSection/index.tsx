@@ -1,9 +1,11 @@
 import Link from "next/link";
 import styles from "./InstructorSection.module.scss";
 import {useTranslation} from "react-i18next";
+import {useIsLoggedIn} from "@/lib/auth";
 
 export const InstructorSection = () => {
     const {t} = useTranslation();
+    const loggedIn = useIsLoggedIn();
     return (
         <section className={styles.instructor}>
             <div className={styles.container}>
@@ -22,7 +24,7 @@ export const InstructorSection = () => {
                         <h3>{t("KETI")}</h3>
                         <p>{t("INSTRUCTOR_DESC")}</p>
 
-                        <Link href="/signup" className={styles.button}>
+                        <Link href={loggedIn ? "/classes" : "/signup"} className={styles.button}>
                             {t("TRY_CLASS")}
                         </Link>
                     </div>
