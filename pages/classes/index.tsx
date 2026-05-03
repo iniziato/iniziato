@@ -174,7 +174,7 @@ export default function Classes() {
                                             </button>
                                         ) : (
                                             <div className={styles.playOverlay}>
-                                                {videoLoading ? "..." : "▶"}
+                                                {videoLoading ? "..." : "▶︎"}
                                             </div>
                                         )}
                                     </div>

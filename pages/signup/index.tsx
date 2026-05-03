@@ -130,9 +130,12 @@ export default function SignupPage() {
 
                             {errors.birthday && <div className={styles.authTemplateError}>{errors.birthday}</div>}
                             <input
-                                type="date"
+                                type={birthday ? "date" : "text"}
                                 placeholder={t("AUTH_BIRTHDAY")}
+                                aria-label={t("AUTH_BIRTHDAY")}
                                 value={birthday}
+                                onFocus={(e) => (e.target.type = "date")}
+                                onBlur={(e) => { if (!e.target.value) e.target.type = "text"; }}
                                 onChange={(e) => setBirthday(e.target.value)}
                             />
 

@@ -140,7 +140,7 @@ export const ClassesSection = () => {
                             className={styles.playButton}
                             onClick={handlePlay}
                         >
-                            ▶
+                            ▶︎
                         </button>
                     )}
                 </div>

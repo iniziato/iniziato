@@ -4,7 +4,8 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
-                    <title>INIZIATO</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+                    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
                     <link rel="icon" href="/images/favicon.ico" sizes="any" />
                 </Head>
                 <body>

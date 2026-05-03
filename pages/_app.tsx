@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 
 import "@/lib/i18n";
 import { NextComponentType, NextPageContext } from "next";
@@ -18,6 +19,9 @@ interface AppPropsWithLayout extends AppProps {
 function App({ Component, pageProps }: AppPropsWithLayout) {
     return (
         <>
+            <Head>
+                <title>INIZIATO</title>
+            </Head>
             <Layout>
                 <Component {...pageProps} />
             </Layout>
