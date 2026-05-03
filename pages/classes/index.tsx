@@ -114,6 +114,34 @@ export default function Classes() {
 
     const categories: Category[] = [
         {
+            key: "BEGINNER",
+            heading: t("CLASS_CAT_BEGINNER_TITLE"),
+            description: t("CLASS_CAT_BEGINNER_DESC"),
+            classes: [
+                {
+                    id: "1",
+                    title: t("CLASS_FULL_BEGINNER"),
+                    thumbnail: "/images/beginner.png",
+                    duration: "10 წთ",
+                    src: "/videos/beginner.mp4",
+                },
+                {
+                    id: "2",
+                    title: t("CLASS_FULL_BEGINNER"),
+                    thumbnail: "/images/beginner.png",
+                    duration: "10 წთ",
+                    src: "/videos/beginner2.mp4",
+                },
+                {
+                    id: "3",
+                    title: t("CLASS_FULL_BEGINNER"),
+                    thumbnail: "/images/beginner.png",
+                    duration: "15 წთ",
+                    src: "/videos/beginner3.mp4",
+                },
+            ],
+        },
+        {
             key: "BAND",
             heading: t("CLASS_CAT_BAND_TITLE"),
             description: t("CLASS_CAT_BAND_DESC"),
@@ -124,6 +152,34 @@ export default function Classes() {
                     thumbnail: "/images/band.png",
                     duration: "15 წთ",
                     src: "/videos/band.mp4",
+                },
+            ],
+        },
+        {
+            key: "BALL",
+            heading: t("CLASS_CAT_BALL_TITLE"),
+            description: t("CLASS_CAT_BALL_DESC"),
+            classes: [
+                {
+                    id: "1",
+                    title: t("CLASS_FULL_BALL"),
+                    thumbnail: "/images/pilates_ball.png",
+                    duration: "15 წთ",
+                    src: "/videos/ball.mp4",
+                },
+            ],
+        },
+        {
+            key: "WEIGHTS",
+            heading: t("CLASS_CAT_WEIGHTS_TITLE"),
+            description: t("CLASS_CAT_WEIGHTS_DESC"),
+            classes: [
+                {
+                    id: "1",
+                    title: t("CLASS_FULL_WEIGHTS"),
+                    thumbnail: "/images/weights.png",
+                    duration: "18 წთ",
+                    src: "/videos/weights.mp4",
                 },
             ],
         },
