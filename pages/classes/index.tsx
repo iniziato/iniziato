@@ -130,7 +130,7 @@ export default function Classes() {
                     title: t("CLASS_FULL_BEGINNER"),
                     thumbnail: "/images/beginner.png",
                     duration: "10 წთ",
-                    src: "/videos/beginner2.mp4",
+                    src: "/videos/beginner3.mp4",
                 },
                 {
                     id: "3",

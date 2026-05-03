@@ -6,14 +6,13 @@ import path from "path";
 
 // Whitelist of allowed video filenames
 const ALLOWED_VIDEOS = [
+    "beginner.mp4",
+    "beginner2.mp4",
+    "beginner3.mp4",
     "band.mp4",
+    "ball.mp4",
+    "weights.mp4",
     "office.mp4",
-    "class3.mp4",
-    "essentials.mp4",
-    "body.mp4",
-    "office-workout.mp4",
-    "stretch-workout.mp4",
-    "breathwork.mp4",
 ];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
