@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import styles from "../contact/Contact.module.scss";
 import { PageHeaderWithPhoto } from "@/components/Layout/PageHeaderWithPhoto";
-import { withTranslations } from "@/lib/auth";
+import { withTranslations } from "@/lib/i18n";
 
 export default function ActivatePage() {
     const { t } = useTranslation();

@@ -18,7 +18,7 @@ export const PricingSection = () => {
                 </div>
 
                 <div className={styles.centerButton}>
-                    <a href="#" className={styles.button}>{t("START_HERE")}</a>
+                    <a href="/signup" className={styles.button}>{t("START_HERE")}</a>
                 </div>
             </div>
         </section>

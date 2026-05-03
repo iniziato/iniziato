@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import {DisclaimerSection} from "@/components/Layout/DisclaimerSection";
 import {PageHeader} from "@/components/Layout/PageHeader";
-import {withTranslations} from "@/lib/auth";
+import {withTranslations} from "@/lib/i18n";
 
 export default function Disclaimer() {
     const { t } = useTranslation();

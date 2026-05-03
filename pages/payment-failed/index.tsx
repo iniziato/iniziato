@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import styles from "./PaymentFailed.module.scss";
 import {PageHeaderWithPhoto} from "@/components/Layout/PageHeaderWithPhoto";
-import {withTranslations} from "@/lib/auth";
+import {withTranslations} from "@/lib/i18n";
 
 export default function PaymentFailed() {
     const { t } = useTranslation();

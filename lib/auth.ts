@@ -1,6 +1,4 @@
 import jwt, {JwtPayload} from "jsonwebtoken";
-import { loadTranslations } from "ni18n";
-import {ni18nConfig} from "@/ni18n.config";
 
 const TOKEN_KEY = "token";
 
@@ -39,15 +37,3 @@ export async function verifyToken(token?: string): Promise<TokenPayload | null> 
 }
 
 export { getJwtSecret };
-
-export const withTranslations = async (locale?: string) => {
-    const lang = locale || "ka";
-
-    const serverData = await loadTranslations(ni18nConfig, lang);
-
-    return {
-        props: {
-            ...serverData,
-        },
-    };
-};

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import styles from "./Classes.module.scss";
 import { PageHeaderWithPhoto } from "@/components/Layout/PageHeaderWithPhoto";
 import { IntensitySection } from "@/components/Layout/IntensitySection";
-import { withTranslations } from "@/lib/auth";
+import { withTranslations } from "@/lib/i18n";
 import {jwtDecode} from "jwt-decode";
 import { Popup } from "@/components/Layout/PopUp";
 import { fetchVideoUrl } from "@/lib/video";
@@ -13,7 +13,6 @@ type VideoClass = {
     title: string;
     thumbnail: string;
     duration: string;
-    level: string;
     src: string;
 };
 
@@ -92,7 +91,7 @@ export default function Classes() {
                             productId: "monthly_plan",
                             description: "ყოველთვიური წევრობა",
                             quantity: 1,
-                            unitPrice: 79,
+                            unitPrice: 70,
                         },
                     ],
                     metadata: {
@@ -124,7 +123,6 @@ export default function Classes() {
                     title: t("CLASS_FULL_BAND"),
                     thumbnail: "/images/band.png",
                     duration: "15 წთ",
-                    level: t("CLASS_LEVEL_SATISFYING"),
                     src: "/videos/band.mp4",
                 },
             ],
@@ -139,7 +137,6 @@ export default function Classes() {
                     title: t("CLASS_FULL_OFFICE_1"),
                     thumbnail: "/images/office.png",
                     duration: "5 წთ",
-                    level: t("CLASS_LEVEL_INTENSE"),
                     src: "/videos/office.mp4",
                 },
             ],
@@ -153,8 +150,6 @@ export default function Classes() {
                 subtitle={t("PILATES_LIBRARY")}
                 backgroundImage="/images/instructor.JPG"
             />
-            <IntensitySection />
-
             <section className="page-width">
                 {categories.map((cat) => (
                     <div key={cat.key} className={styles.category}>
@@ -187,9 +182,6 @@ export default function Classes() {
                                         <div className={styles.topRow}>
                                             <p className={styles.title}>{c.title}</p>
                                             <span className={styles.duration}>{c.duration}</span>
-                                        </div>
-                                        <div className={styles.bottomRow}>
-                                            <span className={styles.level}>{c.level}</span>
                                         </div>
                                     </div>
                                 </div>

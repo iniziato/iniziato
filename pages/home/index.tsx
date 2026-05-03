@@ -3,7 +3,7 @@ import {IntroSection} from "@/components/Layout/IntroSection";
 import {InstructorSection} from "@/components/Layout/InstructorSection";
 import {PricingSection} from "@/components/Layout/PricingSection";
 import {ClassesSection} from "@/components/Layout/ClassesSection";
-import {withTranslations} from "@/lib/auth";
+import {withTranslations} from "@/lib/i18n";
 
 export default function Home() {
 

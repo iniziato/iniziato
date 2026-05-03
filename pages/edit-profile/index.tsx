@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import styles from './EditProfile.module.scss';
-import {isLoggedIn, getToken, withTranslations} from "@/lib/auth"
+import {isLoggedIn, getToken} from "@/lib/auth"
+import { withTranslations } from "@/lib/i18n";
 
 interface UserProfile {
     fullName: string;

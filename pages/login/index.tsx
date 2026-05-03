@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import styles from "./Login.module.scss";
-import {isLoggedIn, withTranslations} from "@/lib/auth";
+import {isLoggedIn} from "@/lib/auth";
+import { withTranslations } from "@/lib/i18n";
 
 type Errors = {
     email?: string;

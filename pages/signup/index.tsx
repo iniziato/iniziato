@@ -5,7 +5,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useTranslation } from "react-i18next";
 import styles from "./Signup.module.scss";
-import { withTranslations } from "@/lib/auth";
+import { withTranslations } from "@/lib/i18n";
 
 const ReCAPTCHA = dynamic(
     () => import("react-google-recaptcha") as any,

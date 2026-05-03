@@ -1,8 +1,7 @@
 import { FC, ReactNode } from "react";
 import type { AppProps } from "next/app";
 
-import { appWithI18Next } from "ni18n";
-import { ni18nConfig } from "@/ni18n.config";
+import "@/lib/i18n";
 import { NextComponentType, NextPageContext } from "next";
 import {Layout} from "@/components/Layout";
 
@@ -26,4 +25,4 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
     );
 }
 
-export default appWithI18Next(App, ni18nConfig);
+export default App;
