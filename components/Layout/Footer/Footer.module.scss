@@ -37,31 +37,6 @@
         max-width: 400px;
         margin-bottom: 20px;
       }
-
-      .form {
-        display: flex;
-        gap: 10px;
-
-        input {
-          flex: 1;
-          padding: 12px 24px;
-          color: #222325;
-          border: none;
-
-          &::placeholder {
-            color: #888;
-          }
-        }
-
-        button {
-          padding: 8px 16px;
-          background: #ff6b6b;
-          border: none;
-          color: white;
-          cursor: pointer;
-          font-weight: 400;
-        }
-      }
     }
 
     .social {

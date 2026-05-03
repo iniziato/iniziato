@@ -13,11 +13,7 @@ export const Footer = () => {
                 <div className={styles.top}>
                     <div className={styles.newsletter}>
                         <h2>{t("KEEP_IN_TOUCH")}</h2>
-                        <p>Be the first to know about new class drops, new instructors, special events and more.</p>
-                        <form className={styles.form}>
-                            <input type="email" placeholder={t("YOUR_EMAIL_ADDRESS")} />
-                            <button type="submit">  &rarr;</button>
-                        </form>
+                        <p>იყავით პირველი, ვინც შეიტყობს ახალი გაკვეთილების ატვირთვის, სპეციალური ღონისძიებების და სხვა სიახლეების შესახებ.</p>
                     </div>
                     <div className={styles.social}>
                         <a href="https://www.instagram.com/thepilatesclass/" target="_blank" rel="noopener noreferrer">

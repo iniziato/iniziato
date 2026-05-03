@@ -60,7 +60,7 @@ export const Navbar = () => {
                 </div>
 
                 <ul className={styles.links}>
-                    <li><Link href="/">{t("COMMUNITY")}</Link></li>
+                    {/*<li><Link href="/">{t("COMMUNITY")}</Link></li>*/}
 
                     {loggedIn && (
                         <>
@@ -160,7 +160,7 @@ export const Navbar = () => {
                 <Link href="/classes">{t("CLASSES")}</Link>
                 <Link href="/about">{t("ABOUT")}</Link>
                 <Link href="/contact">{t("CONTACT")}</Link>
-                <Link href="/">{t("COMMUNITY")}</Link>
+                {/*<Link href="/">{t("COMMUNITY")}</Link>*/}
                 {!isSignup && !loggedIn && (
                     <Link href="/signup" className={styles.mobileCta}>
                         {t("START_PILATES_TODAY")}
