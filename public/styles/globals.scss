@@ -10,3 +10,9 @@
 .page-width {
   padding: 0 40px;
 }
+
+@media (max-width: 768px) {
+  .page-width {
+    padding: 0 15px;
+  }
+}

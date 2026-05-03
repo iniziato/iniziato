@@ -129,15 +129,24 @@ export default function SignupPage() {
                             />
 
                             {errors.birthday && <div className={styles.authTemplateError}>{errors.birthday}</div>}
-                            <input
-                                type={birthday ? "date" : "text"}
-                                placeholder={t("AUTH_BIRTHDAY")}
-                                aria-label={t("AUTH_BIRTHDAY")}
-                                value={birthday}
-                                onFocus={(e) => (e.target.type = "date")}
-                                onBlur={(e) => { if (!e.target.value) e.target.type = "text"; }}
-                                onChange={(e) => setBirthday(e.target.value)}
-                            />
+                            <div className={styles.dateField}>
+                                <input
+                                    type="date"
+                                    aria-label={t("AUTH_BIRTHDAY")}
+                                    value={birthday}
+                                    onChange={(e) => setBirthday(e.target.value)}
+                                    onClick={(e) => {
+                                        const el = e.currentTarget as HTMLInputElement & { showPicker?: () => void };
+                                        el.showPicker?.();
+                                    }}
+                                    className={birthday ? styles.dateFilled : styles.dateEmpty}
+                                />
+                                {!birthday && (
+                                    <span className={styles.datePlaceholder}>
+                                        {t("AUTH_BIRTHDAY")}
+                                    </span>
+                                )}
+                            </div>
 
                             <label className={styles.acceptTerms}>
                                 <input
