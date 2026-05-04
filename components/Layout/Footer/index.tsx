@@ -16,17 +16,24 @@ export const Footer = () => {
                         <p>იყავით პირველი, ვინც შეიტყობს ახალი გაკვეთილების ატვირთვის, სპეციალური ღონისძიებების და სხვა სიახლეების შესახებ.</p>
                     </div>
                     <div className={styles.social}>
-                        <a href="https://www.instagram.com/thepilatesclass/" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.instagram.com/iniziato_pilates/" target="_blank" rel="noopener noreferrer">
                             <img
                                 src={"/images/instagram.png"}
                                 alt="Instagram"
                                 className={styles.icon}
                             />
                         </a>
-                        <a href="https://www.facebook.com/thepilatesclass/" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.facebook.com/profile.php?id=61573256434832/" target="_blank" rel="noopener noreferrer">
                             <img
                                 src={"/images/facebook.png"}
                                 alt="Facebook"
+                                className={styles.icon}
+                            />
+                        </a>
+                        <a href="https://www.tiktok.com/@iniziatopilates/" target="_blank" rel="noopener noreferrer">
+                            <img
+                                src={"/images/tiktok.png"}
+                                alt="TikTok"
                                 className={styles.icon}
                             />
                         </a>
