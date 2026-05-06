@@ -53,6 +53,7 @@ export const Navbar = () => {
                     <li><Link href="/classes">{t("CLASSES")}</Link></li>
                     <li><Link href="/about">{t("ABOUT")}</Link></li>
                     <li><Link href="/contact">{t("CONTACT")}</Link></li>
+                    <li className={styles.pricingLink}><Link href="/pricing">{t("MEMBERSHIP_PRICING")}</Link></li>
                 </ul>
 
                 <div className={styles.logo}>
@@ -160,6 +161,7 @@ export const Navbar = () => {
                 <Link href="/classes">{t("CLASSES")}</Link>
                 <Link href="/about">{t("ABOUT")}</Link>
                 <Link href="/contact">{t("CONTACT")}</Link>
+                <Link href="/pricing" className={styles.mobilePricingLink}>{t("MEMBERSHIP_PRICING")}</Link>
                 {/*<Link href="/">{t("COMMUNITY")}</Link>*/}
                 {!isSignup && !loggedIn && (
                     <Link href="/signup" className={styles.mobileCta}>

@@ -17,8 +17,8 @@ export const PageHeader = ({
         <header className={`${styles.pageHeader} desktopSmall mobileSmall`} style={headerStyle}>
             <div className={styles.pageWidth}>
                 <div className={styles.pageHeaderContainer}>
-                    <h1 className={styles.pageHeaderTitle}>{title}</h1>
-                    {subtitle && <p className={styles.pageHeaderText}>{subtitle}</p>}
+                    <h1 className={styles.pageHeaderTitle} suppressHydrationWarning>{title}</h1>
+                    {subtitle && <p className={styles.pageHeaderText} suppressHydrationWarning>{subtitle}</p>}
                 </div>
             </div>
         </header>
