@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import styles from "./PaymentSuccess.module.scss";
-import {PageHeaderWithPhoto} from "@/components/Layout/PageHeaderWithPhoto";
 import {withTranslations} from "@/lib/i18n";
 
 export default function PaymentSuccess() {
@@ -8,7 +7,6 @@ export default function PaymentSuccess() {
 
     return (
         <main className="payment">
-            <PageHeaderWithPhoto title={t("")} subtitle={t("")} backgroundImage="/images/hero-poster.jpg"/>
             <div className={styles.paymentTemplate}>
                 <div className={styles.pageWidth}>
                     <div className={styles.paymentTemplateContainer}>

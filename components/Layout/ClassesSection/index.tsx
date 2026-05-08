@@ -21,7 +21,7 @@ const classMedia: Record<
 > = {
     beginner: {
         thumbnail: "/images/beginner.png",
-        video: "/mini-videos/essentials.mp4",
+        video: "/mini-videos/beginner.mp4",
     },
     pilates_ball: {
         thumbnail: "/images/pilates_ball.png",

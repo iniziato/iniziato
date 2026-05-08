@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import styles from "../contact/Contact.module.scss";
-import { PageHeaderWithPhoto } from "@/components/Layout/PageHeaderWithPhoto";
+import { PageHeader } from "@/components/Layout/PageHeader";
 import { withTranslations } from "@/lib/i18n";
 
 export default function ResetPassword() {
@@ -67,10 +67,9 @@ export default function ResetPassword() {
 
     return (
         <main className="reset-password">
-            <PageHeaderWithPhoto
+            <PageHeader
                 title={t("AUTH_RESET_PASSWORD")}
                 subtitle={t("AUTH_RESET_PASSWORD_SUBTITLE")}
-                backgroundImage="/images/hero-poster.jpg"
             />
 
             <div className={styles.contactTemplate}>

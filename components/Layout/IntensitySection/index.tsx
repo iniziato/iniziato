@@ -8,18 +8,18 @@ export const IntensitySection = () => {
         <section className={styles.classIntensity}>
             <div className="page-width">
                 <div className={styles.container}>
-                    <div className={styles.header}>
-                        <h2 className={styles.title}>
-                            {t("CLASS_INTENSITY_TITLE")}
-                        </h2>
-                    </div>
+                    {/*<div className={styles.header}>*/}
+                    {/*    <h2 className={styles.title}>*/}
+                    {/*        {t("CLASS_INTENSITY_TITLE")}*/}
+                    {/*    </h2>*/}
+                    {/*</div>*/}
 
                     <div className={styles.content}>
                         <div className={styles.item}>
                             <p className={styles.intensity}>{t("INTENSITY_CHILL")}</p>
-                            <h3 className={styles.itemTitle}>
-                                {t("INTENSITY_CHILL_TITLE")}
-                            </h3>
+                            {/*<h3 className={styles.itemTitle}>*/}
+                            {/*    {t("INTENSITY_CHILL_TITLE")}*/}
+                            {/*</h3>*/}
                             <p className={styles.text}>
                                 {t("INTENSITY_CHILL_TEXT")}
                             </p>
@@ -29,9 +29,9 @@ export const IntensitySection = () => {
                             <p className={styles.intensity}>
                                 {t("INTENSITY_SATISFYING")}
                             </p>
-                            <h3 className={styles.itemTitle}>
-                                {t("INTENSITY_SATISFYING_TITLE")}
-                            </h3>
+                            {/*<h3 className={styles.itemTitle}>*/}
+                            {/*    {t("INTENSITY_SATISFYING_TITLE")}*/}
+                            {/*</h3>*/}
                             <p className={styles.text}>
                                 {t("INTENSITY_SATISFYING_TEXT")}
                             </p>
@@ -41,9 +41,9 @@ export const IntensitySection = () => {
                             <p className={styles.intensity}>
                                 {t("INTENSITY_INTENSE")}
                             </p>
-                            <h3 className={styles.itemTitle}>
-                                {t("INTENSITY_INTENSE_TITLE")}
-                            </h3>
+                            {/*<h3 className={styles.itemTitle}>*/}
+                            {/*    {t("INTENSITY_INTENSE_TITLE")}*/}
+                            {/*</h3>*/}
                             <p className={styles.text}>
                                 {t("INTENSITY_INTENSE_TEXT")}
                             </p>

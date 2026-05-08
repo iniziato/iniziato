@@ -13,6 +13,7 @@ type VideoClass = {
     title: string;
     thumbnail: string;
     duration: string;
+    level: string;
     src: string;
 };
 
@@ -133,6 +134,7 @@ export default function Classes() {
                     title: t("CLASS_FULL_BEGINNER"),
                     thumbnail: "/images/beginner.png",
                     duration: "10 წთ",
+                    level: t("INTENSITY_CHILL"),
                     src: "/videos/beginner.mp4",
                 },
                 {
@@ -140,6 +142,7 @@ export default function Classes() {
                     title: t("CLASS_FULL_BEGINNER"),
                     thumbnail: "/images/beginner.png",
                     duration: "10 წთ",
+                    level: t("INTENSITY_SATISFYING"),
                     src: "/videos/beginner2.mp4",
                 },
                 {
@@ -147,6 +150,7 @@ export default function Classes() {
                     title: t("CLASS_FULL_BEGINNER"),
                     thumbnail: "/images/beginner.png",
                     duration: "15 წთ",
+                    level: t("INTENSITY_INTENSE"),
                     src: "/videos/beginner3.mp4",
                 },
             ],
@@ -161,6 +165,7 @@ export default function Classes() {
                     title: t("CLASS_FULL_BAND"),
                     thumbnail: "/images/band.png",
                     duration: "15 წთ",
+                    level: t("INTENSITY_INTENSE"),
                     src: "/videos/band.mp4",
                 },
             ],
@@ -175,6 +180,7 @@ export default function Classes() {
                     title: t("CLASS_FULL_BALL"),
                     thumbnail: "/images/pilates_ball.png",
                     duration: "15 წთ",
+                    level: t("INTENSITY_SATISFYING"),
                     src: "/videos/ball.mp4",
                 },
             ],
@@ -189,6 +195,7 @@ export default function Classes() {
                     title: t("CLASS_FULL_WEIGHTS"),
                     thumbnail: "/images/weights.png",
                     duration: "18 წთ",
+                    level: t("INTENSITY_INTENSE"),
                     src: "/videos/weights.mp4",
                 },
             ],
@@ -203,6 +210,7 @@ export default function Classes() {
                     title: t("CLASS_FULL_OFFICE_1"),
                     thumbnail: "/images/office.png",
                     duration: "5 წთ",
+                    level: t("INTENSITY_CHILL"),
                     src: "/videos/office.mp4",
                 },
             ],
@@ -216,6 +224,7 @@ export default function Classes() {
                 subtitle={t("PILATES_LIBRARY")}
                 backgroundImage="/images/instructor.JPG"
             />
+            <IntensitySection />
             <section className="page-width">
                 {categories.map((cat) => (
                     <div key={cat.key} className={styles.category}>
@@ -248,6 +257,9 @@ export default function Classes() {
                                         <div className={styles.topRow}>
                                             <p className={styles.title}>{c.title}</p>
                                             <span className={styles.duration}>{c.duration}</span>
+                                        </div>
+                                        <div className={styles.bottomRow}>
+                                            <span className={styles.level}>{c.level}</span>
                                         </div>
                                     </div>
                                 </div>

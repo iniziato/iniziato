@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import styles from "../contact/Contact.module.scss";
-import { PageHeaderWithPhoto } from "@/components/Layout/PageHeaderWithPhoto";
+import { PageHeader } from "@/components/Layout/PageHeader";
 import { withTranslations } from "@/lib/i18n";
 
 export default function ActivatePage() {
@@ -54,10 +54,9 @@ export default function ActivatePage() {
 
     return (
         <main className="activate">
-            <PageHeaderWithPhoto
+            <PageHeader
                 title={t("AUTH_ACTIVATE_TITLE")}
                 subtitle={t("AUTH_ACTIVATE_SUBTITLE")}
-                backgroundImage="/images/hero-poster.jpg"
             />
 
             <div className={styles.contactTemplate}>

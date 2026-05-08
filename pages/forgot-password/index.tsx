@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "../contact/Contact.module.scss";
-import { PageHeaderWithPhoto } from "@/components/Layout/PageHeaderWithPhoto";
+import { PageHeader } from "@/components/Layout/PageHeader";
 import {withTranslations} from "@/lib/i18n";
 
 export default function ForgotPassword() {
@@ -52,10 +52,9 @@ export default function ForgotPassword() {
 
     return (
         <main className="forgot-password">
-            <PageHeaderWithPhoto
+            <PageHeader
                 title={t("AUTH_FORGOT_PASSWORD")}
                 subtitle={t("AUTH_FORGOT_PASSWORD_SUBTITLE")}
-                backgroundImage="/images/hero-poster.jpg"
             />
 
             <div className={styles.contactTemplate}>

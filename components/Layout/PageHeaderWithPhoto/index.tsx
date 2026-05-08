@@ -14,7 +14,7 @@ export const PageHeaderWithPhoto = ({
     const headerStyle: React.CSSProperties = {
             backgroundImage: `url(${backgroundImage})`,
             backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundPosition: "center 60%",
         }
 
     return (

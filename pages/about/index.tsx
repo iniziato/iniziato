@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import styles from './About.module.scss';
-import { PageHeaderWithPhoto } from "@/components/Layout/PageHeaderWithPhoto";
 import {withTranslations} from "@/lib/i18n";
 import {PageHeader} from "@/components/Layout/PageHeader";
 

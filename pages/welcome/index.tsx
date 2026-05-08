@@ -1,16 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import styles from "../contact/Contact.module.scss";
-import { PageHeaderWithPhoto } from "@/components/Layout/PageHeaderWithPhoto";
+import { PageHeader } from "@/components/Layout/PageHeader";
 import { isLoggedIn, getToken } from "@/lib/auth";
 import { withTranslations } from "@/lib/i18n";
 
 export default function WelcomePage() {
     const { t } = useTranslation();
-    const router = useRouter();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [checkingAuth, setCheckingAuth] = useState(true);
@@ -64,10 +62,9 @@ export default function WelcomePage() {
 
     return (
         <main className="welcome">
-            <PageHeaderWithPhoto
+            <PageHeader
                 title={t("AUTH_WELCOME_TITLE")}
                 subtitle={t("AUTH_WELCOME_SUBTITLE")}
-                backgroundImage="/images/hero-poster.jpg"
             />
 
             <div className={styles.contactTemplate}>

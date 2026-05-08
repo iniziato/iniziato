@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
@@ -17,13 +17,18 @@ interface AppPropsWithLayout extends AppProps {
 }
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+
     return (
         <>
             <Head>
                 <title>INIZIATO</title>
             </Head>
             <Layout>
-                <Component {...pageProps} />
+                <div suppressHydrationWarning>
+                    {mounted ? <Component {...pageProps} /> : null}
+                </div>
             </Layout>
         </>
     );

@@ -1,6 +1,6 @@
 .pageHeader {
-  height: 300px;
-  padding: 200px 40px;
+  height: 380px;
+  padding: 280px 40px;
   position: relative;
 
   &.desktopSmall {
@@ -30,7 +30,7 @@
 }
 
 .pageHeaderTitle {
-  margin-top: 80px;
+  margin-top: 160px;
   font-weight: 400;
   font-size: 32px;
   color: #ffffff;
@@ -45,11 +45,11 @@
 
 @media (max-width: 900px) {
   .pageHeader {
-    height: 270px;
-    padding: 120px 40px;
+    height: 350px;
+    padding: 100px 10px;
   }
 
   .pageHeaderTitle {
-    margin-top: 50px;
+    margin-top: 150px;
   }
 }
