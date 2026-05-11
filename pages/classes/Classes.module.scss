@@ -101,9 +101,10 @@
     align-items: center;
 
     .title {
-      font-size: 1rem;
+      font-size: 12px;
       font-weight: 500;
-      margin: 0; // remove extra margin
+      margin: 0;
+      max-width: 200px;
     }
 
     .duration {
