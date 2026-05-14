@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/Layout/PageHeader";
 import { withTranslations } from "@/lib/i18n";
-import { TERMS_TEXT } from "./termsText";
+import { TERMS_TEXT } from "@/lib/termsText";
 import styles from "./Terms.module.scss";
 
 export default function Terms() {
