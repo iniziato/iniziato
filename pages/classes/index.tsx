@@ -255,14 +255,31 @@ export default function Classes() {
         },
     ];
 
+    const scrollToContent = () => {
+        const target = document.getElementById("classes-content");
+        if (target) target.scrollIntoView({ behavior: "smooth" });
+    };
+
     return (
         <main className={styles.classes}>
-            <PageHeaderWithPhoto
-                title={t("CLASSES")}
-                subtitle={t("PILATES_LIBRARY")}
-                backgroundImage="/images/instructor.JPG"
-            />
-            <IntensitySection />
+            <div className={styles.headerWrapper}>
+                <PageHeaderWithPhoto
+                    title={t("CLASSES")}
+                    subtitle={t("PILATES_LIBRARY")}
+                    backgroundImage="/images/instructor.JPG"
+                />
+                <button
+                    type="button"
+                    className={styles.scrollHint}
+                    onClick={scrollToContent}
+                    aria-label={t("SCROLL_TO_CLASSES")}
+                >
+                    <span>{t("SCROLL_TO_CLASSES")}</span>
+                    <span className={styles.chevron}>⌄</span>
+                </button>
+            </div>
+            <div id="classes-content">
+                <IntensitySection />
             <section className="page-width">
                 {categories.map((cat) => (
                     <div key={cat.key} className={styles.category}>
@@ -326,13 +343,25 @@ export default function Classes() {
             {activeVideo && (
                 <div className={styles.modal} onClick={handleCloseVideo}>
                     <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                        <video src={activeVideo} controls autoPlay playsInline />
+                        <video
+                            src={activeVideo}
+                            controls
+                            autoPlay
+                            playsInline
+                            controlsList="nocaptions nodownload"
+                            crossOrigin="anonymous"
+                            onLoadedMetadata={(e) => {
+                                const tracks = (e.currentTarget as HTMLVideoElement).textTracks;
+                                for (let i = 0; i < tracks.length; i++) tracks[i].mode = "disabled";
+                            }}
+                        />
                         <button className={styles.close} onClick={handleCloseVideo}>
                             ✕
                         </button>
                     </div>
                 </div>
             )}
+            </div>
         </main>
     );
 }

@@ -2,6 +2,53 @@
   padding-bottom: 4rem;
 }
 
+.headerWrapper {
+  position: relative;
+}
+
+.scrollHint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.9;
+  z-index: 3;
+  padding: 8px 12px;
+  animation: scrollHintBounce 1.8s ease-in-out infinite;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .chevron {
+    font-size: 26px;
+    line-height: 1;
+  }
+}
+
+@keyframes scrollHintBounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 8px); }
+}
+
+@media (max-width: 900px) {
+  .scrollHint {
+    bottom: 14px;
+    font-size: 11px;
+  }
+}
+
 .category {
   margin-top: 25px;
   margin-bottom: 3.5rem;
