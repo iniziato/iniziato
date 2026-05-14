@@ -57,7 +57,11 @@ export default function LoginPage() {
             const data = await res.json();
 
             if (!res.ok) {
-                setAuthError(data.message || t("AUTH_ERROR_INVALID_CREDENTIALS"));
+                if (data.message === "AUTH_ERROR_ACCOUNT_NOT_ACTIVATED") {
+                    setAuthError(t("AUTH_ERROR_ACCOUNT_NOT_ACTIVATED"));
+                } else {
+                    setAuthError(t("AUTH_ERROR_INVALID_CREDENTIALS"));
+                }
                 return;
             }
 

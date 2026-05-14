@@ -18,11 +18,15 @@ export default async function handler(
         const { fullName, email, password, birthday, captchaToken } = req.body;
 
         if (!fullName || !email || !password || !birthday) {
-            return res.status(400).json({ message: "Missing fields" });
+            return res.status(400).json({ message: "AUTH_ERROR_MISSING_FIELDS" });
         }
 
-        if (password.length < 6) {
-            return res.status(400).json({ message: "AUTH_ERROR_PASSWORD_MIN" });
+        if (!/^[A-Za-z][A-Za-z\s'-]*$/.test(String(fullName).trim())) {
+            return res.status(400).json({ message: "AUTH_ERROR_NAME_LATIN" });
+        }
+
+        if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+            return res.status(400).json({ message: "AUTH_ERROR_PASSWORD_INVALID" });
         }
 
         const captcha = await verifyRecaptcha(captchaToken);

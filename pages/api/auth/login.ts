@@ -16,17 +16,17 @@ export default async function handler(
         const { email, password } = req.body;
 
         if (!email || !password) {
-            return res.status(400).json({ message: "Missing fields" });
+            return res.status(400).json({ message: "AUTH_ERROR_MISSING_FIELDS" });
         }
 
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user) {
-            return res.status(401).json({ message: "Invalid email or password" });
+            return res.status(401).json({ message: "AUTH_ERROR_INVALID_CREDENTIALS" });
         }
 
         const isValid = await bcrypt.compare(password, user.password);
         if (!isValid) {
-            return res.status(401).json({ message: "Invalid email or password" });
+            return res.status(401).json({ message: "AUTH_ERROR_INVALID_CREDENTIALS" });
         }
 
         if (!user.isActivated) {

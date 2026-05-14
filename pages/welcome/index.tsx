@@ -46,7 +46,7 @@ export default function WelcomePage() {
             const data = await res.json();
 
             if (!res.ok) {
-                setError(data.message || data.error || t("AUTH_PAYMENT_ERROR"));
+                setError(t(data.message || data.error || "AUTH_PAYMENT_ERROR"));
                 return;
             }
 

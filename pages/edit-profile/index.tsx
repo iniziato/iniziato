@@ -84,7 +84,7 @@ export default function EditProfile() {
                 setPassword("");
                 setConfirmPassword("");
             } else {
-                setErrors({ form: data.message || t("AUTH_PASSWORD_UPDATE_ERROR") });
+                setErrors({ form: t(data.message || "AUTH_PASSWORD_UPDATE_ERROR") });
             }
         } catch (err) {
             console.error(err);

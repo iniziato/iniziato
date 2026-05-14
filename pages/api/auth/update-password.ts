@@ -9,25 +9,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         const token = req.headers.authorization?.split(" ")[1];
         const user = await verifyToken(token);
-        if (!user) return res.status(401).json({ message: "Unauthorized" });
+        if (!user) return res.status(401).json({ message: "AUTH_ERROR_UNAUTHORIZED" });
 
         const { currentPassword, password } = req.body;
 
         if (!currentPassword || !password) {
-            return res.status(400).json({ message: "Missing fields" });
+            return res.status(400).json({ message: "AUTH_ERROR_MISSING_FIELDS" });
         }
 
-        if (password.length < 6) {
-            return res.status(400).json({ message: "Password must be at least 6 characters" });
+        if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+            return res.status(400).json({ message: "AUTH_ERROR_PASSWORD_INVALID" });
         }
 
         // Verify current password
         const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
-        if (!dbUser) return res.status(404).json({ message: "User not found" });
+        if (!dbUser) return res.status(404).json({ message: "AUTH_ERROR_USER_NOT_FOUND" });
 
         const isCurrentValid = await bcrypt.compare(currentPassword, dbUser.password);
         if (!isCurrentValid) {
-            return res.status(401).json({ message: "Current password is incorrect" });
+            return res.status(401).json({ message: "AUTH_ERROR_CURRENT_PASSWORD_INCORRECT" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -37,9 +37,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             data: { password: hashedPassword },
         });
 
-        return res.status(200).json({ message: "Password updated successfully" });
+        return res.status(200).json({ message: "AUTH_PASSWORD_UPDATED_SUCCESS" });
     } catch (err) {
         console.error(err);
-        return res.status(500).json({ message: "Failed to update password" });
+        return res.status(500).json({ message: "AUTH_PASSWORD_UPDATE_ERROR" });
     }
 }

@@ -50,7 +50,7 @@ export default function ResetPassword() {
             const data = await res.json();
 
             if (!res.ok) {
-                setError(data.message || t("AUTH_PASSWORD_UPDATE_ERROR"));
+                setError(t(data.message || "AUTH_PASSWORD_UPDATE_ERROR"));
                 return;
             }
 

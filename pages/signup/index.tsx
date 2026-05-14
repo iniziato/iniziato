@@ -25,6 +25,8 @@ export default function SignupPage() {
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
     const [captchaKey, setCaptchaKey] = useState(0);
     const [errors, setErrors] = useState<any>({});
+    const [touched, setTouched] = useState<Record<string, boolean>>({});
+    const markTouched = (field: string) => setTouched((p) => ({ ...p, [field]: true }));
     const [authError, setAuthError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
@@ -34,20 +36,32 @@ export default function SignupPage() {
         setCaptchaKey((k) => k + 1);
     };
 
-    const validateAll = () => {
+    const computeErrors = () => {
         const e: any = {};
         if (!fullName) e.fullName = t("AUTH_ERROR_NAME_REQUIRED");
+        else if (!/^[A-Za-z][A-Za-z\s'-]*$/.test(fullName.trim()))
+            e.fullName = t("AUTH_ERROR_NAME_LATIN");
         if (!email) e.email = t("AUTH_ERROR_EMAIL_REQUIRED");
         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
             e.email = t("AUTH_ERROR_EMAIL_INVALID");
         if (!birthday) e.birthday = t("AUTH_ERROR_BIRTHDAY_REQUIRED");
         if (!password) e.password = t("AUTH_ERROR_PASSWORD_REQUIRED");
-        else if (password.length < 6) e.password = t("AUTH_ERROR_PASSWORD_MIN");
+        else if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password))
+            e.password = t("AUTH_ERROR_PASSWORD_INVALID");
         if (!acceptTerms) e.acceptTerms = t("AUTH_ERROR_ACCEPT_TERMS_REQUIRED");
         if (RECAPTCHA_SITE_KEY && !captchaToken)
             e.captcha = t("AUTH_ERROR_CAPTCHA_REQUIRED");
+        return e;
+    };
 
+    const liveErrors = computeErrors();
+    const showError = (field: string) =>
+        (touched[field] || errors[field]) ? liveErrors[field] : undefined;
+
+    const validateAll = () => {
+        const e = computeErrors();
         setErrors(e);
+        setTouched({ fullName: true, email: true, birthday: true, password: true, acceptTerms: true, captcha: true });
         return Object.keys(e).length === 0;
     };
 
@@ -104,37 +118,41 @@ export default function SignupPage() {
                         <div className={styles.accountSection}>
                             <h2>{t("SIGNUP_STEP_ACCOUNT")}</h2>
 
-                            {errors.fullName && <div className={styles.authTemplateError}>{errors.fullName}</div>}
+                            {showError("fullName") && <div className={styles.authTemplateError}>{showError("fullName")}</div>}
                             <input
                                 type="text"
                                 placeholder={t("AUTH_FULL_NAME")}
                                 value={fullName}
-                                onChange={(e) => setFullName(e.target.value)}
+                                onChange={(e) => { setFullName(e.target.value); markTouched("fullName"); }}
+                                onBlur={() => markTouched("fullName")}
                             />
 
-                            {errors.email && <div className={styles.authTemplateError}>{errors.email}</div>}
+                            {showError("email") && <div className={styles.authTemplateError}>{showError("email")}</div>}
                             <input
                                 type="email"
                                 placeholder={t("AUTH_EMAIL")}
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(e) => { setEmail(e.target.value); markTouched("email"); }}
+                                onBlur={() => markTouched("email")}
                             />
 
-                            {errors.password && <div className={styles.authTemplateError}>{errors.password}</div>}
+                            {showError("password") && <div className={styles.authTemplateError}>{showError("password")}</div>}
                             <input
                                 type="password"
                                 placeholder={t("AUTH_PASSWORD")}
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => { setPassword(e.target.value); markTouched("password"); }}
+                                onBlur={() => markTouched("password")}
                             />
 
-                            {errors.birthday && <div className={styles.authTemplateError}>{errors.birthday}</div>}
+                            {showError("birthday") && <div className={styles.authTemplateError}>{showError("birthday")}</div>}
                             <div className={styles.dateField}>
                                 <input
                                     type="date"
                                     aria-label={t("AUTH_BIRTHDAY")}
                                     value={birthday}
-                                    onChange={(e) => setBirthday(e.target.value)}
+                                    onChange={(e) => { setBirthday(e.target.value); markTouched("birthday"); }}
+                                    onBlur={() => markTouched("birthday")}
                                     onClick={(e) => {
                                         const el = e.currentTarget as HTMLInputElement & { showPicker?: () => void };
                                         el.showPicker?.();
@@ -152,7 +170,7 @@ export default function SignupPage() {
                                 <input
                                     type="checkbox"
                                     checked={acceptTerms}
-                                    onChange={(e) => setAcceptTerms(e.target.checked)}
+                                    onChange={(e) => { setAcceptTerms(e.target.checked); markTouched("acceptTerms"); }}
                                 />
                                 <span>
                                     {t("AUTH_ACCEPT_TERMS_PREFIX")}
@@ -161,8 +179,8 @@ export default function SignupPage() {
                                     </Link>
                                 </span>
                             </label>
-                            {errors.acceptTerms && (
-                                <div className={styles.authTemplateError}>{errors.acceptTerms}</div>
+                            {showError("acceptTerms") && (
+                                <div className={styles.authTemplateError}>{showError("acceptTerms")}</div>
                             )}
 
                             {RECAPTCHA_SITE_KEY && (
@@ -176,8 +194,8 @@ export default function SignupPage() {
                                     />
                                 </div>
                             )}
-                            {errors.captcha && (
-                                <div className={styles.authTemplateError}>{errors.captcha}</div>
+                            {showError("captcha") && (
+                                <div className={styles.authTemplateError}>{showError("captcha")}</div>
                             )}
                         </div>
 

@@ -11,14 +11,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const { email } = req.body;
 
         if (!email) {
-            return res.status(400).json({ message: "Email is required" });
+            return res.status(400).json({ message: "AUTH_ERROR_EMAIL_REQUIRED" });
         }
 
         const user = await prisma.user.findUnique({ where: { email } });
 
         // Always return success to prevent email enumeration
         if (!user) {
-            return res.status(200).json({ message: "If this email exists, a reset link has been sent." });
+            return res.status(200).json({ message: "AUTH_FORGOT_PASSWORD_SUCCESS" });
         }
 
         const resetToken = jwt.sign(
@@ -32,12 +32,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const result = await sendPasswordResetEmail(user, resetLink);
         if (!result.ok) {
-            return res.status(500).json({ message: "Failed to send email" });
+            return res.status(500).json({ message: "AUTH_PASSWORD_UPDATE_ERROR" });
         }
 
-        return res.status(200).json({ message: "If this email exists, a reset link has been sent." });
+        return res.status(200).json({ message: "AUTH_FORGOT_PASSWORD_SUCCESS" });
     } catch (error) {
         console.error("FORGOT PASSWORD ERROR:", error);
-        return res.status(500).json({ message: "Something went wrong" });
+        return res.status(500).json({ message: "AUTH_PASSWORD_UPDATE_ERROR" });
     }
 }

@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const token = req.headers.authorization?.split(" ")[1];
     const decoded = await verifyToken(token);
     if (!decoded) {
-        return res.status(401).json({ error: "Unauthorized" });
+        return res.status(401).json({ error: "AUTH_ERROR_UNAUTHORIZED" });
     }
 
     // 2. Verify payment status
@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     if (!user || user.payments.length === 0) {
-        return res.status(403).json({ error: "Payment required" });
+        return res.status(403).json({ error: "AUTH_VIDEO_PAYMENT_REQUIRED" });
     }
 
     const lastPayment = user.payments[0];
@@ -40,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
     if (lastPayment.status.toLowerCase() !== "completed" || lastPayment.createdAt <= oneMonthAgo) {
-        return res.status(403).json({ error: "Payment expired" });
+        return res.status(403).json({ error: "AUTH_VIDEO_PAYMENT_EXPIRED" });
     }
 
     // 3. Validate and resolve video file
@@ -48,13 +48,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const filename = `${slug}.mp4`;
 
     if (!ALLOWED_VIDEOS.includes(filename)) {
-        return res.status(404).json({ error: "Video not found" });
+        return res.status(404).json({ error: "AUTH_VIDEO_NOT_FOUND" });
     }
 
     const videoPath = path.join(process.cwd(), "private", "videos", filename);
 
     if (!fs.existsSync(videoPath)) {
-        return res.status(404).json({ error: "Video not found" });
+        return res.status(404).json({ error: "AUTH_VIDEO_NOT_FOUND" });
     }
 
     // 4. Stream video with Range support (for seeking)

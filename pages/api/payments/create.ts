@@ -20,13 +20,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const sessionUser = await verifyToken(token);
         if (!sessionUser) {
             console.warn("[PAYMENT][CREATE] Unauthorized payment attempt");
-            return res.status(401).json({ message: "Unauthorized" });
+            return res.status(401).json({ message: "AUTH_ERROR_UNAUTHORIZED" });
         }
 
         const dbUser = await prisma.user.findUnique({ where: { id: sessionUser.id } });
         if (!dbUser) {
             console.warn("[PAYMENT][CREATE] User not found", { userId: sessionUser.id });
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ message: "AUTH_ERROR_USER_NOT_FOUND" });
         }
         if (!dbUser.isActivated) {
             console.warn("[PAYMENT][CREATE] Unactivated user attempted payment", {

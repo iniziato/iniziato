@@ -274,7 +274,7 @@ export default function Classes() {
                     onClick={scrollToContent}
                     aria-label={t("SCROLL_TO_CLASSES")}
                 >
-                    <span>{t("SCROLL_TO_CLASSES")}</span>
+                    <span className={styles.scrollHintLabel}>{t("SCROLL_TO_CLASSES")}</span>
                     <span className={styles.chevron}>⌄</span>
                 </button>
             </div>
