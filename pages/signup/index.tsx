@@ -156,12 +156,8 @@ export default function SignupPage() {
                                 />
                                 <span>
                                     {t("AUTH_ACCEPT_TERMS_PREFIX")}
-                                    <Link href="/privacy-policy" target="_blank" rel="noopener noreferrer">
-                                        {t("AUTH_ACCEPT_TERMS_PRIVACY")}
-                                    </Link>
-                                    {t("AUTH_ACCEPT_TERMS_AND")}
-                                    <Link href="/disclaimer" target="_blank" rel="noopener noreferrer">
-                                        {t("AUTH_ACCEPT_TERMS_DISCLAIMER")}
+                                    <Link href="/terms" target="_blank" rel="noopener noreferrer">
+                                        ინიციატოს წესებს & პირობებს
                                     </Link>
                                 </span>
                             </label>

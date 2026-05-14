@@ -15,6 +15,7 @@ type VideoClass = {
     duration: string;
     level: string;
     src: string;
+    comingSoon?: boolean;
 };
 
 type Category = {
@@ -52,6 +53,7 @@ export default function Classes() {
     }, []);
 
     const handleVideoClick = async (video: VideoClass) => {
+        if (video.comingSoon) return;
         if (!loggedIn) {
             window.location.href = "/login";
             return;
@@ -197,6 +199,7 @@ export default function Classes() {
                     duration: "15 წთ",
                     level: t("INTENSITY_SATISFYING"),
                     src: "/videos/ring.mp4",
+                    comingSoon: true,
                 },
             ],
         },
@@ -242,6 +245,7 @@ export default function Classes() {
                     duration: "5 წთ",
                     level: t("INTENSITY_CHILL"),
                     src: "/videos/stretch.mp4",
+                    comingSoon: true,
                 },
             ],
         },
@@ -265,12 +269,16 @@ export default function Classes() {
                             {cat.classes.map((c) => (
                                 <div
                                     key={c.id}
-                                    className={styles.card}
+                                    className={`${styles.card} ${c.comingSoon ? styles.comingSoonCard : ""}`}
                                     onClick={() => handleVideoClick(c)}
                                 >
                                     <div className={styles.imageWrapper}>
                                         <img src={c.thumbnail} alt={c.title} />
-                                        {!loggedIn ? (
+                                        {c.comingSoon ? (
+                                            <div className={styles.comingSoonOverlay}>
+                                                {t("COMING_SOON")}
+                                            </div>
+                                        ) : !loggedIn ? (
                                             <button
                                                 className={styles.startNowButton}
                                                 onClick={() => (window.location.href = "/login")}
@@ -283,15 +291,17 @@ export default function Classes() {
                                             </div>
                                         )}
                                     </div>
-                                    <div className={styles.info}>
-                                        <div className={styles.topRow}>
-                                            <p className={styles.title}>{c.title}</p>
-                                            <span className={styles.duration}>{c.duration}</span>
+                                    {!c.comingSoon && (
+                                        <div className={styles.info}>
+                                            <div className={styles.topRow}>
+                                                <p className={styles.title}>{c.title}</p>
+                                                <span className={styles.duration}>{c.duration}</span>
+                                            </div>
+                                            <div className={styles.bottomRow}>
+                                                <span className={styles.level}>{c.level}</span>
+                                            </div>
                                         </div>
-                                        <div className={styles.bottomRow}>
-                                            <span className={styles.level}>{c.level}</span>
-                                        </div>
-                                    </div>
+                                    )}
                                 </div>
                             ))}
                         </div>

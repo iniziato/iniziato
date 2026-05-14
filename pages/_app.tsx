@@ -25,11 +25,13 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
             <Head>
                 <title>INIZIATO</title>
             </Head>
-            <Layout>
-                <div suppressHydrationWarning>
-                    {mounted ? <Component {...pageProps} /> : null}
-                </div>
-            </Layout>
+            <div suppressHydrationWarning>
+                {mounted ? (
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                ) : null}
+            </div>
         </>
     );
 }

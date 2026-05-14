@@ -32,6 +32,25 @@
   background: #fff;
   position: relative;
 
+  &.comingSoonCard {
+    cursor: default;
+  }
+
+  .comingSoonOverlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-align: center;
+    padding: 0 8px;
+    z-index: 3;
+  }
+
   .imageWrapper {
     position: relative;
     width: 100%;

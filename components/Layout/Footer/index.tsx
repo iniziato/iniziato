@@ -55,9 +55,7 @@ export const Footer = () => {
 
                     <div className={styles.group}>
                         <h5>{t("RESOURCES")}</h5>
-                        <Link href="/terms-conditions">{t("TERMS_OF_SERVICE")}</Link>
-                        <Link href="/privacy-policy">{t("PRIVACY_POLICY")}</Link>
-                        <Link href="/disclaimer">{t("DISCLAIMER")}</Link>
+                        <Link href="/terms">{t("TERMS_OF_USE")}</Link>
                     </div>
                 </div>
             </div>
