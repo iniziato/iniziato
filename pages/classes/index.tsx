@@ -108,7 +108,7 @@ export default function Classes() {
                             productId: "monthly_plan",
                             description: "ყოველთვიური წევრობა",
                             quantity: 1,
-                            unitPrice: 70,
+                            unitPrice: 55,
                         },
                     ],
                     metadata: {

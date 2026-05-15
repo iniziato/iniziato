@@ -7,7 +7,7 @@ import { verifyToken } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 const PRODUCT_PRICES: Record<string, number> = {
-    monthly_plan: 0.01,
+    monthly_plan: 55,
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -51,8 +51,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if (serverPrice === undefined) {
                 throw new Error(`Unknown product: ${i.productId}`);
             }
-            return sum + (i.quantity || 1) * serverPrice;
+            const quantity = i.quantity ?? 1;
+            if (!Number.isInteger(quantity) || quantity < 1 || quantity > 100) {
+                throw new Error(`Invalid quantity for ${i.productId}: ${quantity}`);
+            }
+            return sum + quantity * serverPrice;
         }, 0);
+
+        // Sanity check: total must never be below the minimum product price
+        if (totalAmount < 55) {
+            console.warn("[PAYMENT][CREATE] Total amount below minimum", {
+                userId: dbUser.id,
+                totalAmount,
+            });
+            throw new Error(`Total amount too low: ${totalAmount}`);
+        }
 
         console.log("[PAYMENT][CREATE] Initiating payment", {
             externalOrderId,
@@ -105,7 +118,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 basket: items.map((i: any) => ({
                     product_id: i.productId,
                     description: i.description,
-                    quantity: i.quantity || 1,
+                    quantity: i.quantity ?? 1,
                     unit_price: PRODUCT_PRICES[i.productId],
                 })),
             },

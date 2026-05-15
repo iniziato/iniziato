@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const result = await finalizePayment(
             externalOrderId,
             { key: "completed", value: "წარმატებული" },
-            { request_amount: 70, currency_code: "GEL" }
+            { request_amount: 55, currency_code: "GEL" }
         );
         res.status(200).json(result);
     } catch (err: any) {
