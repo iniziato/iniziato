@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./Classes.module.scss";
 import { PageHeaderWithPhoto } from "@/components/Layout/PageHeaderWithPhoto";
@@ -6,7 +6,7 @@ import { IntensitySection } from "@/components/Layout/IntensitySection";
 import { withTranslations } from "@/lib/i18n";
 import {jwtDecode} from "jwt-decode";
 import { Popup } from "@/components/Layout/PopUp";
-import { fetchVideoUrl } from "@/lib/video";
+import { getVideoUrl } from "@/lib/video";
 
 type VideoClass = {
     id: string;
@@ -32,8 +32,6 @@ export default function Classes() {
     const [activeVideo, setActiveVideo] = useState<string | null>(null);
     const [showPaymentPopup, setShowPaymentPopup] = useState(false);
     const [userEmail, setUserEmail] = useState<string | null>(null);
-    const [loadingSrc, setLoadingSrc] = useState<string | null>(null);
-    const requestIdRef = useRef(0);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -64,30 +62,16 @@ export default function Classes() {
             return;
         }
 
-        const myRequestId = ++requestIdRef.current;
-        setLoadingSrc(video.src);
+        // Grant short-lived access, then stream the URL directly with Range
+        // requests so playback starts after a small buffer, not a full download.
         try {
-            const url = await fetchVideoUrl(video.src);
-            if (myRequestId !== requestIdRef.current) {
-                URL.revokeObjectURL(url);
-                return;
-            }
-            setActiveVideo((prev) => {
-                if (prev) URL.revokeObjectURL(prev);
-                return url;
-            });
+            setActiveVideo(await getVideoUrl(video.src));
         } catch {
-            if (myRequestId !== requestIdRef.current) return;
             setShowPaymentPopup(true);
-        } finally {
-            if (myRequestId === requestIdRef.current) setLoadingSrc(null);
         }
     };
 
     const handleCloseVideo = () => {
-        if (activeVideo) {
-            URL.revokeObjectURL(activeVideo);
-        }
         setActiveVideo(null);
     };
 
@@ -307,9 +291,7 @@ export default function Classes() {
                                                 {t("GET_STARTED")}
                                             </button>
                                         ) : (
-                                            <div className={styles.playOverlay}>
-                                                {loadingSrc === c.src ? "..." : "▶︎"}
-                                            </div>
+                                            <div className={styles.playOverlay}>▶︎</div>
                                         )}
                                     </div>
                                     {!c.comingSoon && (
@@ -348,8 +330,13 @@ export default function Classes() {
                             controls
                             autoPlay
                             playsInline
+                            preload="auto"
                             controlsList="nocaptions nodownload"
                             crossOrigin="anonymous"
+                            onError={() => {
+                                setActiveVideo(null);
+                                setShowPaymentPopup(true);
+                            }}
                             onLoadedMetadata={(e) => {
                                 const tracks = (e.currentTarget as HTMLVideoElement).textTracks;
                                 for (let i = 0; i < tracks.length; i++) tracks[i].mode = "disabled";

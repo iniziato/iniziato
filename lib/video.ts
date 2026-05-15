@@ -10,23 +10,24 @@ export function getVideoSlug(videoPath: string): string {
 }
 
 /**
- * Fetches a video through the authenticated API and returns a blob URL
- * that can be used as a video src.
+ * Requests short-lived video access (sets an HttpOnly cookie) and returns the
+ * streaming URL. The URL itself carries no token, so it cannot be shared.
+ *
+ * The browser streams the URL with HTTP Range requests, so playback starts
+ * after a small buffer instead of downloading the whole file first.
  */
-export async function fetchVideoUrl(videoPath: string): Promise<string> {
+export async function getVideoUrl(videoPath: string): Promise<string> {
     const slug = getVideoSlug(videoPath);
     const token = getToken();
 
-    const response = await fetch(`/api/videos/${slug}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
+    const response = await fetch("/api/videos/grant", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
     });
 
     if (!response.ok) {
-        throw new Error(`Failed to load video: ${response.status}`);
+        throw new Error(`Video access denied: ${response.status}`);
     }
 
-    const blob = await response.blob();
-    return URL.createObjectURL(blob);
+    return `/api/videos/${slug}`;
 }

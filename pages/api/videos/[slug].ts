@@ -18,9 +18,10 @@ const ALLOWED_VIDEOS = [
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "GET") return res.status(405).end();
 
-    // 1. Verify JWT
-    const token = req.headers.authorization?.split(" ")[1];
-    const decoded = await verifyToken(token);
+    // 1. Verify the HttpOnly video-access cookie. A <video> element cannot send
+    //    custom headers, and keeping the token out of the URL means a shared
+    //    URL carries no credentials and cannot be played by anyone else.
+    const decoded = await verifyToken(req.cookies.video_token);
     if (!decoded) {
         return res.status(401).json({ error: "AUTH_ERROR_UNAUTHORIZED" });
     }
