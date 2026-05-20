@@ -50,10 +50,13 @@ export const Navbar = () => {
         >
             <div className={styles.container}>
                 <ul className={styles.links}>
-                    <li><Link href="/classes">{t("CLASSES")}</Link></li>
-                    <li><Link href="/about">{t("ABOUT")}</Link></li>
-                    <li><Link href="/contact">{t("CONTACT")}</Link></li>
-                    <li className={styles.pricingLink}><Link href="/pricing">{t("MEMBERSHIP_PRICING")}</Link></li>
+                    {!isHome && (
+                        <li><Link href="/home" className={pathname === "/home" ? styles.active : ""}>{t("HOME")}</Link></li>
+                    )}
+                    <li><Link href="/classes" className={pathname === "/classes" ? styles.active : ""}>{t("CLASSES")}</Link></li>
+                    <li><Link href="/about" className={pathname === "/about" ? styles.active : ""}>{t("ABOUT")}</Link></li>
+                    <li><Link href="/contact" className={pathname === "/contact" ? styles.active : ""}>{t("CONTACT")}</Link></li>
+                    <li className={styles.pricingLink}><Link href="/pricing" className={pathname === "/pricing" ? styles.active : ""}>{t("MEMBERSHIP_PRICING")}</Link></li>
                 </ul>
 
                 <div className={styles.logo}>
@@ -158,6 +161,7 @@ export const Navbar = () => {
                         {t("EDIT_PROFILE_TITLE")}
                     </Link>
                 )}
+                {!isHome && <Link href="/home">{t("HOME")}</Link>}
                 <Link href="/classes">{t("CLASSES")}</Link>
                 <Link href="/about">{t("ABOUT")}</Link>
                 <Link href="/contact">{t("CONTACT")}</Link>
