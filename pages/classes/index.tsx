@@ -115,6 +115,37 @@ export default function Classes() {
 
     const categories: Category[] = [
         {
+            key: "PREP",
+            heading: t("CLASS_CAT_PREP_TITLE"),
+            description: t("CLASS_CAT_PREP_DESC"),
+            classes: [
+                {
+                    id: "1",
+                    title: t("CLASS_FULL_PREP"),
+                    thumbnail: "/images/beginner.png",
+                    duration: "2 წთ",
+                    level: t("INTENSITY_CHILL"),
+                    src: "/videos/prep.mp4",
+                },
+                {
+                    id: "2",
+                    title: t("CLASS_FULL_PREP_1"),
+                    thumbnail: "/images/beginner.png",
+                    duration: "3 წთ",
+                    level: t("INTENSITY_CHILL"),
+                    src: "/videos/prep2.mp4",
+                },
+                {
+                    id: "3",
+                    title: t("CLASS_FULL_PREP_2"),
+                    thumbnail: "/images/beginner.png",
+                    duration: "1 წთ",
+                    level: t("INTENSITY_CHILL"),
+                    src: "/videos/prep3.mp4",
+                },
+            ],
+        },
+        {
             key: "BEGINNER",
             heading: t("CLASS_CAT_BEGINNER_TITLE"),
             description: t("CLASS_CAT_BEGINNER_DESC"),

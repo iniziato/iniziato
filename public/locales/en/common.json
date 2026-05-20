@@ -112,6 +112,11 @@
   "EDIT_PROFILE_TITLE": "My profile",
 
   "PILATES_LIBRARY": "Your pilates library",
+  "CLASS_CAT_PREP_TITLE": "Prep",
+  "CLASS_CAT_PREP_DESC": "Preparatory classes to warm up the body, master your breath and get ready for the main workout.",
+  "CLASS_FULL_PREP": "Body Warm-Up",
+  "CLASS_FULL_PREP_1": "Breath Technique",
+  "CLASS_FULL_PREP_2": "Pelvic Floor Activation",
   "CLASS_CAT_ESSENTIALS_TITLE": "Essentials",
   "CLASS_CAT_ESSENTIALS_DESC": "Build strong foundations with feel-good Pilates classes designed to support your body, improve technique and move with intention.",
   "CLASS_CAT_BODY_TITLE": "The Pilates Class Body",
