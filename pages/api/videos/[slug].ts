@@ -9,6 +9,8 @@ const ALLOWED_VIDEOS = [
     "prep.mp4",
     "prep2.mp4",
     "prep3.mp4",
+    "prep4.mp4",
+    "prep5.mp4",
     "beginner.mp4",
     "beginner2.mp4",
     "beginner3.mp4",

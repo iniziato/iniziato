@@ -143,6 +143,22 @@ export default function Classes() {
                     level: t("INTENSITY_CHILL"),
                     src: "/videos/prep3.mp4",
                 },
+                {
+                    id: "4",
+                    title: t("CLASS_FULL_PREP_3"),
+                    thumbnail: "/images/prep4.png",
+                    duration: "1 წთ",
+                    level: t("INTENSITY_CHILL"),
+                    src: "/videos/prep4.mp4",
+                },
+                {
+                    id: "3",
+                    title: t("CLASS_FULL_PREP_4"),
+                    thumbnail: "/images/prep5.png",
+                    duration: "2 წთ",
+                    level: t("INTENSITY_CHILL"),
+                    src: "/videos/prep5.mp4",
+                },
             ],
         },
         {
