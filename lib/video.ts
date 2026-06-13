@@ -26,7 +26,9 @@ export async function getVideoUrl(videoPath: string): Promise<string> {
     });
 
     if (!response.ok) {
-        throw new Error(`Video access denied: ${response.status}`);
+        const error = new Error(`Video access denied: ${response.status}`);
+        (error as Error & { status?: number }).status = response.status;
+        throw error;
     }
 
     return `/api/videos/${slug}`;

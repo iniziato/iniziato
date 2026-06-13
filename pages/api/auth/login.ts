@@ -36,7 +36,9 @@ export default async function handler(
         const token = jwt.sign(
             { id: user.id, email: user.email, fullName: user.fullName },
             getJwtSecret(),
-            { expiresIn: "1h" }
+            // Keep members signed in for a month. A short TTL silently expired
+            // sessions mid-use and surfaced as a misleading "repay" popup.
+            { expiresIn: "30d" }
         );
 
         return res.status(200).json({

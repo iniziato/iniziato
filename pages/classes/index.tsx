@@ -7,6 +7,7 @@ import { withTranslations } from "@/lib/i18n";
 import {jwtDecode} from "jwt-decode";
 import { Popup } from "@/components/Layout/PopUp";
 import { getVideoUrl } from "@/lib/video";
+import { logout } from "@/lib/auth";
 
 type VideoClass = {
     id: string;
@@ -45,8 +46,19 @@ export default function Classes() {
         fetch("/api/payments/status", {
             headers: { Authorization: `Bearer ${token}` },
         })
-            .then((res) => res.json())
-            .then((data) => setCanPlay(data.canPlay))
+            .then((res) => {
+                // An expired/invalid session — sign the user out so they get a
+                // fresh token by logging in again, rather than showing the
+                // misleading "repay" popup.
+                if (res.status === 401) {
+                    logout();
+                    return null;
+                }
+                return res.json();
+            })
+            .then((data) => {
+                if (data) setCanPlay(data.canPlay);
+            })
             .catch(console.error);
     }, []);
 
@@ -66,7 +78,13 @@ export default function Classes() {
         // requests so playback starts after a small buffer, not a full download.
         try {
             setActiveVideo(await getVideoUrl(video.src));
-        } catch {
+        } catch (err) {
+            // Expired/invalid session: log out so they re-login for a fresh
+            // token. Only a genuine payment block should show the repay popup.
+            if ((err as { status?: number })?.status === 401) {
+                logout();
+                return;
+            }
             setShowPaymentPopup(true);
         }
     };
