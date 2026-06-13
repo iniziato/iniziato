@@ -170,7 +170,7 @@ export default function Classes() {
                     src: "/videos/prep4.mp4",
                 },
                 {
-                    id: "3",
+                    id: "5",
                     title: t("CLASS_FULL_PREP_4"),
                     thumbnail: "/images/prep5.png",
                     duration: "2 წთ",
@@ -277,7 +277,7 @@ export default function Classes() {
             description: t("CLASS_CAT_OFFICE_DESC"),
             classes: [
                 {
-                    id: "3",
+                    id: "1",
                     title: t("CLASS_FULL_OFFICE_1"),
                     thumbnail: "/images/office.png",
                     duration: "5 წთ",
@@ -292,13 +292,12 @@ export default function Classes() {
             description: t("CLASS_CAT_STRETCHING_DESC"),
             classes: [
                 {
-                    id: "3",
+                    id: "1",
                     title: t("CLASS_FULL_STRETCH"),
                     thumbnail: "/images/stretch.JPG",
-                    duration: "5 წთ",
+                    duration: "30 წთ",
                     level: t("INTENSITY_CHILL"),
                     src: "/videos/stretch.mp4",
-                    comingSoon: true,
                 },
             ],
         },
@@ -338,7 +337,11 @@ export default function Classes() {
                         <div className={styles.slider}>
                             {cat.classes.map((c) => (
                                 <div
-                                    key={c.id}
+                                    // Key on the video path, which is unique per card. Hand-typed
+                                    // ids collide on copy-paste, and a duplicate key makes React
+                                    // reuse the old DOM node (and its stale thumbnail) until a hard
+                                    // reload.
+                                    key={c.src}
                                     className={`${styles.card} ${c.comingSoon ? styles.comingSoonCard : ""}`}
                                     onClick={() => handleVideoClick(c)}
                                 >
