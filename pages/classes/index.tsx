@@ -284,6 +284,14 @@ export default function Classes() {
                     level: t("INTENSITY_SATISFYING_INTENSE"),
                     src: "/videos/office.mp4",
                 },
+                {
+                    id: "2",
+                    title: t("CLASS_FULL_OFFICE_2"),
+                    thumbnail: "/images/office1.png",
+                    duration: "15 წთ",
+                    level: t("INTENSITY_SATISFYING_INTENSE"),
+                    src: "/videos/office1.mp4",
+                },
             ],
         },
         {
