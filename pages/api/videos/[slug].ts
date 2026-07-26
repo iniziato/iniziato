@@ -19,7 +19,8 @@ const ALLOWED_VIDEOS = [
     "weights.mp4",
     "office.mp4",
     "stretch.mp4",
-    "office1.mp4"
+    "office1.mp4",
+    "ring.mp4"
 ];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

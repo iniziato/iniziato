@@ -248,11 +248,10 @@ export default function Classes() {
                 {
                     id: "1",
                     title: t("CLASS_FULL_RING"),
-                    thumbnail: "/images/pilates_ring.png",
-                    duration: "15 წთ",
+                    thumbnail: "/images/ring.png",
+                    duration: "40 წთ",
                     level: t("INTENSITY_SATISFYING"),
                     src: "/videos/ring.mp4",
-                    comingSoon: true,
                 },
             ],
         },
